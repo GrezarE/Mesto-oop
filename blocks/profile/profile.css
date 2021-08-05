@@ -4,6 +4,7 @@
   /*display: flex;
   justify-content: flex-start;
   align-items: center;*/
+  
   display: grid;
   grid-template-columns: 120px auto 150px;
   
@@ -16,6 +17,12 @@
 @media screen and (max-width: 920px) {
   .profile {
     max-width: 581px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding-top: 42px;
+    padding-bottom: 36px;
+    row-gap: 26px;
+    
   }
 }
 

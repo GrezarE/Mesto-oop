@@ -4,4 +4,12 @@
   font-weight: normal;
   color: #fff;
   margin: 16px 0 0;
+  
+}
+
+@media screen and (max-width: 920px) {
+  .info__description {
+    text-align: center;
+    
+  }
 }

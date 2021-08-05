@@ -2,7 +2,7 @@
   border: 1px solid #fff;
   box-sizing: border-box;
   background-color: #000;
-  max-height: 24px;
-  align-self: end;
-  margin-bottom: 6px;
+  min-height: 24px;
+  /*align-self: end;*/
+  margin-bottom: 8px;
 }

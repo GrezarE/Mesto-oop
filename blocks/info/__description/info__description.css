@@ -3,13 +3,23 @@
   line-height: 1.22;
   font-weight: normal;
   color: #fff;
-  margin: 16px 0 0;
+  margin: 10px 0 0;
   
 }
 
 @media screen and (max-width: 920px) {
   .info__description {
     text-align: center;
+    margin-right: 34px;
+    
+  }
+}
+
+@media screen and (max-width: 619px) {
+  .info__description {
+    font-size: 14px;
+    line-height: 1.21;
+    margin-right: 28px;
     
   }
 }

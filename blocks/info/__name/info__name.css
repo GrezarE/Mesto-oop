@@ -5,3 +5,11 @@
   color: #fff;
   margin: 0;
 }
+
+@media (max-width: 619px) {
+  .info__name {
+    font-size: 27px;
+    line-height: 1.22;
+    
+  }
+}

@@ -3,6 +3,22 @@
   box-sizing: border-box;
   background-color: #000;
   min-height: 24px;
-  /*align-self: end;*/
-  margin-bottom: 8px;
+  align-self: center;
+  margin-top: 8px;  
+  cursor: pointer;
+}
+
+@media (max-width: 619px) {
+  .info__button {
+    /*height: 16px;*/
+    margin-top: 0;
+    width: 18px;
+    padding: 0;
+    min-height: 18px;
+    
+  }
+}
+
+.info__button:hover {
+  opacity: .6;
 }

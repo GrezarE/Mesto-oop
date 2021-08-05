@@ -1,0 +1,23 @@
+.popup {
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+  width:100vw;
+  height:100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.popup::before {
+  content: '';
+  background: #000;
+  opacity: .5;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+}

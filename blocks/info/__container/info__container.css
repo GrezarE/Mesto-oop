@@ -3,3 +3,10 @@
   align-items: baseline;
   gap: 18px;
 }
+
+@media screen and (max-width: 920px) {
+  .info__container {
+    gap: 10px;
+    
+  }
+}

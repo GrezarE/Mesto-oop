@@ -16,37 +16,17 @@
     <section class="profile">
       <img src="./images/profile-avatar.jpg" alt="Аватар" class="profile__avatar">
       <div class="info">
-        <!--<div class="info__container">
+        <div class="info__container">
           <h1 class="info__name">Жак-Ив Кусто</h1>
           <button class="info__button">
             <img src="./images/edit-button.svg" class="info__button-image">
           </button>
-        </div>-->
-        <h1 class="info__name">
-          Жак-Ив Кусто
-          <button class="info__button">
-            <img src="./images/edit-button.svg" class="info__button-image">
-          </button>
-        </h1>
+        </div>
         <p class="info__description">Исследователь океана</p>
       </div>
       <button class="profile__button-add">
         <img src="./images/add-button.svg" class="profile__button-add-image">
       </button>
-      
-      
-    <!--
-          <form class="form__contact">
-            <h2 class="form__heading">Редактировать профиль</h2>
-            <fieldset class="form__contact-info">
-              <input type="text" name="firstname" class="form__item form__item_firstname" placeholder="Жак-Ив Кусто" required>
-              <input type="text" name="description" class="form__item form__item_description" placeholder="Исследователь океана" required>
-              <button type="submit" class="form__button">
-                Сохранить
-              </button>
-            </fieldset>
-          </form>
-    -->  
     </section>
     <section class="elements">
 
@@ -57,9 +37,7 @@
               <img src="./images/elements-karachaevsk.jpg" alt="Карачаевск" class="element__image">
               <figcaption class="element__caption">
                 <h2 class="element__caption-title">Карачаевск</h2>
-                <button class="element__icon">
-                  <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
-                </button>
+                <button class="element__icon"></button>
               </figcaption>
             </figure>
           </article>
@@ -69,7 +47,7 @@
             <img src="./images/elements-elbrus.jpg" alt="Эльбрус" class="element__image">
             <figcaption class="element__caption">
               <h2 class="element__caption-title">Гора Эльбрус</h2>
-              <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
+              <button class="element__icon"></button>
             </figcaption>
           </figure>
         </li>
@@ -78,7 +56,7 @@
             <img src="./images/elements-dombaj.jpg" alt="Домбай" class="element__image">
             <figcaption class="element__caption">
               <h2 class="element__caption-title">Домбай</h2>
-              <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
+              <button class="element__icon"></button>
             </figcaption>
           </figure>
         </li>
@@ -87,7 +65,7 @@
             <img src="./images/elements-elbrus.jpg" alt="Эльбрус" class="element__image">
             <figcaption class="element__caption">
               <h2 class="element__caption-title">Гора Эльбрус</h2>
-              <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
+              <button class="element__icon"></button>
             </figcaption>
           </figure>
         </li>
@@ -96,7 +74,7 @@
             <img src="./images/elements-dombaj.jpg" alt="Домбай" class="element__image">
             <figcaption class="element__caption">
               <h2 class="element__caption-title">Домбай</h2>
-              <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
+              <button class="element__icon"></button>
             </figcaption>
           </figure>
         </li>
@@ -105,7 +83,7 @@
             <img src="./images/elements-karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image">
             <figcaption class="element__caption">
               <h2 class="element__caption-title">Карачаево-Ч...</h2>
-              <img src="./images/caption-like.svg" alt="Лайк" class="element__caption-like">
+              <button class="element__icon"></button>
             </figcaption>
           </figure>
         </li>
@@ -116,5 +94,18 @@
   <footer class="footer">
     <p class="footer__author">&copy; 2021 Mesto Russia</p>
   </footer>
+  <div class="popup <!--popup_opened-->">
+    <form class="popup__container">
+      <button class="popup__close-icon"></button>
+      <h2 class="popup__heading">Редактировать профиль</h2>
+      <fieldset class="popup__contact-info">
+        <input type="text" name="firstname" class="popup__item" placeholder="Жак-Ив Кусто" required>
+        <input type="text" name="description" class="popup__item" placeholder="Исследователь океана" required>
+        <button type="submit" class="popup__button-save">
+          Сохранить
+        </button>
+      </fieldset>
+    </form>
+  </div>
 </body>
 </html>

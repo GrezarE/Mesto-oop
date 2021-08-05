@@ -3,5 +3,20 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  background: url(../../../images/caption-like.svg) center/cover no-repeat;
+  height: 19px;
+  width: 22px;
 
+}
+
+.element__icon:hover {
+  opacity: .5;
+}
+
+.element__icon:focus {
+  background: url(../../../images/caption-like-active.svg);
+}
+
+.element__icon:active {
+  background: url(../../../images/caption-like-active.svg);
 }

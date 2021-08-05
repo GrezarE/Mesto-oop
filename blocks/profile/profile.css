@@ -6,8 +6,21 @@
   align-items: center;*/
   display: grid;
   grid-template-columns: 120px auto 150px;
+  
   column-gap: 30px;
   max-width: 880px;
   margin: 0 auto;
   align-items: center;
+}
+
+@media screen and (max-width: 920px) {
+  .profile {
+    max-width: 581px;
+  }
+}
+
+@media all and (max-width: 619px) {
+  .profile {
+    max-width: 282px;
+  }
 }

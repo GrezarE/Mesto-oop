@@ -1,4 +1,6 @@
 .info {
-  display: inline-block;
+  display: grid;
   margin: 0;
+  max-width: 336px;
+  grid-template-columns: 1fr 24px;
 }

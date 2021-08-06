@@ -15,8 +15,8 @@
 
 @media all and (max-width: 619px) {
   .header {
-    min-height: 56px;
+    min-height: 55px;
     max-width: 320px;
-    padding-top: 26px;
+    padding-top: 28px;
   }
 }

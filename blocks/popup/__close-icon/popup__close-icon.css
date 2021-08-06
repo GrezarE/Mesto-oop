@@ -9,6 +9,7 @@
   position: absolute;
   top: -40px;
   right: -40px;
+  transition: opacity .4s linear;
 }
 
 @media (max-width: 619px) {

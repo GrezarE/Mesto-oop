@@ -1,21 +1,16 @@
 .info {
-  /*display: grid;*/
   margin: 0;
   max-width: 336px;
-  /*grid-template-columns: 1fr 24px;*/
-  
 }
 
 @media screen and (max-width: 920px) {
   .info {
     max-width: 581px;
-    
   }
 }
 
 @media screen and (max-width: 619px) {
   .info {
     max-width: 282px;
-    
   }
 }

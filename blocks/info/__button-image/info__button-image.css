@@ -1,7 +1,7 @@
 @media (max-width: 619px) {
   .info__button-image {
-  max-width: 7.5px;
-  display: block;
-  margin: auto;
-}
+    max-width: 7.5px;
+    display: block;
+    margin: auto;
+  }
 }

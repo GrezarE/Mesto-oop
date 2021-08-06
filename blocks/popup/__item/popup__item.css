@@ -9,9 +9,7 @@
   font-size: 14px;
   line-height: 1.21;
   font-weight: normal;
-
   vertical-align: baseline;
-
 }
 
 .popup__item::placeholder {
@@ -50,6 +48,5 @@
   .popup__item {
     margin-bottom: 0;
     margin-top: 30px;
-    
   }
 }

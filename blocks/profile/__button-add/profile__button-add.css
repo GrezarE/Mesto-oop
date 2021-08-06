@@ -6,6 +6,7 @@
   background-color: #000;
   min-width: 150px;
   cursor: pointer;
+  transition: opacity .4s linear;
 }
 
 @media all and (max-width: 619px) {

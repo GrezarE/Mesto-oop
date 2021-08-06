@@ -4,12 +4,13 @@
   font-weight: 500;
   color: #fff;
   margin: 0;
+  position: relative;
+  display: inline-block;
 }
 
 @media (max-width: 619px) {
   .info__name {
     font-size: 27px;
     line-height: 1.22;
-    
   }
 }

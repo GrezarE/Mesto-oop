@@ -3,4 +3,8 @@
   line-height: 29px;
   font-weight: 900;
   text-overflow: ellipsis;
+
+  
+  white-space: nowrap;
+  overflow: hidden;
 }

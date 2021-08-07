@@ -1,0 +1,6 @@
+@media (max-width: 619px) {
+  .profile__button-add-image {
+    width: 16px;
+    height: 16px;
+  }
+}

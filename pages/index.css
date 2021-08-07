@@ -9,9 +9,9 @@
 @import url(../blocks/info/__container/info__container.css);
 @import url(../blocks/info/__name/info__name.css);
 @import url(../blocks/info/__button/info__button.css);
-@import url(../blocks/info/__button-image/info__button-image.css);
 @import url(../blocks/info/__description/info__description.css);
 @import url(../blocks/profile/__button-add/profile__button-add.css);
+@import url(../blocks/profile/__button-add-image/profile__button-add-image.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__close-icon/popup__close-icon.css);
@@ -25,7 +25,7 @@
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__caption/element__caption.css);
-@import url(../blocks/element/__caption/__caption-title/element__caption-title.css);
+@import url(../blocks/element/__caption-title/element__caption-title.css);
 @import url(../blocks/element/__icon/element__icon.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__author/footer__author.css);

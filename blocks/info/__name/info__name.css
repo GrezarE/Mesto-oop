@@ -4,8 +4,8 @@
   font-weight: 500;
   color: #fff;
   margin: 0;
-  position: relative;
-  display: inline-block;
+  display: flex;
+  margin-right: -28px;
 }
 
 @media (max-width: 619px) {

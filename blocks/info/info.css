@@ -1,6 +1,6 @@
 .info {
   margin: 0;
-  max-width: 336px;
+  /*max-width: 336px;*/
 }
 
 @media screen and (max-width: 920px) {

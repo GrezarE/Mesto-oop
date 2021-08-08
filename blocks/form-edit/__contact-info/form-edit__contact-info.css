@@ -1,4 +1,4 @@
-.popup__contact-info {
+.form-edit__contact-info {
   width: 358px;
   margin: 31px auto 37px;
   padding: 0;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 619px) {
-  .popup__contact-info {
+  .form-edit__contact-info {
     width: 238px;
     margin-top: 46px;
     margin-bottom: 25px;

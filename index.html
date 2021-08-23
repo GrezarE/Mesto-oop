@@ -8,38 +8,6 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
-  <section class="popup popup_option_info <!--popup_opened-->">
-    <div class="popup__container">
-      <button type="button" class="popup__close-icon"></button>
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <form name="edit" class="form-edit">
-        <fieldset class="form-edit__info">
-          <input type="text" name="firstname" class="form-edit__item" placeholder="Жак-Ив Кусто" required>
-          <input type="text" name="description" class="form-edit__item" placeholder="Исследователь океана" required>
-          <button type="submit" class="form-edit__button-save">
-            Сохранить
-          </button>
-        </fieldset>
-      </form>
-    </div>
-  </section>
-
-  <section class="popup popup_option_add <!--popup_opened-->">
-    <div class="popup__container">
-      <button type="button" class="popup__close-icon"></button>
-      <h2 class="popup__heading">Новое место</h2>
-      <form name="add" class="form-edit">
-        <fieldset class="form-edit__info">
-          <input type="text" name="name" class="form-edit__item" placeholder="Название" required>
-          <input type="url" name="link" class="form-edit__item" placeholder="Ссылка на картинку" required>
-          <button type="submit" class="form-edit__button-save">
-            Сохранить
-          </button>
-        </fieldset>
-      </form>
-    </div>
-  </section>
-
   <header class="header">
     <img src="./images/header-logo.svg" alt="Место Россия" class="header__logo">
   </header>
@@ -108,7 +76,7 @@
           <figure class="element">
             <img src="./images/elements-karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image">
             <figcaption class="element__caption">
-              <h2 class="element__caption-title">Карачаево-Ч...</h2>
+              <h2 class="element__caption-title">Карачаево-Черкесия</h2>
               <button type="button" class="element__icon"></button>
             </figcaption>
           </figure>
@@ -119,6 +87,50 @@
   <footer class="footer">
     <p class="footer__author">&copy; 2021 Mesto Russia</p>
   </footer>
+
+  <section class="popup popup_option_info <!--popup_opened-->">
+    <div class="popup__container">
+      <button type="button" class="popup__close-icon"></button>
+      <h2 class="popup__heading">Редактировать профиль</h2>
+      <form name="edit" class="form-edit">
+        <fieldset class="form-edit__info">
+          <input type="text" name="firstname" class="form-edit__item" placeholder="Жак-Ив Кусто" required>
+          <input type="text" name="description" class="form-edit__item" placeholder="Исследователь океана" required>
+          <button type="submit" class="form-edit__button-save">
+            Сохранить
+          </button>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+  <section class="popup popup_option_add <!--popup_opened-->">
+    <div class="popup__container">
+      <button type="button" class="popup__close-icon"></button>
+      <h2 class="popup__heading">Новое место</h2>
+      <form name="add" class="form-edit">
+        <fieldset class="form-edit__info">
+          <input type="text" name="place" class="form-edit__item" placeholder="Название" required>
+          <input type="url" name="link" class="form-edit__item" placeholder="Ссылка на картинку" required>
+          <button type="submit" class="form-edit__button-save">
+            Сохранить
+          </button>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+  <template id="card-template">
+    <li class="cards__item">
+      <figure class="element">
+        <img class="element__image">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title"></h2>
+          <button type="button" class="element__icon"></button>
+        </figcaption>
+      </figure>
+    </li>
+  </template>
   <script src="./script.js"></script>
 </body>
 </html>

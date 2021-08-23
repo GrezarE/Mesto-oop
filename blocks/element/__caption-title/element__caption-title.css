@@ -6,4 +6,5 @@
   white-space: nowrap;
   overflow: hidden;
   margin: 25px 0;
+  flex-basis: 200px;
 }

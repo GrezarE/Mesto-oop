@@ -11,11 +11,3 @@
 .element__icon:hover {
   opacity: .5;
 }
-
-.element__icon:focus {
-  background: url(../../../images/caption-like-active.svg);
-}
-
-.element__icon:active {
-  background: url(../../../images/caption-like-active.svg);
-}

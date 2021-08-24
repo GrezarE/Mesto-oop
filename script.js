@@ -45,25 +45,26 @@ const nameInput = formEditElement.querySelector('[name="firstname"]');
 const jobInput = formEditElement.querySelector('[name="description"]');
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
-function formSubmitHandler (evt) {
+function formSubmitEditHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Получите значение полей jobInput и nameInput из свойства value
-  nameInput.value;//?
-  jobInput.value;//?
+  nameInput.value;//
+  jobInput.value;//
   // Выберите элементы, куда должны быть вставлены значения полей
-  let nameText = nameInput.value;
-  let jobText = jobInput.value;
+  let nameText = bodyElement.querySelector('.info__name').childNodes[0];
+  let jobText = bodyElement.querySelector('.info__description');
   // Вставьте новые значения с помощью textContent
-  nameInput.textContent = nameText.value;
-  jobInput.textContent = jobText.value;
-  nameInput.setAttribute('placeholder', `$(nameText.value)`);
-  jobInput.setAttribute('placeholder', `$(jobText.value)`);
-  popupInfoElement.classList.add('popup_opened');
-  
+  nameText.textContent = nameInput.value;
+  jobText.textContent = jobInput.value;
+  // заменяем значения полей формы на новые значения
+  nameInput.setAttribute('placeholder', `${nameText.value}`);
+  jobInput.setAttribute('placeholder', `${jobText.value}`);
+  // закрываем форму
+  popupInfoElement.classList.remove('popup_opened');  
 }
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formEditElement.addEventListener('submit', formSubmitHandler);
+formEditElement.addEventListener('submit', formSubmitEditHandler);
 
 
 //готовый массив с карточками
@@ -97,45 +98,29 @@ const initialCards = [
 //находим список с карточками
 const cardsContainer = bodyElement.querySelector('.cards');
 
-//перебираем массив
-initialCards.forEach((item) => {
-   //выбираем template и сохраняем в переменную
-  const cardTemplate = bodyElement.querySelector('#card-template').content;
-  //клонируем содержимое шаблона
-  const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-  //добавляем элементу картинку
-  cardElement.querySelector('.element__image').src = item.link;
-  //добавляем название
-  cardElement.querySelector('.element__caption-title').textContent = item.name;
-
-  //добавим элемент в начало контейнера со списком
-  cardsContainer.prepend(cardElement);
-});
-  
-  
-  
-
 
 
 //функция добавления карточки
-function addCard(imgValue, captionValue) {
+function addCard(name, link) {
   //выбираем template и сохраняем в переменную
   const cardTemplate = bodyElement.querySelector('#card-template').content;
   //клонируем содержимое шаблона
   const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
   //добавляем элементу картинку
-  cardElement.querySelector('.element__image').src = imgValue;
+  cardElement.querySelector('.element__image').src = link;
   //добавляем название
-  cardElement.querySelector('.element__caption-title').textContent = captionValue;
-
-  //добавим элемент в начало контейнера со списком
-  cardsContainer.prepend(cardElement);
-
+  cardElement.querySelector('.element__caption-title').textContent = name;
+  return cardElement;
 }
 
-
-
-
+//перебираем массив
+initialCards.forEach((item) => {
+  //вызываем функцию addCard
+  const cardElement = addCard(item.name, item.link);
+  
+  //добавим элемент в конец контейнера со списком
+  cardsContainer.append(cardElement);
+});
 
 
 //находим форму добавления карточек в DOM
@@ -145,29 +130,44 @@ const placeInput = formAddElement.querySelector('[name="place"]');
 const linkInput = formAddElement.querySelector('[name="link"]');
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
-function formSubmitHandler (evt) {
+function formSubmitAddHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-  // Получите значение полей jobInput и nameInput из свойства value
+  // Получаем значение полей placeInput и linkInput из свойства value
   placeInput.value;
   linkInput.value;
-  // Выберите элементы, куда должны быть вставлены значения полей
-  let placeText = placeInput.value;
-  let linkText = linkInput.value;
-  // Вставьте новые значения с помощью textContent
-  placeInput.textContent = placeText.value;
-  linkInput.textContent = linkText.value;
-  popupAddElement.classList.remove('popup_opened');
+  // вызываем функцию addCard
+  addCard(placeInput.value, linkInput.value);
+  
+
+
+  //добавим элемент в начало контейнера со списком
+  cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+
+  
+
+  // закрываем форму
+  popupAddElement.classList.remove('popup_opened');  
 }
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formAddElement.addEventListener('submit', formSubmitHandler);
+formAddElement.addEventListener('submit', formSubmitAddHandler);
 
 
-//находим кнопку "лайк"
-const likeButton = bodyElement.querySelector('.element__icon');
-//обработчик клика на кнопку "лайк"
-likeButton.addEventListener('click', function (evt) {
-  const eventTarget = evt.target;
-  eventTarget.classList.toggle('element__icon_active');
+
+
+
+
+
+//находим кнопки "лайк"
+const likeButton = bodyElement.querySelectorAll('.element__icon');
+
+//перебираем массивоподобную коллекцию кнопок
+likeButton.forEach((button) => {
+  //обработчик клика на каждую кнопку "лайк"
+  button.addEventListener('click', function (evt) {
+    const eventTarget = evt.target;
+    eventTarget.classList.toggle('element__icon_active');
+  });
 });
+
 

@@ -35,6 +35,8 @@ addButton.addEventListener('click', () => {
 //добавляем обработчик клика по кнопке "закрыть"
 closeButtonAdd.addEventListener('click', () => {
   popupAddElement.classList.remove('popup_opened');
+  placeInput.value = '';
+  linkInput.value = '';
 });
 
 
@@ -110,6 +112,7 @@ function addCard(name, link) {
   cardElement.querySelector('.element__image').src = link;
   //добавляем название
   cardElement.querySelector('.element__caption-title').textContent = name;
+
   return cardElement;
 }
 
@@ -137,37 +140,69 @@ function formSubmitAddHandler (evt) {
   linkInput.value;
   // вызываем функцию addCard
   addCard(placeInput.value, linkInput.value);
-  
-
 
   //добавим элемент в начало контейнера со списком
   cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
 
-  
-
   // закрываем форму
-  popupAddElement.classList.remove('popup_opened');  
+  popupAddElement.classList.remove('popup_opened');
+  placeInput.value = '';
+  linkInput.value = '';
+
+  //находим кнопку "лайк"
+  const likeButtonOne = bodyElement.querySelector('.element__icon');
+  //обработчик клика на кнопку "лайк"
+  likeButtonOne.addEventListener('click', function (evt) {
+    const eventTarget = evt.target;
+    eventTarget.classList.toggle('element__icon_active');
+  });
+
+  //находим кнопку удаления карточки
+  const deleteButtonOne = bodyElement.querySelector('.element__button-delete');
+  //обработчик клика на кнопку "удалить"
+  deleteButtonOne.addEventListener('click', function (evt) {
+    const evtTarget = evt.target;
+    //находим нужный элемент - карточку для удаления
+    const listItem = evtTarget.closest('.cards__item');
+    //удаляем его
+    listItem.remove();
+  });
 }
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formAddElement.addEventListener('submit', formSubmitAddHandler);
 
 
+  //находим кнопки "лайк"
+  const likeButton = bodyElement.querySelectorAll('.element__icon');
+
+  //перебираем массивоподобную коллекцию кнопок
+  likeButton.forEach((button) => {
+    //обработчик клика на каждую кнопку "лайк"
+    button.addEventListener('click', function (evt) {
+      const eventTarget = evt.target;
+      eventTarget.classList.toggle('element__icon_active');
+    });
+  });
 
 
-
-
-
-//находим кнопки "лайк"
-const likeButton = bodyElement.querySelectorAll('.element__icon');
+//находим кнопки удаления карточки
+const deleteButton = bodyElement.querySelectorAll('.element__button-delete');
 
 //перебираем массивоподобную коллекцию кнопок
-likeButton.forEach((button) => {
-  //обработчик клика на каждую кнопку "лайк"
+deleteButton.forEach((button) => {
+  //обработчик клика на каждую кнопку "удалить"
   button.addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('element__icon_active');
+    const evtTarget = evt.target;
+    //находим нужный элемент - карточку для удаления
+    const listItem = evtTarget.closest('.cards__item');
+    //удаляем его
+    listItem.remove();
   });
 });
+
+
+
+
 
 

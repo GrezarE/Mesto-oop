@@ -6,6 +6,7 @@
   background: url(../../../images/caption-like.svg) center/cover no-repeat;
   height: 19px;
   width: 22px;
+  transition: opacity .4s linear;
 }
 
 .element__icon:hover {

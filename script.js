@@ -130,15 +130,49 @@ function addCard(name, link) {
 
 // перебираем массив
 initialCards.forEach((item) => {
-  //вызываем функцию addCard
+  // вызываем функцию addCard
   const cardItem = addCard(item.name, item.link);
-  //добавим элемент в конец контейнера со списком
+  // добавим элемент в конец контейнера со списком
   cardsContainer.append(cardItem);
 });
 
+// функция обработчика кнопки "Лайк"
+function likeButtonHandler(button) {
+  button.addEventListener('click', function (evt) {
+    const eventTarget = evt.target;
+    eventTarget.classList.toggle('element__icon_active');
+  });
+}
 
+// функция обработчика кнопки удаления карточки
+function deleteButtonHandler(button) {
+  button.addEventListener('click', function (evt) {
+    const evtTarget = evt.target;
+    // находим нужный элемент - карточку для удаления
+    const listItem = evtTarget.closest('.cards__item');
+    // удаляем его
+    listItem.remove();
+  });
+}
 
-
+// функция обработчика клика на карточку
+function cardButtonHandler(button) {
+  button.addEventListener('click', () => {
+    openPopup(popupCardElement);
+    // находим элемент, откуда взять нужную ссылку
+    const cardLink = button.querySelector('.element__image').getAttribute('src');
+    // находим элемент с названием карточки
+    const cardTitle = button.nextElementSibling.firstElementChild;
+    // находим элемент, куда надо вставить полученную ссылку
+    const cardImage = popupCardElement.querySelector('.card__image');
+    // находим элемент, куда надо вставить название карточки
+    let cardCaption = popupCardElement.querySelector('.card__caption');
+    // вставим новые значения
+    cardImage.setAttribute('src', `${cardLink}`);
+    cardImage.setAttribute('alt', `${cardTitle.textContent}`);
+    cardCaption.textContent = cardTitle.textContent;
+  });
+}
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 function formSubmitAddHandler (evt) {
@@ -154,48 +188,18 @@ function formSubmitAddHandler (evt) {
   closePopup(popupAddElement);
   placeInput.value = '';
   linkInput.value = '';
-
-
-
-
-
-
-  //находим кнопку "лайк"
+  // находим кнопку "лайк"
   const likeButtonOne = bodyElement.querySelector('.element__icon');
-  //обработчик клика на кнопку "лайк"
-  likeButtonOne.addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('element__icon_active');
-  });
-
-  //находим кнопку удаления карточки
+  // добавляем обработчик клика на кнопку "лайк"
+  likeButtonHandler(likeButtonOne);
+  // находим кнопку удаления карточки
   const deleteButtonOne = bodyElement.querySelector('.element__button-delete');
-  //обработчик клика на кнопку "удалить"
-  deleteButtonOne.addEventListener('click', function (evt) {
-    const evtTarget = evt.target;
-    //находим нужный элемент - карточку для удаления
-    const listItem = evtTarget.closest('.cards__item');
-    //удаляем его
-    listItem.remove();
-  });
-
-  //находим кнопку, по которой открывается модальное окно карточки
+  // добавляем обработчик клика на кнопку "удалить"
+  deleteButtonHandler(deleteButtonOne);
+  // находим кнопку, по которой открывается модальное окно карточки
   const cardButtonOne = bodyElement.querySelector('.element__button-card')
-  //обработчик клика на неё
-  cardButtonOne.addEventListener('click', () => {
-    openPopup(popupCardElement);
-    //находим элемент, откуда взять нужную ссылку
-    const cardLink = cardButtonOne.querySelector('.element__image').getAttribute('src');
-    //находим элемент с названием карточки
-    const cardTitle = cardButtonOne.nextElementSibling.firstElementChild;
-    //находим элемент, куда надо вставить полученную ссылку
-    const cardImage = popupCardElement.querySelector('.card__image');
-    //находим элемент, куда надо вставить название карточки
-    let cardCaption = popupCardElement.querySelector('.card__caption');
-    //вставим новые значения
-    cardImage.setAttribute('src', `${cardLink }`);
-    cardCaption.textContent = cardTitle.textContent;
-  });
+  // добавим обработчик клика на неё
+  cardButtonHandler(cardButtonOne);
 }
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
@@ -203,59 +207,35 @@ formAddElement.addEventListener('submit', formSubmitAddHandler);
 
 //находим кнопки "лайк"
 const likeButton = bodyElement.querySelectorAll('.element__icon');
-
-//перебираем массивоподобную коллекцию кнопок
-likeButton.forEach((button) => {
-  //обработчик клика на каждую кнопку "лайк"
-  button.addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('element__icon_active');
-  });
+// перебираем массивоподобную коллекцию кнопок
+likeButton.forEach((buttonEl) => {
+  // добавляем обработчик клика на каждую кнопку "лайк"
+  likeButtonHandler(buttonEl);
 });
 
-//находим кнопки удаления карточки
+// находим кнопки удаления карточки
 const deleteButton = bodyElement.querySelectorAll('.element__button-delete');
 
-//перебираем массивоподобную коллекцию кнопок
-deleteButton.forEach((button) => {
-  //обработчик клика на каждую кнопку "удалить"
-  button.addEventListener('click', function (evt) {
-    const evtTarget = evt.target;
-    //находим нужный элемент - карточку для удаления
-    const listItem = evtTarget.closest('.cards__item');
-    //удаляем его
-    listItem.remove();
-  });
+// перебираем массивоподобную коллекцию кнопок
+deleteButton.forEach((buttonEl) => {
+  // добавим обработчик клика на каждую кнопку "удалить"
+  deleteButtonHandler(buttonEl);
 });
 
-//находим кнопки, по которым открывается модальное окно карточки
+// находим кнопки, по которым открывается модальное окно карточки
 const cardButton = bodyElement.querySelectorAll('.element__button-card');
-//находим модальное окно карточки
+// находим модальное окно карточки
 const popupCardElement = bodyElement.querySelector('.popup_option_card');
-//находим кнопку, по которой модальное окно закрывается
+// находим кнопку, по которой модальное окно закрывается
 const closeButtonCard = bodyElement.querySelector('section.popup_option_card .popup__close-icon');
 
-//перебираем массивоподобную коллекцию кнопок
-cardButton.forEach((button) => {
-  //обработчик клика на каждую кнопку "карточка"
-  button.addEventListener('click', () => {
-    openPopup(popupCardElement);
-    //находим элемент, откуда взять нужную ссылку
-    const cardLink = button.querySelector('.element__image').getAttribute('src');
-    //находим элемент с названием карточки
-    const cardTitle = button.nextElementSibling.firstElementChild;
-    //находим элемент, куда надо вставить полученную ссылку
-    const cardImage = popupCardElement.querySelector('.card__image');
-    //находим элемент, куда надо вставить название карточки
-    let cardCaption = popupCardElement.querySelector('.card__caption');
-    //вставим новые значения
-    cardImage.setAttribute('src', `${cardLink }`);
-    cardCaption.textContent = cardTitle.textContent;
-    
-  });
+// перебираем массивоподобную коллекцию кнопок
+cardButton.forEach((buttonEl) => {
+  // обработчик клика на каждую кнопку "карточка"
+  cardButtonHandler(buttonEl);
 });
 
-//добавляем обработчик клика по кнопке "закрыть"
+// добавляем обработчик клика по кнопке "закрыть"
 closeButtonCard.addEventListener('click', () => {
   closePopup(popupCardElement);
 });

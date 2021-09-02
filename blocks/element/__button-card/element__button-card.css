@@ -1,0 +1,9 @@
+.element__button-card {
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  transition: opacity .4s linear;
+  height: 282px;
+  width: 100%;
+}

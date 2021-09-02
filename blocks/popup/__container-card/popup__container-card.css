@@ -1,0 +1,8 @@
+.popup__container-card {
+  margin: auto;
+  z-index: 2;
+  max-width: 75vw;
+  max-height: 75vh;
+  
+  position: relative;
+}

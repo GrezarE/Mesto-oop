@@ -35,7 +35,7 @@
     <p class="footer__author">&copy; 2021 Mesto Russia</p>
   </footer>
 
-  <section class="popup popup_option_info <!--popup_opened-->">
+  <section class="popup popup_option_info">
     <div class="popup__container">
       <button type="button" class="popup__close-icon"></button>
       <h2 class="popup__heading">Редактировать профиль</h2>
@@ -51,7 +51,7 @@
     </div>
   </section>
 
-  <section class="popup popup_option_add <!--popup_opened-->">
+  <section class="popup popup_option_add">
     <div class="popup__container">
       <button type="button" class="popup__close-icon"></button>
       <h2 class="popup__heading">Новое место</h2>
@@ -67,10 +67,22 @@
     </div>
   </section>
 
+  <section class="popup popup_option_card <!--popup_opened-->">
+    <div class="popup__container-card">
+      <button type="button" class="popup__close-icon"></button>
+      
+      <figure class="card">
+        <img class="card__image">
+        <figcaption class="card__caption"></figcaption>
+      </figure>
+      
+    </div>
+  </section>
+
   <template id="card-template">
     <li class="cards__item">
       <figure class="element">
-        <img class="element__image">
+        <button type="button" class="element__button-card"><img class="element__image"></button>
         <figcaption class="element__caption">
           <h2 class="element__caption-title"></h2>
           <button type="button" class="element__icon"></button>

@@ -4,13 +4,16 @@
   font-weight: 500;
   color: #fff;
   margin: 0;
-  display: flex;
-  margin-right: -28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100% - 42px);
 }
 
 @media (max-width: 619px) {
   .info__name {
     font-size: 27px;
     line-height: 1.22;
+    max-width: calc(100% - 28px);
   }
 }

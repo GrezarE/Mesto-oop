@@ -4,6 +4,10 @@
   font-weight: normal;
   color: #fff;
   margin: 10px 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100% - 42px);
 }
 
 @media (max-width: 920px) {
@@ -16,6 +20,7 @@
   .info__description {
     font-size: 14px;
     line-height: 1.21;
-    margin-bottom: 6px;    
+    margin-bottom: 6px;  
+    max-width: calc(100% - 28px);  
   }
 }

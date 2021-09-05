@@ -15,10 +15,10 @@
     <section class="profile">
       <img src="./images/profile-avatar.jpg" alt="Аватар" class="profile__avatar">
       <div class="info">
-        <h1 class="info__name">
-          Жак-Ив Кусто
+        <div class="info__container">
+          <h1 class="info__name">Жак-Ив Кусто</h1>
           <button type="button" class="info__button"></button>
-        </h1>
+        </div> 
         <p class="info__description">Исследователь океана</p>
       </div>
       <button type="button" class="profile__button-add">
@@ -39,8 +39,8 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form name="edit" class="form-edit">
         <fieldset class="form-edit__info">
-          <input type="text" name="firstname" class="form-edit__item" placeholder="Жак-Ив Кусто" required>
-          <input type="text" name="description" class="form-edit__item" placeholder="Исследователь океана" required>
+          <input type="text" name="firstname" class="form-edit__item" placeholder="Имя" required>
+          <input type="text" name="description" class="form-edit__item" placeholder="Профессиональная деятельность" required>
           <button type="submit" class="form-edit__button-save">
             Сохранить
           </button>

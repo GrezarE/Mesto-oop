@@ -1,10 +1,11 @@
 .info__container {
   display: flex;
-  align-items: baseline;
+  justify-content: flex-start;
+  margin: 0;
   gap: 18px;
 }
 
-@media screen and (max-width: 920px) {
+@media (max-width: 619px) {
   .info__container {
     gap: 10px;
   }

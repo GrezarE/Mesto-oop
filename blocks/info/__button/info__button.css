@@ -10,7 +10,6 @@
   background-repeat: no-repeat;
   background-position: center;
   transition: opacity .4s linear;
-  margin-left: 18px;
   margin-top: 16px;
 }
 
@@ -20,7 +19,6 @@
     padding: 0;
     background-size: 7.5px 7.5px;
     height: 18px;
-    margin-left: 10px;
     margin-top: 8px;
   }
 }

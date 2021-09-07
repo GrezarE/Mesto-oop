@@ -24,6 +24,9 @@ const formEditElement = bodyElement.querySelector('[name="edit"]');
 // Находим поля формы в DOM
 const nameInput = formEditElement.querySelector('[name="firstname"]');
 const jobInput = formEditElement.querySelector('[name="description"]');
+// Выберем элементы, куда должны быть вставлены значения полей
+const nameText = bodyElement.querySelector('.info__name');
+const jobText = bodyElement.querySelector('.info__description');
 // готовый массив с карточками
 const initialCards = [
   {
@@ -72,9 +75,6 @@ function closePopup(popup) {
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 function formSubmitEditHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-  // Выберем элементы, куда должны быть вставлены значения полей
-  const nameText = bodyElement.querySelector('.info__name');
-  const jobText = bodyElement.querySelector('.info__description');
   // Вставим новые значения с помощью textContent
   nameText.textContent = nameInput.value;
   jobText.textContent = jobInput.value;
@@ -143,10 +143,6 @@ function addCard(name, link) {
   const cardButton = cardElement.querySelector('.element__button-card');
   // обработчик клика на кнопку "карточка"
   cardButtonHandler(cardButton);
-  // добавляем обработчик клика по кнопке "закрыть"
-  closeButtonCard.addEventListener('click', () => {
-    closePopup(popupCardElement);
-  });
   return cardElement;
 }
 
@@ -165,6 +161,9 @@ function formSubmitAddHandler (evt) {
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener('click', () => {
   openPopup(popupInfoElement);
+  // вставим начальные данные из профиля в поля формы
+  nameInput.placeholder = nameText.textContent;
+  jobInput.placeholder = jobText.textContent;
 });
 
 // добавляем обработчик клика по кнопке "закрыть"
@@ -180,6 +179,11 @@ addButton.addEventListener('click', () => {
 // добавляем обработчик клика по кнопке "закрыть"
 closeButtonAdd.addEventListener('click', () => {
   closePopup(popupAddElement);
+});
+
+// добавляем обработчик клика по кнопке "закрыть"
+closeButtonCard.addEventListener('click', () => {
+  closePopup(popupCardElement);
 });
 
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»

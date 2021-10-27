@@ -1,27 +1,57 @@
 const config = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  buttonSelector: '.form__submit-button',
-  inputErrorClass: 'form__input_error',
+  formSelector: '.form-edit',
+  inputSelector: '.form-edit__item',
+  buttonSelector: '.form-edit__button-save',
+  inputErrorClass: 'form-edit__item_error',
 };
 
-const isFormValid = inputList => {
-  return inputList.every(inputElement => inputElement.validity.valid);
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (formElement, inputElement, errorMessage) => {
+  // находим нужный span по ID
+  console.log(formElement);
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+  console.log(errorElement);
+  // вставляем текст ошибки
+  errorElement.textContent = errorMessage;
+  // добавляем класс с ошибкой
+  inputElement.classList.add(config.inputErrorClass);
 };
 
-const hideInputError = inputElement => {
-  const errorElement = document.querySelector(`#${inputElement.name}-error`);
-
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (formElement, inputElement) => {
+  // находим нужный span по ID
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+  // убираем текст с ошибкой
   errorElement.textContent = '';
+  // удаляем класс с ошибкой
   inputElement.classList.remove(config.inputErrorClass);
 };
 
-const showInputError = inputElement => {
-  const errorElement = document.querySelector(`#${inputElement.name}-error`);
-
-  errorElement.textContent = inputElement.validationMessage;
-  inputElement.classList.add(config.inputErrorClass);
+const isValid = (formElement, inputElement) => {
+  // if valid, hide error else show error
+  if (inputElement.validity.valid) {
+    // hide error
+    hideInputError(formElement, inputElement);
+  } else {
+    // show error
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  }
 };
+
+
+
+
+
+
+// Функция, которая проверяет валидность поля
+const isFormValid = (inputList) => {
+  return inputList.every((inputElement) => {
+    inputElement.validity.valid;
+  });
+};
+
+
+
 
 const toggleButtonState = (buttonElement, inputList) => {
   // if form valid enable button else disable
@@ -34,50 +64,61 @@ const toggleButtonState = (buttonElement, inputList) => {
   }
 };
 
-const checkInputValidity = inputElement => {
-  // if valid, hide error else show error
-  if (inputElement.validity.valid) {
-    // hide error
-    hideInputError(inputElement);
-  } else {
-    // show error
-    showInputError(inputElement);
-  }
-};
 
-const setEventListeners = formElement => {
-  // prevent page reload on form submit
-  formElement.addEventListener('submit', e => {
-    e.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+const setEventListeners = (formElement) => {
+  formElement.addEventListener('submit', (evt) => {
+    // У каждой формы отменим стандартное поведение
+    evt.preventDefault();
   });
-
-  // find all inputs
+  // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
   const inputList = Array.from(document.querySelectorAll(config.inputSelector));
 
-  // find submit button
-  const submitButton = document.querySelector(config.buttonSelector);
 
-  inputList.forEach(inputElement => {
-    // add listeners for each input
+  // find submit button
+  /*const submitButton = document.querySelector(config.buttonSelector);*/
+
+
+  // Обойдём все элементы полученной коллекции
+  inputList.forEach((inputElement) => {
+    // каждому полю добавим обработчик события input
     inputElement.addEventListener('input', () => {
-      // check each input is valid
-      checkInputValidity(inputElement);
+      // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый элемент
+      isValid(formElement, inputElement);
 
       // toggle button state
-      toggleButtonState(submitButton, inputList);
+      /*toggleButtonState(submitButton, inputList);*/
     });
   });
-
   // set initial button state
-  toggleButtonState(submitButton, inputList);
+  /*toggleButtonState(submitButton, inputList);*/
 };
 
-export const enableValidation = () => {
-  // find all forms
+
+
+
+/*export*/ const enableValidation = () => {
+  // Найдём все формы с указанным классом в DOM,
+  // сделаем из них массив методом Array.from
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
-  // set event lesteners each form
-  formList.forEach(formElement => {
+  // Переберём полученную коллекцию
+  formList.forEach((formElement) => {
     setEventListeners(formElement);
   });
 };
+
+// Вызовем функцию
+enableValidation();

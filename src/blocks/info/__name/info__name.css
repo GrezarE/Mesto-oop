@@ -1,0 +1,19 @@
+.info__name {
+  font-size: 42px;
+  line-height: 1.14;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100% - 42px);
+}
+
+@media (max-width: 619px) {
+  .info__name {
+    font-size: 27px;
+    line-height: 1.22;
+    max-width: calc(100% - 28px);
+  }
+}

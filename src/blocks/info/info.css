@@ -1,0 +1,16 @@
+.info {
+  margin: 0;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 920px) {
+  .info {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 619px) {
+  .info {
+    max-width: 282px;
+  }
+}

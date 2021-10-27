@@ -1,0 +1,12 @@
+.info__container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  gap: 18px;
+}
+
+@media (max-width: 619px) {
+  .info__container {
+    gap: 10px;
+  }
+}

@@ -98,6 +98,20 @@ function deleteButtonHandler(button) {
   });
 }
 
+// функция-обработчик нажатия на клавишу "Escape"
+function closePopupHandlerEscape(evt) {
+  if (evt.key === "Escape") {
+    if (evt.target.classList.contains('info__button')) {
+      closePopup(popupInfoElement);
+    } else if (evt.target.classList.contains('profile__button-add')) {
+      closePopup(popupAddElement);
+    } else if (evt.target.classList.contains('element__button-card')) {
+      closePopup(popupCardElement);
+    };
+    bodyElement.removeEventListener('keydown', closePopupHandlerEscape);
+  }
+}
+
 // функция обработчика клика на карточку
 function cardButtonHandler(button) {
   button.addEventListener('click', () => {
@@ -114,6 +128,7 @@ function cardButtonHandler(button) {
     cardImage.setAttribute('src', cardLink);
     cardImage.setAttribute('alt', cardTitle.textContent);
     cardCaption.textContent = cardTitle.textContent;
+    bodyElement.addEventListener('keydown', closePopupHandlerEscape);
   });
 }
 
@@ -165,12 +180,15 @@ function closePopupButtonOverlay (popup, evt) {
 }
 
 
+
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener('click', () => {
   openPopup(popupInfoElement);
   // вставим начальные данные из профиля в поля формы
   nameInput.placeholder = nameText.textContent;
   jobInput.placeholder = jobText.textContent;
+  // closePopupEscape(popupInfoElement);
+  bodyElement.addEventListener('keydown', closePopupHandlerEscape);
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею
@@ -178,28 +196,15 @@ popupInfoElement.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupInfoElement, evt);
 });
 
-//добавляем обработчик клика по кнопке "Escape"
-popupInfoElement.addEventListener('keydown', (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(popupInfoElement);
-  }
-});
-
 // добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener('click', () => {
   openPopup(popupAddElement);
+  bodyElement.addEventListener('keydown', closePopupHandlerEscape);
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею
 popupAddElement.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupAddElement, evt);
-});
-
-//добавляем обработчик клика по кнопке "Escape"
-popupAddElement.addEventListener('keydown', (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(popupAddElement);
-  }
 });
 
 // добавляем обработчик клика по кнопке "закрыть"

@@ -1,0 +1,19 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "### Описание проекта",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kettrin62/mesto-project.git"
+  },
+  "author": "Ekaterina Kazakova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kettrin62/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Kettrin62/mesto-project#readme"
+}

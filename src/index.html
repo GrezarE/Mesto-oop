@@ -39,9 +39,9 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form name="edit" class="form-edit" novalidate>
         <fieldset class="form-edit__info">
-          <input type="text" name="firstname" class="form-edit__item" placeholder="Имя" required minlength="2" maxlength="40">
+          <input type="text" name="firstname" class="form-edit__item" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class="form-edit__item-error" id="firstname-error"></span>
-          <input type="text" name="description" class="form-edit__item" placeholder="Профессиональная деятельность" required minlength="2" maxlength="200">
+          <input type="text" name="description" class="form-edit__item" placeholder="Профессиональная деятельность" minlength="2" maxlength="200" required>
           <span class="form-edit__item-error" id="description-error"></span>
           <button type="submit" class="form-edit__button-save">
             Сохранить
@@ -56,8 +56,10 @@
       <h2 class="popup__heading">Новое место</h2>
       <form name="add" class="form-edit" novalidate>
         <fieldset class="form-edit__info">
-          <input type="text" name="place" class="form-edit__item" placeholder="Название" required minlength="2" maxlength="30">
+          <input type="text" name="place" class="form-edit__item" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="form-edit__item-error" id="place-error"></span>
           <input type="url" name="link" class="form-edit__item" placeholder="Ссылка на картинку" required>
+          <span class="form-edit__item-error" id="link-error"></span>
           <button type="submit" class="form-edit__button-save">
             Сохранить
           </button>

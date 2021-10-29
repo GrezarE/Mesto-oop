@@ -5,15 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Местоt</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <header class="header">
-    <img src="./images/header-logo.svg" alt="Место Россия" class="header__logo">
+    <img src="<%=require('./images/header-logo.svg')%>" alt="Место Россия" class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
-      <img src="./images/profile-avatar.jpg" alt="Аватар" class="profile__avatar">
+      <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар" class="profile__avatar">
       <div class="info">
         <div class="info__container">
           <h1 class="info__name">Жак-Ив Кусто</h1>
@@ -22,7 +21,7 @@
         <p class="info__description">Исследователь океана</p>
       </div>
       <button type="button" class="profile__button-add">
-        <img src="./images/add-button.svg" alt="Кнопка" class="profile__button-add-image">
+        <img src="<%=require('./images/add-button.svg')%>" alt="Кнопка" class="profile__button-add-image">
       </button>
     </section>
     <section class="elements" aria-label="Галерея фото-карточек">
@@ -88,10 +87,5 @@
       <button type="button" class="element__button-delete"></button>
     </li>
   </template>
-  <script type="module" src="./pages/index.js"></script>
-  <script type="module" src="./components/card.js"></script>
-  <script type="module" src="./components/modal.js"></script>
-  <script type="module" src="./components/utilits.js"></script>
-  <script type="module" src="./components/validate.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+import './index.css'; // добавьте импорт главного файла стилей
+
 import { bodyElement } from '../components/utilits.js';
 import { popupInfoElement } from '../components/utilits.js';
 import { popupAddElement } from '../components/utilits.js';

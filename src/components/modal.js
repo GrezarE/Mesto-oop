@@ -1,3 +1,16 @@
+import { bodyElement } from './utilits.js'
+import { popupInfoElement } from './utilits.js'
+import { popupAddElement } from './utilits.js'
+import { popupCardElement } from './utilits.js'
+import { cardsContainer } from './utilits.js'
+import { addCard } from './card.js'
+import { placeInput } from './utilits.js'
+import { linkInput } from './utilits.js'
+import { nameText } from './utilits.js';
+import { jobText } from './utilits.js';
+import { nameInput } from './utilits.js';
+import { jobInput } from './utilits.js';
+
 import { openPopup } from '../components/utilits.js';
 
 // функция закрытия попапа
@@ -38,8 +51,6 @@ export const cardButtonHandler = (button) => {
     bodyElement.addEventListener('keydown', closePopupHandlerEscape);
   });
 }
-
-
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 export const formSubmitEditHandler = (evt) => {

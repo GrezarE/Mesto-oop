@@ -69,6 +69,9 @@ const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   // Найдём в текущей форме кнопку отправки
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
+  
+  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
+  toggleButtonState(inputList, buttonElement);
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {

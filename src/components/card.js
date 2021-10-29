@@ -1,10 +1,7 @@
+import { bodyElement } from './utilits.js'
+import { cardsContainer } from './utilits.js'
+
 import { cardButtonHandler } from './modal.js';
-
-//находим элемент body
-export const bodyElement = document.querySelector('.page');
-
-// находим список с карточками
-const cardsContainer = bodyElement.querySelector('.cards');
 
 // готовый массив с карточками
 const initialCards = [
@@ -34,10 +31,6 @@ const initialCards = [
   }
 ];
 
-
-
-
-
 // функция обработчика кнопки "Лайк"
 function likeButtonHandler(button) {
   button.addEventListener('click', function (evt) {
@@ -57,12 +50,8 @@ function deleteButtonHandler(button) {
   });
 }
 
-
-
-
-
 // функция добавления карточки
-function addCard(name, link) {
+export function addCard(name, link) {
   // выбираем template и сохраняем в переменную
   const cardTemplate = bodyElement.querySelector('#card-template').content;
   // клонируем содержимое шаблона
@@ -86,9 +75,6 @@ function addCard(name, link) {
   cardButtonHandler(cardButton);
   return cardElement;
 }
-
-
-
 
 export const isInitialCards = () => {
   // перебираем массив

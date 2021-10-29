@@ -1,65 +1,25 @@
-import { bodyElement } from '../components/card.js';
-
-
-//находим кнопку, по которой открывается модальное окно редактирования
-const infoButton = bodyElement.querySelector('.info__button');
-// находим модальное окно редактирования
-const popupInfoElement = bodyElement.querySelector('.popup_option_info');
-
-// находим кнопку "Сохранить" окна редактирования
-const ButtonSave = popupInfoElement.querySelector('.form-edit__button-save');
-// находим кнопку, по которой открывается модальное окно добавления
-const addButton = bodyElement.querySelector('.profile__button-add');
-// находим модальное окно добавления
-const popupAddElement = bodyElement.querySelector('.popup_option_add');
-
-// находим форму добавления карточек в DOM
-const formAddElement = bodyElement.querySelector('[name="add"]');
-// Находим поля формы в DOM
-const placeInput = formAddElement.querySelector('[name="place"]');
-const linkInput = formAddElement.querySelector('[name="link"]');
-// Находим форму редактирования в DOM
-const formEditElement = bodyElement.querySelector('[name="edit"]');
-// Находим поля формы в DOM
-const nameInput = formEditElement.querySelector('[name="firstname"]');
-const jobInput = formEditElement.querySelector('[name="description"]');
-// Выберем элементы, куда должны быть вставлены значения полей
-const nameText = bodyElement.querySelector('.info__name');
-const jobText = bodyElement.querySelector('.info__description');
-
-
-// находим модальное окно карточки
-const popupCardElement = bodyElement.querySelector('.popup_option_card');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { bodyElement } from '../components/utilits.js';
+import { popupInfoElement } from '../components/utilits.js';
+import { popupAddElement } from '../components/utilits.js';
+import { popupCardElement } from '../components/utilits.js';
+import { formAddElement } from '../components/utilits.js';
+import { nameText } from '../components/utilits.js';
+import { jobText } from '../components/utilits.js';
+import { formEditElement } from '../components/utilits.js';
+import { nameInput } from '../components/utilits.js';
+import { jobInput } from '../components/utilits.js';
+import { infoButton } from '../components/utilits.js';
+import { addButton } from '../components/utilits.js';
 
 import { openPopup } from '../components/utilits.js';
 
-
-
 import { closePopupHandlerEscape } from '../components/modal.js';
-
 import { closePopupButtonOverlay } from '../components/modal.js';
-
 import { formSubmitEditHandler } from '../components/modal.js';
-
 import { formSubmitAddHandler } from '../components/modal.js';
 
-
-
+import { isInitialCards } from '../components/card.js';
+import { enableValidation } from '../components/validate.js';
 
 
 // добавляем обработчик клика по кнопке "редактировать"
@@ -99,16 +59,6 @@ formEditElement.addEventListener('submit', formSubmitEditHandler);
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
 formAddElement.addEventListener('submit', formSubmitAddHandler);
 
-
-
-
-
-import { isInitialCards } from '../components/card.js';
-
 isInitialCards();
-
-
-
-import { enableValidation } from '../components/validate.js';
 
 enableValidation();

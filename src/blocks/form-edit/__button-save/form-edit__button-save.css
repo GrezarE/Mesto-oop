@@ -26,3 +26,10 @@
 .form-edit__button-save:hover {
   opacity: .8;
 }
+
+.form-edit__button-save:disabled {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #000;
+}

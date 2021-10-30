@@ -1,6 +1,5 @@
 import './index.css'; // добавьте импорт главного файла стилей
 
-import { bodyElement } from '../components/utilits.js';
 import { popupInfoElement } from '../components/utilits.js';
 import { popupAddElement } from '../components/utilits.js';
 import { popupCardElement } from '../components/utilits.js';
@@ -27,8 +26,8 @@ import { enableValidation } from '../components/validate.js';
 infoButton.addEventListener('click', () => {
   openPopup(popupInfoElement);
   // вставим начальные данные из профиля в поля формы
-  nameInput.placeholder = nameText.textContent;
-  jobInput.placeholder = jobText.textContent;
+  nameInput.value = nameText.textContent;
+  jobInput.value = jobText.textContent;
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею
@@ -59,4 +58,9 @@ formAddElement.addEventListener('submit', formSubmitAddHandler);
 
 isInitialCards();
 
-enableValidation();
+enableValidation({
+  formSelector: '.form-edit',
+  inputSelector: '.form-edit__item',
+  submitButtonSelector: '.form-edit__button-save',
+  inputErrorClass: 'form-edit__item_error',
+});

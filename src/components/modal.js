@@ -1,4 +1,3 @@
-import { bodyElement } from './utilits.js'
 import { popupInfoElement } from './utilits.js'
 import { popupAddElement } from './utilits.js'
 import { popupCardElement } from './utilits.js'
@@ -12,25 +11,7 @@ import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
 
 import { openPopup } from '../components/utilits.js';
-
-// функция закрытия попапа
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
-// функция-обработчик нажатия на клавишу "Escape"
-export const closePopupHandlerEscape = (evt) => {
-  if (evt.key === "Escape") {
-    if (evt.target.classList.contains('info__button')) {
-      closePopup(popupInfoElement);
-    } else if (evt.target.classList.contains('profile__button-add')) {
-      closePopup(popupAddElement);
-    } else if (evt.target.classList.contains('element__button-card')) {
-      closePopup(popupCardElement);
-    };
-    bodyElement.removeEventListener('keydown', closePopupHandlerEscape);
-  }
-}
+import { closePopup } from '../components/utilits.js';
 
 // функция обработчика клика на карточку
 export const cardButtonHandler = (button) => {
@@ -48,7 +29,6 @@ export const cardButtonHandler = (button) => {
     cardImage.setAttribute('src', cardLink);
     cardImage.setAttribute('alt', cardTitle.textContent);
     cardCaption.textContent = cardTitle.textContent;
-    bodyElement.addEventListener('keydown', closePopupHandlerEscape);
   });
 }
 
@@ -67,10 +47,14 @@ export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // добавим элемент в начало контейнера со списком
   cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+  // Найдём в форме кнопку отправки
+  const buttonElement = evt.target.querySelector('.form-edit__button-save');
   // закрываем форму
   closePopup(popupAddElement);
   // очищаем форму
   evt.target.reset();
+  // деактивируем кнопку сабмита
+  buttonElement.disabled = true;
 }
 
 // функция закрытия попапа кликом на кнопку "закрыть" и оверлей

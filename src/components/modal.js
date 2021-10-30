@@ -48,10 +48,14 @@ export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // добавим элемент в начало контейнера со списком
   cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+  // Найдём в форме кнопку отправки
+  const buttonElement = evt.target.querySelector('.form-edit__button-save');
   // закрываем форму
   closePopup(popupAddElement);
   // очищаем форму
   evt.target.reset();
+  // деактивируем кнопку сабмита
+  buttonElement.disabled = true;
 }
 
 // функция закрытия попапа кликом на кнопку "закрыть" и оверлей

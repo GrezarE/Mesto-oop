@@ -45,7 +45,6 @@ const hasInvalidInput = (inputList) => {
     // Если поле не валидно, колбэк вернёт true
     // Обход массива прекратится и вся фунцкция
     // hasInvalidInput вернёт true
-
     return !inputElement.validity.valid;
   })
 };

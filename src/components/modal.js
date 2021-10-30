@@ -12,25 +12,7 @@ import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
 
 import { openPopup } from '../components/utilits.js';
-
-// функция закрытия попапа
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
-// функция-обработчик нажатия на клавишу "Escape"
-export const closePopupHandlerEscape = (evt) => {
-  if (evt.key === "Escape") {
-    if (evt.target.classList.contains('info__button')) {
-      closePopup(popupInfoElement);
-    } else if (evt.target.classList.contains('profile__button-add')) {
-      closePopup(popupAddElement);
-    } else if (evt.target.classList.contains('element__button-card')) {
-      closePopup(popupCardElement);
-    };
-    bodyElement.removeEventListener('keydown', closePopupHandlerEscape);
-  }
-}
+import { closePopup } from '../components/utilits.js';
 
 // функция обработчика клика на карточку
 export const cardButtonHandler = (button) => {
@@ -48,7 +30,6 @@ export const cardButtonHandler = (button) => {
     cardImage.setAttribute('src', cardLink);
     cardImage.setAttribute('alt', cardTitle.textContent);
     cardCaption.textContent = cardTitle.textContent;
-    bodyElement.addEventListener('keydown', closePopupHandlerEscape);
   });
 }
 

@@ -15,7 +15,6 @@ import { addButton } from '../components/utilits.js';
 
 import { openPopup } from '../components/utilits.js';
 
-import { closePopupHandlerEscape } from '../components/modal.js';
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
@@ -30,8 +29,6 @@ infoButton.addEventListener('click', () => {
   // вставим начальные данные из профиля в поля формы
   nameInput.placeholder = nameText.textContent;
   jobInput.placeholder = jobText.textContent;
-  // closePopupEscape(popupInfoElement);
-  bodyElement.addEventListener('keydown', closePopupHandlerEscape);
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею
@@ -42,7 +39,6 @@ popupInfoElement.addEventListener('click', (evt) => {
 // добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener('click', () => {
   openPopup(popupAddElement);
-  bodyElement.addEventListener('keydown', closePopupHandlerEscape);
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею

@@ -26,7 +26,26 @@ export const infoButton = bodyElement.querySelector('.info__button');
 // находим кнопку, по которой открывается модальное окно добавления
 export const addButton = bodyElement.querySelector('.profile__button-add');
 
+// функция закрытия попапа
+export function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  // добавили обработчик
+  document.removeEventListener('keydown', closeByEscape);
+}
+
+// функция-обработчик нажатия на клавишу "Escape"
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    // нашли открытый попап
+    const openedPopup = document.querySelector('.popup_opened');
+    // закрыли попап
+    closePopup(openedPopup);
+  }
+}
+
 // функция открытия попапа
 export const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  // удалили обработчик
+  document.addEventListener('keydown', closeByEscape);
 }

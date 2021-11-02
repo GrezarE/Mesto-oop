@@ -31,6 +31,8 @@ const initialCards = [
   }
 ];
 
+import { getInitialCards } from './api.js';
+
 // функция обработчика кнопки "Лайк"
 function likeButtonHandler(button) {
   button.addEventListener('click', function (evt) {

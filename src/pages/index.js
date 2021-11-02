@@ -56,7 +56,7 @@ formEditElement.addEventListener('submit', formSubmitEditHandler);
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
 formAddElement.addEventListener('submit', formSubmitAddHandler);
 
-isInitialCards();
+// isInitialCards();
 
 enableValidation({
   formSelector: '.form-edit',
@@ -64,3 +64,15 @@ enableValidation({
   submitButtonSelector: '.form-edit__button-save',
   inputErrorClass: 'form-edit__item_error',
 });
+
+
+
+
+import { getInitialCards } from '../components/api.js';
+getInitialCards()
+  .then((result) => {
+    // обрабатываем результат
+  })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  });

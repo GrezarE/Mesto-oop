@@ -42,6 +42,7 @@ const config = {
   }
 }
 
+// получить информацию о пользователе с сервера
 export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
@@ -64,6 +65,7 @@ export const getUserInfo = () => {
     });
 }
 
+// загрузка карточек с сервера
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
@@ -77,20 +79,22 @@ export const getInitialCards = () => {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((cards) => {
-      // console.log(cards);
+      console.log(cards);
       cards.forEach((card) => {
         // console.log(card.name);
         // console.log(card.link);
+        console.log(card.likes.length);
 
         // добавляем карточку на страницу
         // вызываем функцию addCard
-        const cardItem = addCard(card.name, card.link);
+        const cardItem = addCard(card.name, card.link, card.likes.length);
         // добавим элемент в конец контейнера со списком
         cardsContainer.append(cardItem);
       });
     });
 }
 
+// отправить измененные данные о пользователе на сервер
 export const editProfileInfo = (name, about) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
@@ -117,6 +121,7 @@ export const editProfileInfo = (name, about) => {
     });
 }
 
+// отправить данные для создания новой карточки
 export const createCard = (name, link) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
@@ -136,6 +141,6 @@ export const createCard = (name, link) => {
     })
     .then((card) => {
       // console.log(card);
-      cardsContainer.prepend(addCard(card.name, card.link));
+      cardsContainer.prepend(addCard(card.name, card.link,  card.likes.length));
     });
 }

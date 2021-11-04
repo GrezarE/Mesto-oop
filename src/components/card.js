@@ -53,7 +53,7 @@ function deleteButtonHandler(button) {
 }
 
 // функция добавления карточки
-export function addCard(name, link) {
+export function addCard(name, link, likes) {
   // выбираем template и сохраняем в переменную
   const cardTemplate = bodyElement.querySelector('#card-template').content;
   // клонируем содержимое шаблона
@@ -63,6 +63,8 @@ export function addCard(name, link) {
   cardElement.querySelector('.element__image').alt = name;
   // добавляем название
   cardElement.querySelector('.element__caption-title').textContent = name;
+  // добавляем количество лайков
+  cardElement.querySelector('.element__likes').textContent = likes;
   // находим кнопку "лайк"
   const likeButton = cardElement.querySelector('.element__icon');
   // добавляем обработчик клика на кнопку "лайк"

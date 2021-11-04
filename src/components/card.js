@@ -1,37 +1,37 @@
 import { bodyElement } from './utilits.js'
-import { cardsContainer } from './utilits.js'
+// import { cardsContainer } from './utilits.js'
 
 import { cardButtonHandler } from './modal.js';
 
 // готовый массив с карточками
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+// const initialCards = [
+//   {
+//     name: 'Архыз',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+//   },
+//   {
+//     name: 'Челябинская область',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+//   },
+//   {
+//     name: 'Иваново',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+//   },
+//   {
+//     name: 'Камчатка',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+//   },
+//   {
+//     name: 'Холмогорский район',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+//   },
+//   {
+//     name: 'Байкал',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+//   }
+// ];
 
-import { getInitialCards } from './api.js';
+// import { getInitialCards } from './api.js';
 
 // функция обработчика кнопки "Лайк"
 function likeButtonHandler(button) {
@@ -78,12 +78,12 @@ export function addCard(name, link) {
   return cardElement;
 }
 
-export const isInitialCards = () => {
-  // перебираем массив
-  initialCards.forEach((item) => {
-    // вызываем функцию addCard
-    const cardItem = addCard(item.name, item.link);
-    // добавим элемент в конец контейнера со списком
-    cardsContainer.append(cardItem);
-  });
-};
+// export const isInitialCards = () => {
+//   // перебираем массив
+//   initialCards.forEach((item) => {
+//     // вызываем функцию addCard
+//     const cardItem = addCard(item.name, item.link);
+//     // добавим элемент в конец контейнера со списком
+//     cardsContainer.append(cardItem);
+//   });
+// };

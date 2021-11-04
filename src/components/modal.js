@@ -10,8 +10,8 @@ import { jobText } from './utilits.js';
 import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
 
-import { openPopup } from '../components/utilits.js';
-import { closePopup } from '../components/utilits.js';
+import { openPopup } from './utilits.js';
+import { closePopup } from './utilits.js';
 
 // функция обработчика клика на карточку
 export const cardButtonHandler = (button) => {
@@ -32,12 +32,33 @@ export const cardButtonHandler = (button) => {
   });
 }
 
+import { getUserInfo } from './api.js';
+import { editProfileInfo } from './api.js';
+
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 export const formSubmitEditHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Вставим новые значения с помощью textContent
-  nameText.textContent = nameInput.value;
-  jobText.textContent = jobInput.value;
+  // nameText.textContent = nameInput.value;
+  // jobText.textContent = jobInput.value;
+
+  // Отправим новые значения на сервер
+  editProfileInfo(nameInput.value, jobInput.value)
+    .then((result) => {
+      getUserInfo()
+        .then((result) => {
+          // обрабатываем результат
+        })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        });
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+
+    
+
   // закрываем форму
   closePopup(popupInfoElement);
 }

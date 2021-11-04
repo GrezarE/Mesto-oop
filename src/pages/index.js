@@ -18,7 +18,7 @@ import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
 
-import { isInitialCards } from '../components/card.js';
+// import { isInitialCards } from '../components/card.js';
 import { enableValidation } from '../components/validate.js';
 
 
@@ -66,7 +66,14 @@ enableValidation({
 });
 
 
-
+import { getUserInfo } from '../components/api.js';
+getUserInfo()
+  .then((result) => {
+    // обрабатываем результат
+  })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  });
 
 import { getInitialCards } from '../components/api.js';
 getInitialCards()
@@ -76,3 +83,12 @@ getInitialCards()
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
+
+// import { editProfileInfo } from '../components/api.js';
+// editProfileInfo('Marie Skłodowska Curie', 'Physicist and Chemist')
+//   .then((result) => {
+//     // обрабатываем результат
+//   })
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   });

@@ -34,6 +34,7 @@ export const cardButtonHandler = (button) => {
 
 import { getUserInfo } from './api.js';
 import { editProfileInfo } from './api.js';
+import { createCard } from './api.js';
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 export const formSubmitEditHandler = (evt) => {
@@ -67,7 +68,22 @@ export const formSubmitEditHandler = (evt) => {
 export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // добавим элемент в начало контейнера со списком
-  cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+  // cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+  // Отправим новые значения на сервер
+  createCard(placeInput.value, linkInput.value)
+    .then((result) => {
+      getUserInfo()
+        .then((result) => {
+          // обрабатываем результат
+        })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        });
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+
   // Найдём в форме кнопку отправки
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   // закрываем форму

@@ -26,6 +26,8 @@
 //     console.log(data);
 //   });
 
+import { placeInput } from './utilits.js'
+import { linkInput } from './utilits.js'
 import { nameText } from './utilits.js';
 import { jobText } from './utilits.js';
 import { cardsContainer } from './utilits.js'
@@ -107,45 +109,33 @@ export const editProfileInfo = (name, about) => {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      console.log(data);
-      console.log(data.name);
-      console.log(data.about);
+      // console.log(data);
+      // console.log(data.name);
+      // console.log(data.about);
 
       
     });
 }
 
+export const createCard = (name, link) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
 
-
-
-// function createPost(newPost) {
-//   fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       title: newPost.title,
-//       body: newPost.body
-//     }),
-//     headers: {
-//       'Content-Type': 'application/json; charset=UTF-8'
-//     }
-//   })
-//   .then(response => response.json())
-//   .then((post) => {
-//     addPostToDOM(
-//         document.querySelector('.container'),
-//         createPostMarkup(post)
-//       );
-//   });
-// }
-
-// // обработчик сабмита формы
-// document.forms.post.addEventListener('submit', function (event) {
-//   event.preventDefault();
-
-//   const { title, text } = event.currentTarget.elements;
-
-//   createPost({
-//     title: title.value,
-//     body: text.value
-//   });
-// });
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((card) => {
+      // console.log(card);
+      cardsContainer.prepend(addCard(card.name, card.link));
+    });
+}

@@ -210,3 +210,25 @@ export const deleteLike = (cardId, counter) => {
       // console.log(counter.textContent);
     });
 }
+
+// отправить измененные данные о пользователе на сервер
+export const editAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      // console.log(data);
+    });
+}

@@ -1,0 +1,35 @@
+.profile__button-avatar {
+  height: 120px;
+  border-radius: 120px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: none;
+  position: relative;
+  transition: opacity .4s linear;
+  opacity: 1;
+}
+
+.profile__button-avatar:hover .profile__avatar {
+  opacity: .2;
+  
+}
+
+.profile__button-avatar::before {
+  content: '';
+  background: url(../../../images/profile-button-avatar.svg) center/cover no-repeat;
+  width: 26px;
+  height: 26px;
+  display: block;
+  position: absolute;
+  z-index: 5;
+  opacity: 0;
+  left: calc(50% - 13px);
+  top: calc(50% - 13px);
+  transition: opacity .4s linear;
+  
+}
+
+.profile__button-avatar:hover::before {
+  opacity: 1;
+}

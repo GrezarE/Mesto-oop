@@ -119,9 +119,9 @@ export const formSubmitDeleteHandler = (evt) => {
 
   deleteCard(cardId, listItem)
     .then((result) => {
-      // console.log(cardId);
+      // console.log(result);
       // getInitialCards()
-      //   .then((result) => {
+      //  .then((result) => {
       //     // обрабатываем результат
       //   })
       //   .catch((err) => {

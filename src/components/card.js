@@ -34,11 +34,39 @@ import { deleteButtonHandler } from './modal.js';
 
 // import { getInitialCards } from './api.js';
 
+import { addLike, deleteLike, userId } from './api.js';
+
 // функция обработчика кнопки "Лайк"
-function likeButtonHandler(button) {
+function likeButtonHandler(button, card) {
   button.addEventListener('click', function (evt) {
     const eventTarget = evt.target;
-    eventTarget.classList.toggle('element__icon_active');
+    // console.log(eventTarget);
+    const cardElement = eventTarget.closest('.cards__item');
+    const likesCounter = cardElement.querySelector('.element__likes');
+    const cardId = card._id;
+    if (!eventTarget.classList.contains('element__icon_active')) {
+      addLike(cardId, likesCounter)
+        .then((result) => {
+          // console.log(card.likes);
+          // добавляем количество лайков
+          eventTarget.classList.add('element__icon_active');
+          // cardElement.querySelector('.element__likes').textContent = card.likes.length;
+          // console.log(cardElement.querySelector('.element__likes').textContent);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
+    } else {
+      deleteLike(cardId, likesCounter)
+        .then((result) => {
+          eventTarget.classList.remove('element__icon_active');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
+    }
   });
 }
 
@@ -54,21 +82,8 @@ function likeButtonHandler(button) {
 //   });
 // }
 
-// функция обработчика кнопки удаления карточки
-// function deleteButtonHandler(button, cardId) {
-//   button.addEventListener('click', function (evt) {
-    
-//     const evtTarget = evt.target;
-//     openPopup(popupDeleteCard);
-//     formDeleteElement.addEventListener('submit', formSubmitDeleteHandler);
-//     // находим нужный элемент - карточку для удаления
-//     const listItem = evtTarget.closest('.cards__item');
-//     // удаляем его
-//     listItem.remove();
-//   });
-// }
 
-import { userId } from './api.js';
+
 
 // функция добавления карточки
 export function addCard(card) {
@@ -83,13 +98,29 @@ export function addCard(card) {
   cardElement.querySelector('.element__caption-title').textContent = card.name;
   // добавляем количество лайков
   cardElement.querySelector('.element__likes').textContent = card.likes.length;
-  // находим кнопку "лайк"
+  
+    // находим кнопку "лайк"
   const likeButton = cardElement.querySelector('.element__icon');
-  // добавляем обработчик клика на кнопку "лайк"
-  likeButtonHandler(likeButton);
 
+  const arrLikes = card.likes;
+  // console.log(arrLikes);
+  arrLikes.forEach((likeElement) => {
+    if (likeElement._id === userId) {
+      likeButton.classList.add('element__icon_active');
+    }
+  });
+  // if (arrLikes.some((likeElement) => {
+  //   return (likeElement._id === userId)
+  // }) {
+  //   likeButton.classList.add('element__icon_active');
+  // };
+
+  // добавляем обработчик клика на кнопку "лайк"
+  likeButtonHandler(likeButton, card);
+
+  // console.log(card.likes);
   // console.log(userId);
-  // console.log(card.owner._id);
+  // console.log(card._id);
   
   // находим кнопку удаления карточки
   const deleteButton = cardElement.querySelector('.element__button-delete');

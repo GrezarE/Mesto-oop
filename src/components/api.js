@@ -166,3 +166,47 @@ export const deleteCard = (cardId, cardElement) => {
       cardElement.remove();
     });
 }
+
+// отправить запрос на постановку лайка
+export const addLike = (cardId, counter) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers,
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((card) => {
+      // console.log(card);
+      // console.log(card.likes.length);
+
+      counter.textContent = card.likes.length;
+      // console.log(counter.textContent);
+
+    });
+}
+
+// отправить запрос на удаление лайка
+export const deleteLike = (cardId, counter) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((card) => {
+      counter.textContent = card.likes.length;
+      // console.log(counter.textContent);
+    });
+}

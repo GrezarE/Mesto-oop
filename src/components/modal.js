@@ -1,6 +1,9 @@
-import { popupInfoElement } from './utilits.js'
+import { formAddElement, popupInfoElement } from './utilits.js'
 import { popupAddElement } from './utilits.js'
 import { popupCardElement } from './utilits.js'
+import { popupDeleteCard } from './utilits.js'
+import { formDeleteElement } from './utilits.js'
+
 import { cardsContainer } from './utilits.js'
 import { addCard } from './card.js'
 import { placeInput } from './utilits.js'
@@ -32,11 +35,18 @@ export const cardButtonHandler = (button) => {
   });
 }
 
+
+
+
+
 import { getUserInfo } from './api.js';
 import { editProfileInfo } from './api.js';
 import { createCard } from './api.js';
+import { deleteCard } from './api.js';
+import { getInitialCards} from './api.js';
 
-// Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
+
+// Обработчик «отправки» формы редактирования профиля, хотя пока она никуда отправляться не будет
 export const formSubmitEditHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Вставим новые значения с помощью textContent
@@ -64,7 +74,7 @@ export const formSubmitEditHandler = (evt) => {
   closePopup(popupInfoElement);
 }
 
-// Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
+// Обработчик «отправки» формы добавления карточки, хотя пока она никуда отправляться не будет
 export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // добавим элемент в начало контейнера со списком
@@ -72,13 +82,13 @@ export const formSubmitAddHandler = (evt) => {
   // Отправим новые значения на сервер
   createCard(placeInput.value, linkInput.value)
     .then((result) => {
-      getUserInfo()
-        .then((result) => {
-          // обрабатываем результат
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
+      // getUserInfo()
+      //   .then((result) => {
+      //     // обрабатываем результат
+      //   })
+      //   .catch((err) => {
+      //     console.log(err); // выводим ошибку в консоль
+      //   });
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
@@ -93,6 +103,66 @@ export const formSubmitAddHandler = (evt) => {
   // деактивируем кнопку сабмита
   buttonElement.disabled = true;
 }
+
+let cardId;
+
+// Обработчик «отправки» формы удаления карточки, хотя пока она никуда отправляться не будет
+export const formSubmitDeleteHandler = (evt) => {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
+  // Отправим запрос на удаление карточки на сервер
+  // console.log(cardId);
+  
+  console.log(evtTarget);
+  const listItem = evtTarget.closest('.cards__item');
+  console.log(listItem);
+
+
+  deleteCard(cardId, listItem)
+    .then((result) => {
+      // console.log(cardId);
+      // getInitialCards()
+      //   .then((result) => {
+      //     // обрабатываем результат
+      //   })
+      //   .catch((err) => {
+      //     console.log(err); // выводим ошибку в консоль
+      //   });
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+
+  // Найдём в форме кнопку отправки
+  // const buttonDeleteElement = evt.target.querySelector('.popup__button-delete');
+  // закрываем форму
+  closePopup(popupDeleteCard);
+
+}
+
+let evtTarget;
+
+// функция обработчика кнопки удаления карточки
+export const deleteButtonHandler = (button, card) => {
+  button.addEventListener('click', function (evt) {
+    evtTarget = evt.target;
+    openPopup(popupDeleteCard);
+    // console.log(card);
+    cardId = card._id;
+    // console.log(cardId);
+    
+
+    formDeleteElement.addEventListener('submit', formSubmitDeleteHandler);
+
+    // const evtTarget = evt.target;
+    // // находим нужный элемент - карточку для удаления
+    // const listItem = evtTarget.closest('.cards__item');
+    // // удаляем его
+    // listItem.remove();
+  });
+}
+
+
+
 
 // функция закрытия попапа кликом на кнопку "закрыть" и оверлей
 export const closePopupButtonOverlay = (popup, evt) => {

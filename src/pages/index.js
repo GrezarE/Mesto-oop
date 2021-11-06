@@ -3,6 +3,7 @@ import './index.css'; // добавьте импорт главного файл
 import { popupInfoElement } from '../components/utilits.js';
 import { popupAddElement } from '../components/utilits.js';
 import { popupCardElement } from '../components/utilits.js';
+import { popupDeleteCard } from '../components/utilits.js';
 import { formAddElement } from '../components/utilits.js';
 import { nameText } from '../components/utilits.js';
 import { jobText } from '../components/utilits.js';
@@ -11,12 +12,16 @@ import { nameInput } from '../components/utilits.js';
 import { jobInput } from '../components/utilits.js';
 import { infoButton } from '../components/utilits.js';
 import { addButton } from '../components/utilits.js';
+import { formDeleteElement } from '../components/utilits.js';
+
 
 import { openPopup } from '../components/utilits.js';
 
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
+import { formSubmitDeleteHandler } from '../components/modal.js';
+
 
 // import { isInitialCards } from '../components/card.js';
 import { enableValidation } from '../components/validate.js';
@@ -30,7 +35,7 @@ infoButton.addEventListener('click', () => {
   jobInput.value = jobText.textContent;
 });
 
-// добавляем обработчик клика по кнопке "закрыть" и оверлею
+// добавляем обработчик клика по кнопке "закрыть" и оверлею формы редактирования профиля
 popupInfoElement.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupInfoElement, evt);
 });
@@ -40,14 +45,19 @@ addButton.addEventListener('click', () => {
   openPopup(popupAddElement);
 });
 
-// добавляем обработчик клика по кнопке "закрыть" и оверлею
+// добавляем обработчик клика по кнопке "закрыть" и оверлею формы добавления карточки
 popupAddElement.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupAddElement, evt);
 });
 
-// добавляем обработчик клика по кнопке "закрыть"
+// добавляем обработчик клика по кнопке "закрыть" попапа карточки
 popupCardElement.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupCardElement, evt);
+});
+
+// добавляем обработчик клика по кнопке "закрыть" формы удаления карточек
+popupDeleteCard.addEventListener('click', (evt) => {
+  closePopupButtonOverlay(popupDeleteCard, evt);
 });
 
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
@@ -55,6 +65,9 @@ formEditElement.addEventListener('submit', formSubmitEditHandler);
 
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
 formAddElement.addEventListener('submit', formSubmitAddHandler);
+
+// Прикрепляем обработчик к форме удаления карточек: он будет следить за событием “submit” - «отправка»
+// formDeleteElement.addEventListener('submit', formSubmitDeleteHandler);
 
 // isInitialCards();
 

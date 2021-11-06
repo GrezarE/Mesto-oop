@@ -42,6 +42,8 @@ const config = {
   }
 }
 
+export let userId;
+
 // получить информацию о пользователе с сервера
 export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -59,7 +61,8 @@ export const getUserInfo = () => {
       // console.log(data);
       // console.log(data.name);
       // console.log(data.about);
-
+      userId = data._id;
+      // console.log(userId);
       nameText.textContent = data.name;
       jobText.textContent = data.about;
     });
@@ -83,11 +86,11 @@ export const getInitialCards = () => {
       cards.forEach((card) => {
         // console.log(card.name);
         // console.log(card.link);
-        console.log(card.likes.length);
+        // console.log(card.likes.length);
 
         // добавляем карточку на страницу
         // вызываем функцию addCard
-        const cardItem = addCard(card.name, card.link, card.likes.length);
+        const cardItem = addCard(card);
         // добавим элемент в конец контейнера со списком
         cardsContainer.append(cardItem);
       });
@@ -141,6 +144,25 @@ export const createCard = (name, link) => {
     })
     .then((card) => {
       // console.log(card);
-      cardsContainer.prepend(addCard(card.name, card.link,  card.likes.length));
+      cardsContainer.prepend(addCard(card));
+    });
+}
+
+// отправить запрос на удаление карточки
+export const deleteCard = (cardId, cardElement) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((card) => {
+      cardElement.remove();
     });
 }

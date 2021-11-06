@@ -1,0 +1,38 @@
+.form-delete__button-delete {
+  width: 358px;
+  height: 50px;
+  font-size: 18px;
+  line-height: 1.22;
+  font-weight: normal;
+  border-radius: 2px;
+  margin: 38px 36px 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity .4s linear;
+  background-color: #000;
+  color: #fff;
+  font-family: inherit;
+}
+
+@media (max-width: 619px) {
+  .form-delete_button-delete {
+    height: 46px;
+    width: 238px;
+    font-size: 14px;
+    line-height: 1.21;
+    margin-top: 45px;
+    margin-left: 22px;
+    margin-right: 22px;
+  }
+}
+
+.form-delete__button-delete:hover {
+  opacity: .8;
+}
+
+.form-delete__button-delete:disabled {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #000;
+}

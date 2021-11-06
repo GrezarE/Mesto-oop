@@ -25,6 +25,10 @@ export const jobInput = formEditElement.querySelector('[name="description"]');
 export const infoButton = bodyElement.querySelector('.info__button');
 // находим кнопку, по которой открывается модальное окно добавления
 export const addButton = bodyElement.querySelector('.profile__button-add');
+// находим модальное окно удаления карточки
+export const popupDeleteCard = bodyElement.querySelector('.popup_option_delete-card');
+// находим форму удаления карточек
+export const formDeleteElement = bodyElement.querySelector('[name="delete"]');
 
 // функция закрытия попапа
 export function closePopup(popup) {

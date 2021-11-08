@@ -39,10 +39,10 @@
 @import url(../blocks/form-edit/__item/_error/form-edit__item_error.css);
 @import url(../blocks/form-edit/__item-error/form-edit__item-error.css);
 @import url(../blocks/form-edit/__button-save/form-edit__button-save.css);
+@import url(../blocks/form-delete/__info/form-delete__info.css);
 @import url(../blocks/form-delete/__button-delete/form-delete__button-delete.css);
 @import url(../blocks/popup/_option/popup_option_card.css);
 @import url(../blocks/popup/__container-card/popup__container-card.css);
-@import url(../blocks/popup/__container-delete-card/popup__container-delete-card.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__caption/card__caption.css);

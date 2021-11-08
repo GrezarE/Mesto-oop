@@ -1,0 +1,14 @@
+.form-delete__info {
+  width: 358px;
+  margin: 32px auto 36px;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-width: 619px) {
+  .form-delete__info {
+    width: 238px;
+    margin-top: 46px;
+    margin-bottom: 25px;
+  }
+}

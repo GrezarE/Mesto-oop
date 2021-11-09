@@ -27,8 +27,18 @@ export const infoButton = bodyElement.querySelector('.info__button');
 export const addButton = bodyElement.querySelector('.profile__button-add');
 // находим модальное окно удаления карточки
 export const popupDeleteCard = bodyElement.querySelector('.popup_option_delete-card');
+// находим модальное окно обновления аватара
+export const popupAvatarElement = bodyElement.querySelector('.popup_option_avatar');
 // находим форму удаления карточек
 export const formDeleteElement = bodyElement.querySelector('[name="delete"]');
+// находим форму обновления аватара
+export const formAvatarElement = bodyElement.querySelector('[name="avatar"]');
+// находим кнопку, по которой открывается модальное окно обновления аватара
+export const avatarButton = bodyElement.querySelector('.profile__button-avatar');
+// Находим поле формы в DOM
+export const avatarLinkInput = formAvatarElement.querySelector('[name="link-avatar"]');
+// Выберем сам элемент
+export const avatarLinkText = bodyElement.querySelector('.profile__avatar');
 
 // функция закрытия попапа
 export function closePopup(popup) {

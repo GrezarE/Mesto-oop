@@ -1,4 +1,4 @@
-import { formAddElement, popupInfoElement } from './utilits.js'
+import { popupAvatarElement, popupInfoElement } from './utilits.js'
 import { popupAddElement } from './utilits.js'
 import { popupCardElement } from './utilits.js'
 import { popupDeleteCard } from './utilits.js'
@@ -8,7 +8,7 @@ import { cardsContainer } from './utilits.js'
 import { addCard } from './card.js'
 import { placeInput } from './utilits.js'
 import { linkInput } from './utilits.js'
-import { nameText } from './utilits.js';
+import { avatarLinkInput } from './utilits.js';
 import { jobText } from './utilits.js';
 import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
@@ -43,7 +43,7 @@ import { getUserInfo } from './api.js';
 import { editProfileInfo } from './api.js';
 import { createCard } from './api.js';
 import { deleteCard } from './api.js';
-import { getInitialCards} from './api.js';
+import { updateAvatar} from './api.js';
 
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока она никуда отправляться не будет
@@ -161,9 +161,6 @@ export const deleteButtonHandler = (button, card) => {
   });
 }
 
-
-
-
 // функция закрытия попапа кликом на кнопку "закрыть" и оверлей
 export const closePopupButtonOverlay = (popup, evt) => {
   const isCloseButtonClicked = evt.target.classList.contains('popup__close-icon');
@@ -171,4 +168,36 @@ export const closePopupButtonOverlay = (popup, evt) => {
   if (isCloseButtonClicked || isOverlayClicked) {
     closePopup(popup);
   }
+}
+
+
+
+
+
+// Обработчик «отправки» формы обновления аватара, хотя пока она никуда отправляться не будет
+export const formSubmitUpdateAvatarHandler = (evt) => {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
+  // Вставим новые значения с помощью textContent
+  // nameText.textContent = nameInput.value;
+  // jobText.textContent = jobInput.value;
+
+  // Отправим новые значения на сервер
+  updateAvatar(avatarLinkInput.value)
+    .then((result) => {
+      getUserInfo()
+        .then((result) => {
+          // обрабатываем результат
+        })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        });
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+
+    
+
+  // закрываем форму
+  closePopup(popupAvatarElement);
 }

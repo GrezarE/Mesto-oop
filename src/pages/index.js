@@ -4,6 +4,8 @@ import { popupInfoElement } from '../components/utilits.js';
 import { popupAddElement } from '../components/utilits.js';
 import { popupCardElement } from '../components/utilits.js';
 import { popupDeleteCard } from '../components/utilits.js';
+import { popupAvatarElement } from '../components/utilits.js';
+
 import { formAddElement } from '../components/utilits.js';
 import { nameText } from '../components/utilits.js';
 import { jobText } from '../components/utilits.js';
@@ -12,7 +14,10 @@ import { nameInput } from '../components/utilits.js';
 import { jobInput } from '../components/utilits.js';
 import { infoButton } from '../components/utilits.js';
 import { addButton } from '../components/utilits.js';
-import { formDeleteElement } from '../components/utilits.js';
+import { formAvatarElement } from '../components/utilits.js';
+import { avatarButton } from '../components/utilits.js';
+import { avatarLinkInput } from '../components/utilits.js';
+import { avatarLinkText } from '../components/utilits.js';
 
 
 import { openPopup } from '../components/utilits.js';
@@ -20,7 +25,7 @@ import { openPopup } from '../components/utilits.js';
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
-import { formSubmitDeleteHandler } from '../components/modal.js';
+import { formSubmitUpdateAvatarHandler } from '../components/modal.js';
 
 
 // import { isInitialCards } from '../components/card.js';
@@ -60,14 +65,30 @@ popupDeleteCard.addEventListener('click', (evt) => {
   closePopupButtonOverlay(popupDeleteCard, evt);
 });
 
+// добавляем обработчик клика по кнопке "аватар"
+avatarButton.addEventListener('click', () => {
+  openPopup(popupAvatarElement);
+  console.log(avatarLinkInput);
+  console.log(avatarLinkText);
+  console.log(avatarLinkText.src);
+
+  // вставим начальные данные из профиля в поля формы
+  avatarLinkInput.value = avatarLinkText.src;
+});
+
+// добавляем обработчик клика по кнопке "закрыть" и оверлею формы редактирования профиля
+popupAvatarElement.addEventListener('click', (evt) => {
+  closePopupButtonOverlay(popupAvatarElement, evt);
+});
+
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
 formEditElement.addEventListener('submit', formSubmitEditHandler);
 
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
 formAddElement.addEventListener('submit', formSubmitAddHandler);
 
-// Прикрепляем обработчик к форме удаления карточек: он будет следить за событием “submit” - «отправка»
-// formDeleteElement.addEventListener('submit', formSubmitDeleteHandler);
+// Прикрепляем обработчик к форме обновления аватара: он будет следить за событием “submit” - «отправка»
+formAvatarElement.addEventListener('submit', formSubmitUpdateAvatarHandler);
 
 // isInitialCards();
 

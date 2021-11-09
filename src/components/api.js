@@ -27,7 +27,7 @@
 //   });
 
 import { placeInput } from './utilits.js'
-import { linkInput } from './utilits.js'
+import { avatarLinkText } from './utilits.js'
 import { nameText } from './utilits.js';
 import { jobText } from './utilits.js';
 import { cardsContainer } from './utilits.js'
@@ -65,6 +65,7 @@ export const getUserInfo = () => {
       // console.log(userId);
       nameText.textContent = data.name;
       jobText.textContent = data.about;
+      avatarLinkText.src = data.avatar;
     });
 }
 
@@ -212,12 +213,34 @@ export const deleteLike = (cardId, counter) => {
 }
 
 // отправить измененные данные о пользователе на сервер
-export const editAvatar = (avatar) => {
+// export const editAvatar = (avatar) => {
+//   return fetch(`${config.baseUrl}/users/me/avatar`, {
+//     method: 'PATCH',
+//     headers: config.headers,
+//     body: JSON.stringify({
+//       avatar: avatar
+//     })
+//   })
+//     .then(res => {
+//       if (res.ok) {
+//         return res.json();
+//       }
+
+//       // если ошибка, отклоняем промис
+//       return Promise.reject(`Ошибка: ${res.status}`);
+//     })
+//     .then((data) => {
+//       // console.log(data);
+//     });
+// }
+
+// отправить измененные данные об аватаре на сервер
+export const updateAvatar = (link) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      avatar: avatar
+      avatar: link
     })
   })
     .then(res => {
@@ -229,6 +252,10 @@ export const editAvatar = (avatar) => {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      // console.log(data);
+      console.log(data);
+      // console.log(data.name);
+      // console.log(data.about);
+
+      
     });
 }

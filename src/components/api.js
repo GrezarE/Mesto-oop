@@ -66,6 +66,7 @@ export const getUserInfo = () => {
       nameText.textContent = data.name;
       jobText.textContent = data.about;
       avatarLinkText.src = data.avatar;
+      console.log(avatarLinkText.src);
     });
 }
 

@@ -44,6 +44,7 @@ import { editProfileInfo } from './api.js';
 import { createCard } from './api.js';
 import { deleteCard } from './api.js';
 import { updateAvatar} from './api.js';
+import { renderLoading } from './utilits.js';
 
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока она никуда отправляться не будет
@@ -52,13 +53,16 @@ export const formSubmitEditHandler = (evt) => {
   // Вставим новые значения с помощью textContent
   // nameText.textContent = nameInput.value;
   // jobText.textContent = jobInput.value;
-
+  // Найдём в форме кнопку отправки
+  const buttonElement = evt.target.querySelector('.form-edit__button-save');
+  renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   editProfileInfo(nameInput.value, jobInput.value)
     .then((result) => {
       getUserInfo()
         .then((result) => {
           // обрабатываем результат
+
         })
         .catch((err) => {
           console.log(err); // выводим ошибку в консоль
@@ -66,12 +70,16 @@ export const formSubmitEditHandler = (evt) => {
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      setTimeout(renderLoading, 400, buttonElement, false);
+      // закрываем форму
+      closePopup(popupInfoElement);
     });
 
     
 
-  // закрываем форму
-  closePopup(popupInfoElement);
+  
 }
 
 // Обработчик «отправки» формы добавления карточки, хотя пока она никуда отправляться не будет
@@ -79,6 +87,9 @@ export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // добавим элемент в начало контейнера со списком
   // cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
+  // Найдём в форме кнопку отправки
+  const buttonElement = evt.target.querySelector('.form-edit__button-save');
+  renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   createCard(placeInput.value, linkInput.value)
     .then((result) => {
@@ -92,16 +103,26 @@ export const formSubmitAddHandler = (evt) => {
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      // buttonElement.textContent = 'Создать';
+      setTimeout(renderLoading, 400, buttonElement, false);
+      // закрываем форму
+      closePopup(popupAddElement);
+      // очищаем форму
+      evt.target.reset();
+      // деактивируем кнопку сабмита
+      buttonElement.disabled = true;
     });
 
-  // Найдём в форме кнопку отправки
-  const buttonElement = evt.target.querySelector('.form-edit__button-save');
+  // // Найдём в форме кнопку отправки
+  // const buttonElement = evt.target.querySelector('.form-edit__button-save');
   // закрываем форму
-  closePopup(popupAddElement);
-  // очищаем форму
-  evt.target.reset();
-  // деактивируем кнопку сабмита
-  buttonElement.disabled = true;
+  // closePopup(popupAddElement);
+  // // очищаем форму
+  // evt.target.reset();
+  // // деактивируем кнопку сабмита
+  // buttonElement.disabled = true;
 }
 
 let cardId;
@@ -180,7 +201,9 @@ export const formSubmitUpdateAvatarHandler = (evt) => {
   // Вставим новые значения с помощью textContent
   // nameText.textContent = nameInput.value;
   // jobText.textContent = jobInput.value;
-
+  // Найдём в форме кнопку отправки
+  const buttonElement = evt.target.querySelector('.form-edit__button-save');
+  renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   updateAvatar(avatarLinkInput.value)
     .then((result) => {
@@ -194,10 +217,14 @@ export const formSubmitUpdateAvatarHandler = (evt) => {
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      setTimeout(renderLoading, 400, buttonElement, false);
+      // закрываем форму
+      closePopup(popupAvatarElement);
     });
 
     
 
-  // закрываем форму
-  closePopup(popupAvatarElement);
+  
 }

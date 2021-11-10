@@ -69,7 +69,6 @@ export const renderLoading = (button, isLoading) => {
   if (isLoading) {
     button.textContent = 'Сохранение...';
   } else {
-    
     if (!button.classList.contains('form-edit__button-save_create')) {
       button.textContent = 'Сохранить';
     } else {

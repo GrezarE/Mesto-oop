@@ -5,7 +5,6 @@ import { popupAddElement } from '../components/utilits.js';
 import { popupCardElement } from '../components/utilits.js';
 import { popupDeleteCard } from '../components/utilits.js';
 import { popupAvatarElement } from '../components/utilits.js';
-
 import { formAddElement } from '../components/utilits.js';
 import { nameText } from '../components/utilits.js';
 import { jobText } from '../components/utilits.js';
@@ -18,17 +17,11 @@ import { formAvatarElement } from '../components/utilits.js';
 import { avatarButton } from '../components/utilits.js';
 import { avatarLinkInput } from '../components/utilits.js';
 import { avatarLinkText } from '../components/utilits.js';
-
-
 import { openPopup } from '../components/utilits.js';
-
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
 import { formSubmitUpdateAvatarHandler } from '../components/modal.js';
-
-
-// import { isInitialCards } from '../components/card.js';
 import { enableValidation } from '../components/validate.js';
 
 
@@ -68,10 +61,6 @@ popupDeleteCard.addEventListener('click', (evt) => {
 // добавляем обработчик клика по кнопке "аватар"
 avatarButton.addEventListener('click', () => {
   openPopup(popupAvatarElement);
-  console.log(avatarLinkInput);
-  console.log(avatarLinkText);
-  console.log(avatarLinkText.src);
-
   // вставим начальные данные из профиля в поля формы
   avatarLinkInput.value = avatarLinkText.src;
 });
@@ -89,8 +78,6 @@ formAddElement.addEventListener('submit', formSubmitAddHandler);
 
 // Прикрепляем обработчик к форме обновления аватара: он будет следить за событием “submit” - «отправка»
 formAvatarElement.addEventListener('submit', formSubmitUpdateAvatarHandler);
-
-// isInitialCards();
 
 enableValidation({
   formSelector: '.form-edit',
@@ -117,12 +104,3 @@ getInitialCards()
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
-
-// import { editProfileInfo } from '../components/api.js';
-// editProfileInfo('Marie Skłodowska Curie', 'Physicist and Chemist')
-//   .then((result) => {
-//     // обрабатываем результат
-//   })
-//   .catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-//   });

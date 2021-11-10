@@ -12,7 +12,6 @@
 
 .profile__button-avatar:hover .profile__avatar {
   opacity: .2;
-  
 }
 
 .profile__button-avatar::before {
@@ -27,7 +26,6 @@
   left: calc(50% - 13px);
   top: calc(50% - 13px);
   transition: opacity .4s linear;
-  
 }
 
 .profile__button-avatar:hover::before {

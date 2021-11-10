@@ -3,18 +3,19 @@ import { popupAddElement } from './utilits.js'
 import { popupCardElement } from './utilits.js'
 import { popupDeleteCard } from './utilits.js'
 import { formDeleteElement } from './utilits.js'
-
-import { cardsContainer } from './utilits.js'
-import { addCard } from './card.js'
 import { placeInput } from './utilits.js'
 import { linkInput } from './utilits.js'
 import { avatarLinkInput } from './utilits.js';
-import { jobText } from './utilits.js';
 import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
-
 import { openPopup } from './utilits.js';
 import { closePopup } from './utilits.js';
+import { renderLoading } from './utilits.js';
+import { getUserInfo } from './api.js';
+import { editProfileInfo } from './api.js';
+import { createCard } from './api.js';
+import { deleteCard } from './api.js';
+import { updateAvatar} from './api.js';
 
 // функция обработчика клика на карточку
 export const cardButtonHandler = (button) => {
@@ -35,24 +36,9 @@ export const cardButtonHandler = (button) => {
   });
 }
 
-
-
-
-
-import { getUserInfo } from './api.js';
-import { editProfileInfo } from './api.js';
-import { createCard } from './api.js';
-import { deleteCard } from './api.js';
-import { updateAvatar} from './api.js';
-import { renderLoading } from './utilits.js';
-
-
 // Обработчик «отправки» формы редактирования профиля, хотя пока она никуда отправляться не будет
 export const formSubmitEditHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-  // Вставим новые значения с помощью textContent
-  // nameText.textContent = nameInput.value;
-  // jobText.textContent = jobInput.value;
   // Найдём в форме кнопку отправки
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
@@ -62,7 +48,6 @@ export const formSubmitEditHandler = (evt) => {
       getUserInfo()
         .then((result) => {
           // обрабатываем результат
-
         })
         .catch((err) => {
           console.log(err); // выводим ошибку в консоль
@@ -76,36 +61,22 @@ export const formSubmitEditHandler = (evt) => {
       // закрываем форму
       closePopup(popupInfoElement);
     });
-
-    
-
-  
 }
 
 // Обработчик «отправки» формы добавления карточки, хотя пока она никуда отправляться не будет
 export const formSubmitAddHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-  // добавим элемент в начало контейнера со списком
-  // cardsContainer.prepend(addCard(placeInput.value, linkInput.value));
   // Найдём в форме кнопку отправки
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   createCard(placeInput.value, linkInput.value)
     .then((result) => {
-      // getUserInfo()
-      //   .then((result) => {
-      //     // обрабатываем результат
-      //   })
-      //   .catch((err) => {
-      //     console.log(err); // выводим ошибку в консоль
-      //   });
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
     })
     .finally(() => {
-      // buttonElement.textContent = 'Создать';
       setTimeout(renderLoading, 400, buttonElement, false);
       // закрываем форму
       closePopup(popupAddElement);
@@ -114,15 +85,6 @@ export const formSubmitAddHandler = (evt) => {
       // деактивируем кнопку сабмита
       buttonElement.disabled = true;
     });
-
-  // // Найдём в форме кнопку отправки
-  // const buttonElement = evt.target.querySelector('.form-edit__button-save');
-  // закрываем форму
-  // closePopup(popupAddElement);
-  // // очищаем форму
-  // evt.target.reset();
-  // // деактивируем кнопку сабмита
-  // buttonElement.disabled = true;
 }
 
 let cardId;
@@ -131,33 +93,15 @@ let cardId;
 export const formSubmitDeleteHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Отправим запрос на удаление карточки на сервер
-  // console.log(cardId);
-  
-  console.log(evtTarget);
   const listItem = evtTarget.closest('.cards__item');
-  console.log(listItem);
-
-
   deleteCard(cardId, listItem)
     .then((result) => {
-      // console.log(result);
-      // getInitialCards()
-      //  .then((result) => {
-      //     // обрабатываем результат
-      //   })
-      //   .catch((err) => {
-      //     console.log(err); // выводим ошибку в консоль
-      //   });
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
     });
-
-  // Найдём в форме кнопку отправки
-  // const buttonDeleteElement = evt.target.querySelector('.popup__button-delete');
   // закрываем форму
   closePopup(popupDeleteCard);
-
 }
 
 let evtTarget;
@@ -167,18 +111,8 @@ export const deleteButtonHandler = (button, card) => {
   button.addEventListener('click', function (evt) {
     evtTarget = evt.target;
     openPopup(popupDeleteCard);
-    // console.log(card);
     cardId = card._id;
-    // console.log(cardId);
-    
-
     formDeleteElement.addEventListener('submit', formSubmitDeleteHandler);
-
-    // const evtTarget = evt.target;
-    // // находим нужный элемент - карточку для удаления
-    // const listItem = evtTarget.closest('.cards__item');
-    // // удаляем его
-    // listItem.remove();
   });
 }
 

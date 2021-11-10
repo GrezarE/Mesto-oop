@@ -1,37 +1,5 @@
-// Токен: a26fb37f-3598-49d5-8eb1-77505c512d04
-// Идентификатор группы: plus-cohort-3
-// Адрес сервера проекта Mesto: https://mesto.nomoreparties.co
-
-// return fetch('https://nomoreparties.co/v1/plus-cohort-3/cards', {
-//   headers: {
-//     authorization: 'a26fb37f-3598-49d5-8eb1-77505c512d04'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
-
-
-
-// fetch('https://nomoreparties.co/v1/plus-cohort-3/cards', {
-//   headers: {
-//     authorization: 'a26fb37f-3598-49d5-8eb1-77505c512d04'
-//   }
-// })
-//   .then((res) => {
-//     return res.json();
-//   })
-//   .then((data) => {
-//     console.log(data);
-//   });
-
-import { placeInput } from './utilits.js'
-import { avatarLinkText } from './utilits.js'
-import { nameText } from './utilits.js';
-import { jobText } from './utilits.js';
-import { cardsContainer } from './utilits.js'
-import { addCard } from './card.js'
+import { avatarLinkText, nameText, jobText, cardsContainer } from './utilits.js';
+import { addCard } from './card.js';
 
 
 const config = {
@@ -53,20 +21,14 @@ export const getUserInfo = () => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      // console.log(data);
-      // console.log(data.name);
-      // console.log(data.about);
       userId = data._id;
-      // console.log(userId);
       nameText.textContent = data.name;
       jobText.textContent = data.about;
       avatarLinkText.src = data.avatar;
-      console.log(avatarLinkText.src);
     });
 }
 
@@ -79,17 +41,12 @@ export const getInitialCards = () => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((cards) => {
       console.log(cards);
       cards.forEach((card) => {
-        // console.log(card.name);
-        // console.log(card.link);
-        // console.log(card.likes.length);
-
         // добавляем карточку на страницу
         // вызываем функцию addCard
         const cardItem = addCard(card);
@@ -113,16 +70,10 @@ export const editProfileInfo = (name, about) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      // console.log(data);
-      // console.log(data.name);
-      // console.log(data.about);
-
-      
     });
 }
 
@@ -140,12 +91,10 @@ export const createCard = (name, link) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((card) => {
-      // console.log(card);
       cardsContainer.prepend(addCard(card));
     });
 }
@@ -160,7 +109,6 @@ export const deleteCard = (cardId, cardElement) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
@@ -179,17 +127,11 @@ export const addLike = (cardId, counter) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((card) => {
-      // console.log(card);
-      // console.log(card.likes.length);
-
       counter.textContent = card.likes.length;
-      // console.log(counter.textContent);
-
     });
 }
 
@@ -203,37 +145,13 @@ export const deleteLike = (cardId, counter) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((card) => {
       counter.textContent = card.likes.length;
-      // console.log(counter.textContent);
     });
 }
-
-// отправить измененные данные о пользователе на сервер
-// export const editAvatar = (avatar) => {
-//   return fetch(`${config.baseUrl}/users/me/avatar`, {
-//     method: 'PATCH',
-//     headers: config.headers,
-//     body: JSON.stringify({
-//       avatar: avatar
-//     })
-//   })
-//     .then(res => {
-//       if (res.ok) {
-//         return res.json();
-//       }
-
-//       // если ошибка, отклоняем промис
-//       return Promise.reject(`Ошибка: ${res.status}`);
-//     })
-//     .then((data) => {
-//       // console.log(data);
-//     });
-// }
 
 // отправить измененные данные об аватаре на сервер
 export const updateAvatar = (link) => {
@@ -248,15 +166,9 @@ export const updateAvatar = (link) => {
       if (res.ok) {
         return res.json();
       }
-
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      console.log(data);
-      // console.log(data.name);
-      // console.log(data.about);
-
-      
     });
 }

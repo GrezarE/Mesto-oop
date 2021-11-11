@@ -83,7 +83,7 @@ export const formSubmitAddHandler = (evt) => {
       console.log(err); // выводим ошибку в консоль
     })
     .finally(() => {
-      setTimeout(renderLoading, 400, buttonElement, false);
+      setTimeout(renderLoading, 400, buttonElement, false, 'Создать');
     });
 }
 

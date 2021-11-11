@@ -2,8 +2,7 @@ import './index.css'; // добавьте импорт главного файл
 
 import { popupInfoElement } from '../components/utilits.js';
 import { popupAddElement } from '../components/utilits.js';
-import { popupCardElement } from '../components/utilits.js';
-import { popupDeleteCard } from '../components/utilits.js';
+import { popups } from '../components/utilits.js';
 import { popupAvatarElement } from '../components/utilits.js';
 import { formAddElement } from '../components/utilits.js';
 import { nameText, jobText, avatarLinkText } from '../components/utilits.js';
@@ -31,29 +30,9 @@ infoButton.addEventListener('click', () => {
   jobInput.value = jobText.textContent;
 });
 
-// добавляем обработчик клика по кнопке "закрыть" и оверлею формы редактирования профиля
-popupInfoElement.addEventListener('click', (evt) => {
-  closePopupButtonOverlay(popupInfoElement, evt);
-});
-
 // добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener('click', () => {
   openPopup(popupAddElement);
-});
-
-// добавляем обработчик клика по кнопке "закрыть" и оверлею формы добавления карточки
-popupAddElement.addEventListener('click', (evt) => {
-  closePopupButtonOverlay(popupAddElement, evt);
-});
-
-// добавляем обработчик клика по кнопке "закрыть" попапа карточки
-popupCardElement.addEventListener('click', (evt) => {
-  closePopupButtonOverlay(popupCardElement, evt);
-});
-
-// добавляем обработчик клика по кнопке "закрыть" формы удаления карточек
-popupDeleteCard.addEventListener('click', (evt) => {
-  closePopupButtonOverlay(popupDeleteCard, evt);
 });
 
 // добавляем обработчик клика по кнопке "аватар"
@@ -61,10 +40,11 @@ avatarButton.addEventListener('click', () => {
   openPopup(popupAvatarElement);
 });
 
-// добавляем обработчик клика по кнопке "закрыть" и оверлею формы редактирования профиля
-popupAvatarElement.addEventListener('click', (evt) => {
-  closePopupButtonOverlay(popupAvatarElement, evt);
-});
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      closePopupButtonOverlay(popup, evt);
+    })
+})
 
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
 formEditElement.addEventListener('submit', formSubmitEditHandler);

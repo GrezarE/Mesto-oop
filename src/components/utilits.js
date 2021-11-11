@@ -39,6 +39,9 @@ export const avatarButton = bodyElement.querySelector('.profile__button-avatar')
 export const avatarLinkInput = formAvatarElement.querySelector('[name="link-avatar"]');
 // Выберем сам элемент
 export const avatarLinkText = bodyElement.querySelector('.profile__avatar');
+// Выберем все попапы
+export const popups = document.querySelectorAll('.popup');
+
 
 // функция закрытия попапа
 export function closePopup(popup) {
@@ -65,14 +68,10 @@ export const openPopup = (popup) => {
 }
 
 // функция изменения текста кнопки
-export const renderLoading = (button, isLoading) => {
+export const renderLoading = (button, isLoading, text='Сохранить') => {
   if (isLoading) {
     button.textContent = 'Сохранение...';
   } else {
-    if (!button.classList.contains('form-edit__button-save_create')) {
-      button.textContent = 'Сохранить';
-    } else {
-      button.textContent = 'Создать';
-    };
+    button.textContent = text;
   }
 }

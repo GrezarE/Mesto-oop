@@ -15,8 +15,6 @@ import { infoButton } from '../components/utilits.js';
 import { addButton } from '../components/utilits.js';
 import { formAvatarElement } from '../components/utilits.js';
 import { avatarButton } from '../components/utilits.js';
-import { avatarLinkInput } from '../components/utilits.js';
-import { avatarLinkText } from '../components/utilits.js';
 import { openPopup } from '../components/utilits.js';
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
@@ -61,8 +59,6 @@ popupDeleteCard.addEventListener('click', (evt) => {
 // добавляем обработчик клика по кнопке "аватар"
 avatarButton.addEventListener('click', () => {
   openPopup(popupAvatarElement);
-  // вставим начальные данные из профиля в поля формы
-  avatarLinkInput.value = avatarLinkText.src;
 });
 
 // добавляем обработчик клика по кнопке "закрыть" и оверлею формы редактирования профиля
@@ -88,16 +84,25 @@ enableValidation({
 
 
 import { getUserInfo } from '../components/api.js';
-getUserInfo()
-  .then((result) => {
-    // обрабатываем результат
-  })
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  });
+// getUserInfo()
+//   .then((result) => {
+//     // обрабатываем результат
+//   })
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   });
 
 import { getInitialCards } from '../components/api.js';
-getInitialCards()
+// getInitialCards()
+//   .then((result) => {
+//     // обрабатываем результат
+//   })
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   });
+
+
+Promise.all([getUserInfo(), getInitialCards()])
   .then((result) => {
     // обрабатываем результат
   })

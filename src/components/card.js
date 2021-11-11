@@ -11,8 +11,9 @@ function likeButtonHandler(button, card) {
     const likesCounter = cardElement.querySelector('.element__likes');
     const cardId = card._id;
     if (!eventTarget.classList.contains('element__icon_active')) {
-      addLike(cardId, likesCounter)
-        .then((result) => {
+      addLike(cardId)
+        .then((card) => {
+          likesCounter.textContent = card.likes.length;
           // добавляем количество лайков
           eventTarget.classList.add('element__icon_active');
         })
@@ -20,8 +21,9 @@ function likeButtonHandler(button, card) {
           console.log(err);
         });
     } else {
-      deleteLike(cardId, likesCounter)
-        .then((result) => {
+      deleteLike(cardId)
+        .then((card) => {
+          likesCounter.textContent = card.likes.length;
           eventTarget.classList.remove('element__icon_active');
         })
         .catch((err) => {

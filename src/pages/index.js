@@ -86,22 +86,7 @@ enableValidation({
 export let userId;
 
 import { getUserInfo } from '../components/api.js';
-// getUserInfo()
-//   .then((result) => {
-//     // обрабатываем результат
-//   })
-//   .catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-//   });
-
 import { getInitialCards } from '../components/api.js';
-// getInitialCards()
-//   .then((result) => {
-//     // обрабатываем результат
-//   })
-//   .catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-//   });
 
 
 Promise.all([getUserInfo(), getInitialCards()])

@@ -1,21 +1,24 @@
-import { popupAvatarElement, popupInfoElement } from './utilits.js'
-import { popupAddElement } from './utilits.js'
-import { popupCardElement } from './utilits.js'
-import { popupDeleteCard } from './utilits.js'
-import { formDeleteElement } from './utilits.js'
-import { placeInput } from './utilits.js'
-import { linkInput } from './utilits.js'
+import { popupAvatarElement, popupInfoElement } from './utilits.js';
+import { popupAddElement } from './utilits.js';
+import { popupCardElement } from './utilits.js';
+import { popupDeleteCard } from './utilits.js';
+import { formDeleteElement } from './utilits.js';
+import { placeInput } from './utilits.js';
+import { linkInput } from './utilits.js';
 import { avatarLinkInput } from './utilits.js';
 import { nameInput } from './utilits.js';
 import { jobInput } from './utilits.js';
+import { nameText, jobText, avatarLinkText } from './utilits.js';
 import { openPopup } from './utilits.js';
 import { closePopup } from './utilits.js';
 import { renderLoading } from './utilits.js';
-import { getUserInfo } from './api.js';
 import { editProfileInfo } from './api.js';
 import { createCard } from './api.js';
 import { deleteCard } from './api.js';
 import { updateAvatar} from './api.js';
+import { cardsContainer } from './utilits.js';
+import { addCard } from './card.js';
+
 
 // функция обработчика клика на карточку
 export const cardButtonHandler = (button) => {
@@ -44,23 +47,19 @@ export const formSubmitEditHandler = (evt) => {
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   editProfileInfo(nameInput.value, jobInput.value)
-    .then((result) => {
-      getUserInfo()
-        .then((result) => {
-          // обрабатываем результат
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
+    .then((data) => {
+      console.log(data);
+      nameText.textContent = data.name;
+      jobText.textContent = data.about;
+      // закрываем форму
+      closePopup(popupInfoElement);
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
     })
     .finally(() => {
       setTimeout(renderLoading, 400, buttonElement, false);
-      // закрываем форму
-      closePopup(popupInfoElement);
-    });
+    })
 }
 
 // Обработчик «отправки» формы добавления карточки, хотя пока она никуда отправляться не будет
@@ -71,19 +70,20 @@ export const formSubmitAddHandler = (evt) => {
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   createCard(placeInput.value, linkInput.value)
-    .then((result) => {
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      setTimeout(renderLoading, 400, buttonElement, false);
+    .then((card) => {
+      cardsContainer.prepend(addCard(card));
       // закрываем форму
       closePopup(popupAddElement);
       // очищаем форму
       evt.target.reset();
       // деактивируем кнопку сабмита
       buttonElement.disabled = true;
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      setTimeout(renderLoading, 400, buttonElement, false);
     });
 }
 
@@ -93,15 +93,16 @@ let cardId;
 export const formSubmitDeleteHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Отправим запрос на удаление карточки на сервер
-  const listItem = evtTarget.closest('.cards__item');
-  deleteCard(cardId, listItem)
-    .then((result) => {
+  const cardElement = evtTarget.closest('.cards__item');
+  deleteCard(cardId)
+    .then(() => {
+      cardElement.remove();
+      // закрываем форму
+      closePopup(popupDeleteCard);
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
     });
-  // закрываем форму
-  closePopup(popupDeleteCard);
 }
 
 let evtTarget;
@@ -125,40 +126,23 @@ export const closePopupButtonOverlay = (popup, evt) => {
   }
 }
 
-
-
-
-
 // Обработчик «отправки» формы обновления аватара, хотя пока она никуда отправляться не будет
 export const formSubmitUpdateAvatarHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
-  // Вставим новые значения с помощью textContent
-  // nameText.textContent = nameInput.value;
-  // jobText.textContent = jobInput.value;
   // Найдём в форме кнопку отправки
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
   updateAvatar(avatarLinkInput.value)
-    .then((result) => {
-      getUserInfo()
-        .then((result) => {
-          // обрабатываем результат
-        })
-        .catch((err) => {
-          console.log(err); // выводим ошибку в консоль
-        });
+    .then((data) => {
+      avatarLinkText.src = data.avatar;
+      // закрываем форму
+      closePopup(popupAvatarElement);
     })
     .catch((err) => {
       console.log(err); // выводим ошибку в консоль
     })
     .finally(() => {
       setTimeout(renderLoading, 400, buttonElement, false);
-      // закрываем форму
-      closePopup(popupAvatarElement);
     });
-
-    
-
-  
 }

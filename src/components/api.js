@@ -1,7 +1,3 @@
-import { avatarLinkText, nameText, jobText, cardsContainer } from './utilits.js';
-import { addCard } from './card.js';
-
-
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-3',
   headers: {
@@ -18,20 +14,12 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-// export let userId;
-
 // получить информацию о пользователе с сервера
 export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-    .then(checkResponse)
-    // .then((data) => {
-    //   userId = data._id;
-    //   nameText.textContent = data.name;
-    //   jobText.textContent = data.about;
-    //   avatarLinkText.src = data.avatar;
-    // });
+    .then(checkResponse);
 }
 
 // загрузка карточек с сервера
@@ -39,17 +27,7 @@ export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-    .then(checkResponse)
-    // .then((cards) => {
-    //   console.log(cards);
-    //   cards.forEach((card) => {
-    //     // добавляем карточку на страницу
-    //     // вызываем функцию addCard
-    //     const cardItem = addCard(card);
-    //     // добавим элемент в конец контейнера со списком
-    //     cardsContainer.append(cardItem);
-    //   });
-    // });
+    .then(checkResponse);
 }
 
 // отправить измененные данные о пользователе на сервер
@@ -62,9 +40,7 @@ export const editProfileInfo = (name, about) => {
       about: about
     })
   })
-    .then(checkResponse)
-    .then((data) => {
-    });
+    .then(checkResponse);
 }
 
 // отправить данные для создания новой карточки
@@ -77,46 +53,34 @@ export const createCard = (name, link) => {
       link: link
     })
   })
-    .then(checkResponse)
-    .then((card) => {
-      cardsContainer.prepend(addCard(card));
-    });
+    .then(checkResponse);
 }
 
 // отправить запрос на удаление карточки
-export const deleteCard = (cardId, cardElement) => {
+export const deleteCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
   })
-    .then(checkResponse)
-    .then((card) => {
-      cardElement.remove();
-    });
+    .then(checkResponse);
 }
 
 // отправить запрос на постановку лайка
-export const addLike = (cardId, counter) => {
+export const addLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: config.headers,
   })
-    .then(checkResponse)
-    .then((card) => {
-      counter.textContent = card.likes.length;
-    });
+    .then(checkResponse);
 }
 
 // отправить запрос на удаление лайка
-export const deleteLike = (cardId, counter) => {
+export const deleteLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
   })
-    .then(checkResponse)
-    .then((card) => {
-      counter.textContent = card.likes.length;
-    });
+    .then(checkResponse);
 }
 
 // отправить измененные данные об аватаре на сервер
@@ -128,11 +92,5 @@ export const updateAvatar = (link) => {
       avatar: link
     })
   })
-    .then(checkResponse)
-    .then((data) => {
-    });
+    .then(checkResponse);
 }
-
-
-
-

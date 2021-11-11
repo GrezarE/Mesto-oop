@@ -18,7 +18,7 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export let userId;
+// export let userId;
 
 // получить информацию о пользователе с сервера
 export const getUserInfo = () => {
@@ -26,12 +26,12 @@ export const getUserInfo = () => {
     headers: config.headers
   })
     .then(checkResponse)
-    .then((data) => {
-      userId = data._id;
-      nameText.textContent = data.name;
-      jobText.textContent = data.about;
-      avatarLinkText.src = data.avatar;
-    });
+    // .then((data) => {
+    //   userId = data._id;
+    //   nameText.textContent = data.name;
+    //   jobText.textContent = data.about;
+    //   avatarLinkText.src = data.avatar;
+    // });
 }
 
 // загрузка карточек с сервера
@@ -40,16 +40,16 @@ export const getInitialCards = () => {
     headers: config.headers
   })
     .then(checkResponse)
-    .then((cards) => {
-      console.log(cards);
-      cards.forEach((card) => {
-        // добавляем карточку на страницу
-        // вызываем функцию addCard
-        const cardItem = addCard(card);
-        // добавим элемент в конец контейнера со списком
-        cardsContainer.append(cardItem);
-      });
-    });
+    // .then((cards) => {
+    //   console.log(cards);
+    //   cards.forEach((card) => {
+    //     // добавляем карточку на страницу
+    //     // вызываем функцию addCard
+    //     const cardItem = addCard(card);
+    //     // добавим элемент в конец контейнера со списком
+    //     cardsContainer.append(cardItem);
+    //   });
+    // });
 }
 
 // отправить измененные данные о пользователе на сервер

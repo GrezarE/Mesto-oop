@@ -6,21 +6,21 @@ import { popupCardElement } from '../components/utilits.js';
 import { popupDeleteCard } from '../components/utilits.js';
 import { popupAvatarElement } from '../components/utilits.js';
 import { formAddElement } from '../components/utilits.js';
-import { nameText } from '../components/utilits.js';
-import { jobText } from '../components/utilits.js';
+import { nameText, jobText, avatarLinkText } from '../components/utilits.js';
 import { formEditElement } from '../components/utilits.js';
-import { nameInput } from '../components/utilits.js';
-import { jobInput } from '../components/utilits.js';
+import { nameInput, jobInput } from '../components/utilits.js';
 import { infoButton } from '../components/utilits.js';
 import { addButton } from '../components/utilits.js';
 import { formAvatarElement } from '../components/utilits.js';
 import { avatarButton } from '../components/utilits.js';
 import { openPopup } from '../components/utilits.js';
+import { cardsContainer } from '../components/utilits.js';
 import { closePopupButtonOverlay } from '../components/modal.js';
 import { formSubmitEditHandler } from '../components/modal.js';
 import { formSubmitAddHandler } from '../components/modal.js';
 import { formSubmitUpdateAvatarHandler } from '../components/modal.js';
 import { enableValidation } from '../components/validate.js';
+import { addCard } from '../components/card.js';
 
 
 // добавляем обработчик клика по кнопке "редактировать"
@@ -83,6 +83,8 @@ enableValidation({
 });
 
 
+export let userId;
+
 import { getUserInfo } from '../components/api.js';
 // getUserInfo()
 //   .then((result) => {
@@ -104,7 +106,21 @@ import { getInitialCards } from '../components/api.js';
 
 Promise.all([getUserInfo(), getInitialCards()])
   .then((result) => {
-    // обрабатываем результат
+    const data = result[0];
+    const cards = result[1];
+    // обрабатываем данные пользователя
+    userId = data._id;
+    nameText.textContent = data.name;
+    jobText.textContent = data.about;
+    avatarLinkText.src = data.avatar;
+    // обрабатываем данные карточек
+    cards.forEach((card) => {
+      // добавляем карточку на страницу
+      // вызываем функцию addCard
+      const cardItem = addCard(card);
+      // добавим элемент в конец контейнера со списком
+      cardsContainer.append(cardItem);
+    });
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль

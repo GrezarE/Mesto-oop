@@ -1,6 +1,7 @@
 import { bodyElement } from './utilits.js'
 import { cardButtonHandler, deleteButtonHandler } from './modal.js';
-import { addLike, deleteLike, userId } from './api.js';
+import { addLike, deleteLike } from './api.js';
+import { userId } from '../pages/index.js';
 
 // функция обработчика кнопки "Лайк"
 function likeButtonHandler(button, card) {

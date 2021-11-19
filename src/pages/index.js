@@ -21,8 +21,19 @@ import { formSubmitUpdateAvatarHandler } from "../components/modal.js";
 // import { enableValidation } from "../components/validate.js";
 import { addCard } from "../components/card.js";
 
-import { configValid } from "../utils/constants.js";
+
+
+
+
+import {
+  configValid,
+  formList
+
+} from "../utils/constants.js";
 import FormValidator from "../components/FormValidator";
+
+
+
 
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
@@ -64,14 +75,17 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 //   inputErrorClass: "form-edit__item_error",
 // });
 
-// Находим массив всех форм
-const formList = Array.from(document.querySelectorAll(".form-edit"));
+
 
 // Для каждой формы создаем экземпляр класса
 formList.forEach((form) => {
   const validation = new FormValidator({data: configValid}, form);
   validation.enableValidation();
 });
+
+
+
+
 
 export let userId;
 

@@ -31,7 +31,7 @@ export default class Card {
     return cardElement;
   }
 
-  // Функция лайкания
+  // Метод лайкания
   _likeButtonHandler() {
     if (!this._likeButton.classList.contains("element__icon_active")) {
       this._apiLikeAdd(this._data._id)
@@ -58,6 +58,14 @@ export default class Card {
           console.log(err);
         });
     }
+  }
+
+  // Метод удаления карточки
+  _deleteButtonHandler() {
+    // Открыли попап
+
+    // Вешаем слушатель на отправку формы
+    
   }
 
   // Метод навешивания слушателей

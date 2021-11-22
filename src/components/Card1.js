@@ -25,7 +25,7 @@ export default class Card {
   _getElement() {
     const cardElement = document
       .querySelector(this._selector)
-      .content.querySelector('.cards__item')
+      .content.querySelector(".cards__item")
       .cloneNode(true);
 
     return cardElement;
@@ -33,16 +33,14 @@ export default class Card {
 
   // Функция лайкания
   _likeButtonHandler() {
-    if (!eventTarget.classList.contains("element__icon_active")) {
+    if (!this._likeButton.classList.contains("element__icon_active")) {
       this._apiLikeAdd(this._data._id)
         .then((card) => {
           // Выставляем лайки
           this._element.querySelector(".element__likes").textContent =
             card.likes.length;
           // Добавляем активную иконку
-          this._element
-            .querySelector(".element__icon")
-            .classList.add("element__icon_active");
+          this._likeButton.classList.add("element__icon_active");
         })
         .catch((err) => {
           console.log(err);
@@ -54,9 +52,7 @@ export default class Card {
           this._element.querySelector(".element__likes").textContent =
             card.likes.length;
           // Убираем активную иконку
-          this._element
-            .querySelector(".element__icon")
-            .classList.remove("element__icon_active");
+          this._likeButton.classList.remove("element__icon_active");
         })
         .catch((err) => {
           console.log(err);
@@ -67,48 +63,44 @@ export default class Card {
   // Метод навешивания слушателей
   _setEventListener() {
     // Вешаем слушатель на кнопку удаления
-    this._element
-      .querySelector(".element__button-delete")
-      .addEventListener("click", () => {});
+    this._deleteButton.addEventListener("click", () => {});
 
     // Вешаем слушатель на кнопку лайка
-    this._element
-      .querySelector(".element__icon")
-      .addEventListener("click", () => {
-        this._likeButtonHandler();
-      });
+    this._likeButton.addEventListener("click", () => {
+      this._likeButtonHandler();
+    });
   }
 
   // Публичный метод, возвращает готовую карточку
   createCard() {
     // Создаем элемент
     this._element = this._getElement();
+
+    // Находим кнопку лайка
+    this._likeButton = this._element.querySelector(".element__icon");
+    // Находим кнопку удаления карточки
+    this._deleteButton = this._element.querySelector(".element__button-delete");
+
     // добавляем элементу картинку и к ней атрибут alt
-    this._element.querySelector('.element__image').src = this._data.link;
-    this._element.querySelector('.element__image').alt = this._data.name;
+    this._element.querySelector(".element__image").src = this._data.link;
+    this._element.querySelector(".element__image").alt = this._data.name;
     // добавляем название
-    this._element.querySelector('.element__caption-title').textContent = this._data.name;
+    this._element.querySelector(".element__caption-title").textContent =
+      this._data.name;
     // добавляем количество лайков
-    this._element.querySelector('.element__likes').textContent = this._data.likes.length;
+    this._element.querySelector(".element__likes").textContent =
+      this._data.likes.length;
 
     // добавляем кнопку "лайк"
-    const arrLikes = this._data.likes;
-    arrLikes.forEach((likeElement) => {
+    this._data.likes.forEach((likeElement) => {
       if (likeElement._id === userId) {
-        this._element
-          .querySelector('.element__icon')
-          .classList
-          .add('element__icon_active');
+        this._likeButton.classList.add("element__icon_active");
       }
     });
 
     // добавляем кнопку удаления карточки
-    this._element.querySelector('.element__button-delete');
     if (userId === this._data.owner._id) {
-      this._element
-        .querySelector('.element__button-delete')
-        .classList
-        .add('element__button-delete_active');
+      this._deleteButton.classList.add("element__button-delete_active");
     }
 
     // Вешаем слушателей

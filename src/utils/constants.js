@@ -7,3 +7,12 @@ export const configValid = {
 
 // Находим массив всех форм
 export const formList = Array.from(document.querySelectorAll(".form-edit"));
+
+// Объект данных для запросов
+export const configApi = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-3',
+  headers: {
+    authorization: 'a26fb37f-3598-49d5-8eb1-77505c512d04',
+    'Content-Type': 'application/json'
+  }
+}

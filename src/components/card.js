@@ -1,7 +1,9 @@
 import { bodyElement } from './utilits.js'
 import { cardButtonHandler, deleteButtonHandler } from './modal.js';
-import { addLike, deleteLike } from './api.js';
-import { userId } from '../pages/index.js';
+// import { addLike, deleteLike } from './api.js';
+import { userId,
+  api
+} from '../pages/index.js';
 
 // функция обработчика кнопки "Лайк"
 function likeButtonHandler(button, card) {
@@ -11,7 +13,7 @@ function likeButtonHandler(button, card) {
     const likesCounter = cardElement.querySelector('.element__likes');
     const cardId = card._id;
     if (!eventTarget.classList.contains('element__icon_active')) {
-      addLike(cardId)
+      api.addLike(cardId)
         .then((card) => {
           likesCounter.textContent = card.likes.length;
           // добавляем количество лайков
@@ -21,7 +23,7 @@ function likeButtonHandler(button, card) {
           console.log(err);
         });
     } else {
-      deleteLike(cardId)
+      api.deleteLike(cardId)
         .then((card) => {
           likesCounter.textContent = card.likes.length;
           eventTarget.classList.remove('element__icon_active');
@@ -46,7 +48,7 @@ export function addCard(card) {
   cardElement.querySelector('.element__caption-title').textContent = card.name;
   // добавляем количество лайков
   cardElement.querySelector('.element__likes').textContent = card.likes.length;
-  
+
   // находим кнопку "лайк"
   const likeButton = cardElement.querySelector('.element__icon');
   const arrLikes = card.likes;

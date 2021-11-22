@@ -27,11 +27,11 @@ import { addCard } from "../components/card.js";
 
 import {
   configValid,
-  formList
-
+  formList,
+  configApi
 } from "../utils/constants.js";
-import FormValidator from "../components/FormValidator";
-
+import FormValidator from "../components/FormValidator.js";
+import Api from "../components/Api.js";
 
 
 
@@ -77,22 +77,18 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 
 
 
-// Для каждой формы создаем экземпляр класса
+// Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
   const validation = new FormValidator({data: configValid}, form);
   validation.enableValidation();
 });
 
-
-
-
+// Создаем экземпляр класса Api
+export const api = new Api(configApi);
 
 export let userId;
 
-import { getUserInfo } from "../components/api.js";
-import { getInitialCards } from "../components/api.js";
-
-Promise.all([getUserInfo(), getInitialCards()])
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((result) => {
     const data = result[0];
     const cards = result[1];
@@ -113,3 +109,28 @@ Promise.all([getUserInfo(), getInitialCards()])
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
+
+// import { getUserInfo } from "../components/api.js";
+// import { getInitialCards } from "../components/api.js";
+
+// Promise.all([getUserInfo(), getInitialCards()])
+//   .then((result) => {
+//     const data = result[0];
+//     const cards = result[1];
+//     // обрабатываем данные пользователя
+//     userId = data._id;
+//     nameText.textContent = data.name;
+//     jobText.textContent = data.about;
+//     avatarLinkText.src = data.avatar;
+//     // обрабатываем данные карточек
+//     cards.forEach((card) => {
+//       // добавляем карточку на страницу
+//       // вызываем функцию addCard
+//       const cardItem = addCard(card);
+//       // добавим элемент в конец контейнера со списком
+//       cardsContainer.append(cardItem);
+//     });
+//   })
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   });

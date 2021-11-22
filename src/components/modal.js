@@ -12,12 +12,15 @@ import { nameText, jobText, avatarLinkText } from './utilits.js';
 import { openPopup } from './utilits.js';
 import { closePopup } from './utilits.js';
 import { renderLoading } from './utilits.js';
-import { editProfileInfo } from './api.js';
-import { createCard } from './api.js';
-import { deleteCard } from './api.js';
-import { updateAvatar} from './api.js';
+// import { editProfileInfo } from './api.js';
+// import { createCard } from './api.js';
+// import { deleteCard } from './api.js';
+// import { updateAvatar} from './api.js';
 import { cardsContainer } from './utilits.js';
 import { addCard } from './card.js';
+
+
+import { api } from '../pages/index.js'
 
 
 // функция обработчика клика на карточку
@@ -46,7 +49,7 @@ export const formSubmitEditHandler = (evt) => {
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
-  editProfileInfo(nameInput.value, jobInput.value)
+  api.editProfileInfo({ name: nameInput.value, about: jobInput.value })
     .then((data) => {
       console.log(data);
       nameText.textContent = data.name;
@@ -69,7 +72,7 @@ export const formSubmitAddHandler = (evt) => {
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
-  createCard(placeInput.value, linkInput.value)
+  api.createCard({ name: placeInput.value, link: linkInput.value })
     .then((card) => {
       cardsContainer.prepend(addCard(card));
       // закрываем форму
@@ -94,7 +97,7 @@ export const formSubmitDeleteHandler = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   // Отправим запрос на удаление карточки на сервер
   const cardElement = evtTarget.closest('.cards__item');
-  deleteCard(cardId)
+  api.deleteCard(cardId)
     .then(() => {
       cardElement.remove();
       // закрываем форму
@@ -133,7 +136,7 @@ export const formSubmitUpdateAvatarHandler = (evt) => {
   const buttonElement = evt.target.querySelector('.form-edit__button-save');
   renderLoading(buttonElement, true);
   // Отправим новые значения на сервер
-  updateAvatar(avatarLinkInput.value)
+  api.updateAvatar(avatarLinkInput.value)
     .then((data) => {
       avatarLinkText.src = data.avatar;
       // закрываем форму

@@ -62,20 +62,26 @@ export default class Card {
         });
     }
   }
-
+// Метод навешивания слушателей
   _setEventListener() {
+    // Вешаем слушатель на кнопку удаления
     this._element
       .querySelector(".element__button-delete")
       .addEventListener("click", () => {});
+      // Вешаем слушатель на кнопку лайка
     this._element
       .querySelector(".element__icon")
       .addEventListener("click", () => {
         this._likeButtonHandler();
       });
   }
+  // Публичный метод, возвращает готовую карточку
   createCard() {
+    // Создаем элемент
     this._element = this._getElement();
-    this._setEventListener
+    // Вешаем слушателей
+    this._setEventListener()
+    // Возвращаем элемент
     return this._element;
   }
 }

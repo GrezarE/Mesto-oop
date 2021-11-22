@@ -1,11 +1,13 @@
 export default class Popup {
-  constructor(popup) {
+  constructor({ popup }) {
     this._popup = popup;
   }
   // Метод открытия попапа
   open() {
     // добавляем класс открытия
     this._popup.classList.add("popup_opened");
+    console.log(this._popup);
+
     // добавляем слушателей
     this.setEventListeners();
   }
@@ -17,7 +19,7 @@ export default class Popup {
   }
 
   // Метод закрытия по esc
-  _handleEscClose() {
+  _handleEscClose(evt) {
     if (evt.key === "Escape") {
       // закрыли попап
       this.close();
@@ -33,13 +35,17 @@ export default class Popup {
 
   // Метод навешивания слушателей
   setEventListeners() {
-    document.addEventListener("keydown", this._handleEscClose());
-    this._popup.addEventListener("click", this._handleOverlayClose());
+    document.addEventListener("keydown", (evt) => this._handleEscClose(evt));
+    this._popup.addEventListener("click", (evt) =>
+      this._handleOverlayClose(evt)
+    );
   }
-  
+
   // Метод снятия слушателей
   removeEventListeners() {
-    document.removeEventListener("keydown", this._handleEscClose());
-    this._popup.removeEventListener("click", this._handleOverlayClose());
+    document.removeEventListener("keydown", (evt) => this._handleEscClose(evt));
+    this._popup.removeEventListener("click", (evt) =>
+      this._handleOverlayClose(evt)
+    );
   }
 }

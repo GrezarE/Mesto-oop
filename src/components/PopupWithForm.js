@@ -4,14 +4,15 @@ export default class PopupWithForm extends Popup {
   constructor({ popup, renderer }) {
     super({ popup });
     this.renderer = renderer;
+    this.renderer = this.renderer.bind(this);
   }
   setEventListeners() {
     super.setEventListeners();
-    this.popup.addEventListener("submit", () => {});
+    this._popup.addEventListener("submit", this.renderer);
   }
   removeEventListeners() {
     super.removeEventListeners();
-    this.popup.removeEventListener("submit", () => {});
+    this._popup.removeEventListener("submit", this.renderer);
   }
   _getInputValues() {
     this._inputList = this._popup.querySelectorAll(".form-edit__item");

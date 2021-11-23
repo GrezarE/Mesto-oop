@@ -1,6 +1,8 @@
 export default class Popup {
   constructor({ popup }) {
     this._popup = popup;
+    this.escClose = this._handleEscClose.bind(this)
+    this.overlayClose = this._handleOverlayClose.bind(this)
   }
   // Метод открытия попапа
   open() {
@@ -28,25 +30,23 @@ export default class Popup {
 
   // Метод закрытия по оверлей
   _handleOverlayClose(evt) {
-    if (evt.target.classList.contains("popup_opened") ||
-      evt.target.classList.contains('popup__close-icon')) {
+    if (
+      evt.target.classList.contains("popup_opened") ||
+      evt.target.classList.contains("popup__close-icon")
+    ) {
       this.close();
     }
   }
 
   // Метод навешивания слушателей
   setEventListeners() {
-    document.addEventListener("keydown", (evt) => this._handleEscClose(evt));
-    this._popup.addEventListener("click", (evt) =>
-      this._handleOverlayClose(evt)
-    );
+    document.addEventListener("keydown", this.escClose);
+    this._popup.addEventListener("click", this.overlayClose);
   }
 
   // Метод снятия слушателей
   removeEventListeners() {
-    document.removeEventListener("keydown", (evt) => this._handleEscClose(evt));
-    this._popup.removeEventListener("click", (evt) =>
-      this._handleOverlayClose(evt)
-    );
+    document.removeEventListener("keydown", this.escClose);
+    this._popup.removeEventListener("click", this.overlayClose);
   }
 }

@@ -6,7 +6,11 @@ import { popups } from "../components/utilits.js";
 import { popupAvatarElement } from "../components/utilits.js";
 import { formAddElement } from "../components/utilits.js";
 import { nameText, jobText, avatarLinkText } from "../components/utilits.js";
-import { formEditElement, popupCardElement } from "../components/utilits.js";
+import {
+  formEditElement,
+  popupCardElement,
+  popupDeleteCard,
+} from "../components/utilits.js";
 import { nameInput, jobInput } from "../components/utilits.js";
 import { infoButton } from "../components/utilits.js";
 import { addButton } from "../components/utilits.js";
@@ -27,6 +31,8 @@ import Api from "../components/Api.js";
 import Card from "../components/Card1.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import Popup from "../components/Popup";
+import PopupWithForm from "../components/PopupWithForm";
 
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
@@ -46,11 +52,11 @@ avatarButton.addEventListener("click", () => {
   openPopup(popupAvatarElement);
 });
 
-popups.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    closePopupButtonOverlay(popup, evt);
-  });
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener("click", (evt) => {
+//     closePopupButtonOverlay(popup, evt);
+//   });
+// });
 
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
 formEditElement.addEventListener("submit", formSubmitEditHandler);
@@ -73,6 +79,9 @@ formList.forEach((form) => {
   const validation = new FormValidator({ data: configValid }, form);
   validation.enableValidation();
 });
+
+const imageOpenPopup = new PopupWithImage({ popup: popupCardElement });
+// const deleteCardPopup = new PopupWithForm({ popup: popupDeleteCard });
 
 // Создаем экземпляр класса Api
 export const api = new Api(configApi);
@@ -98,12 +107,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
           const card = new Card(
             {
               data: cardItem,
-              handleCardClic: () => {
-                const imageOpenPopup = new PopupWithImage({
-                  popup: popupCardElement,
-                  card: cardItem,
-                });
-                imageOpenPopup.open();
+              handleCardClic: (item) => {
+                imageOpenPopup.open(item);
               },
               userId: userId,
               apiLikeAdd: (cardId) => {
@@ -111,6 +116,30 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
               },
               apiLikeDel: (cardId) => {
                 return api.deleteLike(cardId);
+              },
+              // apiCardDel: (cardId) => {
+              //   return api.deleteCard(cardId);
+              // },
+              // открытие попапа и удаление карточки
+              handleDeleteClic: (cardId) => {
+                const deleteCardPopup = new PopupWithForm({
+                  popup: popupDeleteCard,
+                  renderer: (evt) => {
+                    evt.preventDefault();
+                    api
+                      .deleteCard(cardId)
+                      .then(() => {
+                        cardElement.remove();
+                        // закрываем форму
+                        deleteCardPopup.close();
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  },
+                });
+
+                deleteCardPopup.open();
               },
             },
             "#card-template"
@@ -126,8 +155,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // Отрисовываем элементы
     cardList.renderItems();
-
-
 
     // // обрабатываем данные карточек
     // cards.forEach((card) => {

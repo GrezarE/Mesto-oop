@@ -1,7 +1,7 @@
 export default class Card {
   constructor(
     // Что то дофига получается, но ладно
-    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel, apiCardDel },
+    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel, apiCardDel, handleDeleteClic },
     selector
   ) {
     // Селектор для template
@@ -19,6 +19,8 @@ export default class Card {
     this._apiLikeAdd = apiLikeAdd;
     this._apiLikeDel = apiLikeDel;
     this._apiCardDel = apiCardDel;
+
+    this._handleDeleteClic = handleDeleteClic
   }
 
   // Находим в template и клонируем содержимое
@@ -71,7 +73,7 @@ export default class Card {
   // Метод навешивания слушателей
   _setEventListener() {
     // Вешаем слушатель на кнопку удаления
-    this._deleteButton.addEventListener("click", () => {});
+    this._deleteButton.addEventListener("click", () => {this._handleDeleteClic(this._data._id)});
 
     // Вешаем слушатель на кнопку лайка
     this._likeButton.addEventListener("click", () => {
@@ -80,7 +82,7 @@ export default class Card {
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
-        this._handleCardClick();
+        this._handleCardClick(this._data);
       });
     // Вешаем слушатель на клик самой карточки
   }

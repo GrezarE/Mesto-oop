@@ -106,16 +106,16 @@ export default class Card {
       this._data.likes.length;
 
     // добавляем кнопку "лайк"
-    // this._data.likes.forEach((likeElement) => {
-    //   if (likeElement._id === userId) {
-    //     this._likeButton.classList.add("element__icon_active");
-    //   }
-    // });
+    this._data.likes.forEach((likeElement) => {
+      if (likeElement._id === this.userId) {
+        this._likeButton.classList.add("element__icon_active");
+      }
+    });
 
-    // // добавляем кнопку удаления карточки
-    // if (userId === this._data.owner._id) {
-    //   this._deleteButton.classList.add("element__button-delete_active");
-    // }
+    // добавляем кнопку удаления карточки
+    if (this.userId === this._data.owner._id) {
+      this._deleteButton.classList.add("element__button-delete_active");
+    }
 
     // Вешаем слушателей
     this._setEventListener();

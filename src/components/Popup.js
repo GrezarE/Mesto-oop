@@ -28,7 +28,8 @@ export default class Popup {
 
   // Метод закрытия по оверлей
   _handleOverlayClose(evt) {
-    if (evt.target.classList.contains("popup_opened")) {
+    if (evt.target.classList.contains("popup_opened") ||
+      evt.target.classList.contains('popup__close-icon')) {
       this.close();
     }
   }

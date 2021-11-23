@@ -24,7 +24,7 @@ import { addCard } from "../components/card.js";
 import { configValid, formList, configApi } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
-import Card1 from "../components/Card1.js";
+import Card from "../components/Card1.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage";
 
@@ -95,7 +95,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         renderer: (cardItem) => {
           console.log(cardItem);
           // функция, отвечает за создание и отрисовку элементов
-          const card = new Card1(
+          const card = new Card(
             {
               data: cardItem,
               handleCardClic: () => {
@@ -108,9 +108,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
             },
             "#card-template"
           );
-          // console.log(card);
+
           const cardElement = card.createCard();
-          // cardList.addItem(cardElement);
+
           return cardElement;
         },
       },
@@ -120,9 +120,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // Отрисовываем элементы
     cardList.renderItems();
 
-    console.log(cardList);
-    console.log(cardList._items);
-    console.log(cardList._container);
+
 
     // // обрабатываем данные карточек
     // cards.forEach((card) => {
@@ -161,15 +159,3 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 //   .catch((err) => {
 //     console.log(err); // выводим ошибку в консоль
 //   });
-
-// const cardList = new Section({
-//   items: items, // пока так
-//   renderer: (cardItem) => {
-//     // функция, отвечает за создание и отрисовку элементов
-//     const card = new Card1(cardItem, '.card-template');
-//     const cardElement = card.createCard();
-//     cardList.addItem(cardElement);
-
-//   },
-//   cardsContainer
-// });

@@ -122,11 +122,11 @@ export const deleteButtonHandler = (button, card) => {
 
 // функция закрытия попапа кликом на кнопку "закрыть" и оверлей
 export const closePopupButtonOverlay = (popup, evt) => {
-  const isCloseButtonClicked = evt.target.classList.contains('popup__close-icon');
-  const isOverlayClicked = evt.target.classList.contains(popup.classList[1]);
-  if (isCloseButtonClicked || isOverlayClicked) {
-    closePopup(popup);
-  }
+  // const isCloseButtonClicked = evt.target.classList.contains('popup__close-icon');
+  // const isOverlayClicked = evt.target.classList.contains(popup.classList[1]);
+  // if (isCloseButtonClicked || isOverlayClicked) {
+  //   closePopup(popup);
+  // }
 }
 
 // Обработчик «отправки» формы обновления аватара, хотя пока она никуда отправляться не будет

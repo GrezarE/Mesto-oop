@@ -65,8 +65,12 @@ export default class Card {
     // Открыли попап
 
     // Вешаем слушатель на отправку формы
-    
+
   }
+
+  // Метод просмотра карточки в попапе
+
+
 
   // Метод навешивания слушателей
   _setEventListener() {
@@ -77,6 +81,10 @@ export default class Card {
     this._likeButton.addEventListener("click", () => {
       this._likeButtonHandler();
     });
+
+    // Вешаем слушатель на клик самой карточки
+
+    
   }
 
   // Публичный метод, возвращает готовую карточку

@@ -32,7 +32,7 @@ import {
 } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
-
+import Card1 from "../components/Card1.js";
 import Section from "../components/Section.js";
 
 
@@ -98,14 +98,38 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     nameText.textContent = data.name;
     jobText.textContent = data.about;
     avatarLinkText.src = data.avatar;
-    // обрабатываем данные карточек
-    cards.forEach((card) => {
-      // добавляем карточку на страницу
-      // вызываем функцию addCard
-      const cardItem = addCard(card);
-      // добавим элемент в конец контейнера со списком
-      cardsContainer.append(cardItem);
-    });
+
+
+
+
+    const cardList = new Section({
+      items: cards, // пока так
+      renderer: (cardItem) => {
+        // функция, отвечает за создание и отрисовку элементов
+        const card = new Card1({ data:cardItem }, '.card-template');
+        console.log(card);
+        const cardElement = card.createCard();
+        cardList.addItem(cardElement);
+
+      }
+    }, '.cards');
+    console.log(cardList);
+    console.log(cardList._items);
+    console.log(cardList._container);
+
+
+
+
+    // // обрабатываем данные карточек
+    // cards.forEach((card) => {
+    //   // добавляем карточку на страницу
+    //   // вызываем функцию addCard
+    //   const cardItem = addCard(card);
+    //   // добавим элемент в конец контейнера со списком
+    //   cardsContainer.append(cardItem);
+    // });
+
+    
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
@@ -140,14 +164,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 
 
-const cardList = new Section({
-  items: items, // пока так
-  renderer: (cardItem) => {
-    // функция, отвечает за создание и отрисовку элементов
-    const card = new Card1(cardItem, '.card-template');
-    const cardElement = card.createCard();
-    cardList.addItem(cardElement);
+// const cardList = new Section({
+//   items: items, // пока так
+//   renderer: (cardItem) => {
+//     // функция, отвечает за создание и отрисовку элементов
+//     const card = new Card1(cardItem, '.card-template');
+//     const cardElement = card.createCard();
+//     cardList.addItem(cardElement);
 
-  },
-  cardsContainer //
-});
+//   },
+//   cardsContainer
+// });

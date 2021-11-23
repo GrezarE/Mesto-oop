@@ -33,6 +33,7 @@ import {
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 
+import Section from "../components/Section.js";
 
 
 // добавляем обработчик клика по кнопке "редактировать"
@@ -134,3 +135,19 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 //   .catch((err) => {
 //     console.log(err); // выводим ошибку в консоль
 //   });
+
+
+
+
+
+const cardList = new Section({
+  items: items, // пока так
+  renderer: (cardItem) => {
+    // функция, отвечает за создание и отрисовку элементов
+    const card = new Card1(cardItem, '.card-template');
+    const cardElement = card.createCard();
+    cardList.addItem(cardElement);
+
+  },
+  cardListSelector
+});

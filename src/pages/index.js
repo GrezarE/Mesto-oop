@@ -21,20 +21,11 @@ import { formSubmitUpdateAvatarHandler } from "../components/modal.js";
 // import { enableValidation } from "../components/validate.js";
 import { addCard } from "../components/card.js";
 
-
-
-
-
-import {
-  configValid,
-  formList,
-  configApi
-} from "../utils/constants.js";
+import { configValid, formList, configApi } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 import Card1 from "../components/Card1.js";
 import Section from "../components/Section.js";
-
 
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
@@ -76,11 +67,9 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 //   inputErrorClass: "form-edit__item_error",
 // });
 
-
-
 // Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
-  const validation = new FormValidator({data: configValid}, form);
+  const validation = new FormValidator({ data: configValid }, form);
   validation.enableValidation();
 });
 
@@ -99,26 +88,27 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     jobText.textContent = data.about;
     avatarLinkText.src = data.avatar;
 
+    const cardList = new Section(
+      {
+        items: cards, // пока так
+        renderer: (cardItem) => {
+          // функция, отвечает за создание и отрисовку элементов
+          const card = new Card1({ data: cardItem }, "#card-template");
+          console.log(card);
+          const cardElement = card.createCard();
+          // cardList.addItem(cardElement);
+          return cardElement;
+        },
+      },
+      ".cards"
+    );
 
+    // Отрисовываем элементы
+    cardList.renderItems();
 
-
-    const cardList = new Section({
-      items: cards, // пока так
-      renderer: (cardItem) => {
-        // функция, отвечает за создание и отрисовку элементов
-        const card = new Card1({ data:cardItem }, '.card-template');
-        console.log(card);
-        const cardElement = card.createCard();
-        cardList.addItem(cardElement);
-
-      }
-    }, '.cards');
     console.log(cardList);
     console.log(cardList._items);
     console.log(cardList._container);
-
-
-
 
     // // обрабатываем данные карточек
     // cards.forEach((card) => {
@@ -128,8 +118,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     //   // добавим элемент в конец контейнера со списком
     //   cardsContainer.append(cardItem);
     // });
-
-    
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
@@ -159,10 +147,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 //   .catch((err) => {
 //     console.log(err); // выводим ошибку в консоль
 //   });
-
-
-
-
 
 // const cardList = new Section({
 //   items: items, // пока так

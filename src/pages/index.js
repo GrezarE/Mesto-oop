@@ -6,7 +6,7 @@ import { popups } from "../components/utilits.js";
 import { popupAvatarElement } from "../components/utilits.js";
 import { formAddElement } from "../components/utilits.js";
 import { nameText, jobText, avatarLinkText } from "../components/utilits.js";
-import { formEditElement } from "../components/utilits.js";
+import { formEditElement, popupCardElement } from "../components/utilits.js";
 import { nameInput, jobInput } from "../components/utilits.js";
 import { infoButton } from "../components/utilits.js";
 import { addButton } from "../components/utilits.js";
@@ -26,6 +26,7 @@ import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 import Card1 from "../components/Card1.js";
 import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage";
 
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
@@ -92,9 +93,22 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       {
         items: cards, // пока так
         renderer: (cardItem) => {
+          console.log(cardItem);
           // функция, отвечает за создание и отрисовку элементов
-          const card = new Card1({ data: cardItem }, "#card-template");
-          console.log(card);
+          const card = new Card1(
+            {
+              data: cardItem,
+              handleCardClic: () => {
+                const imageOpenPopup = new PopupWithImage({
+                  popup: popupCardElement,
+                  card: cardItem,
+                });
+                imageOpenPopup.open();
+              },
+            },
+            "#card-template"
+          );
+          // console.log(card);
           const cardElement = card.createCard();
           // cardList.addItem(cardElement);
           return cardElement;

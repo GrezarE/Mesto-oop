@@ -63,14 +63,10 @@ export default class Card {
   // Метод удаления карточки
   _deleteButtonHandler() {
     // Открыли попап
-
     // Вешаем слушатель на отправку формы
-
   }
 
   // Метод просмотра карточки в попапе
-
-
 
   // Метод навешивания слушателей
   _setEventListener() {
@@ -81,10 +77,12 @@ export default class Card {
     this._likeButton.addEventListener("click", () => {
       this._likeButtonHandler();
     });
-
+    this._element
+      .querySelector(".element__image")
+      .addEventListener("click", () => {
+        this._handleCardClick();
+      });
     // Вешаем слушатель на клик самой карточки
-
-
   }
 
   // Публичный метод, возвращает готовую карточку

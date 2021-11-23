@@ -107,8 +107,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
               },
               userId: userId,
               apiLikeAdd: (cardId) => {
-                api.addLike(cardId);
-              }
+                return api.addLike(cardId);
+              },
+              apiLikeDel: (cardId) => {
+                return api.deleteLike(cardId);
+              },
             },
             "#card-template"
           );

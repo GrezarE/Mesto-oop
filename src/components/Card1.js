@@ -34,7 +34,6 @@ export default class Card {
   // Метод лайкания
   _likeButtonHandler() {
     if (!this._likeButton.classList.contains("element__icon_active")) {
-      console.log(this._data._id);
       this._apiLikeAdd(this._data._id)
         .then((card) => {
           // Выставляем лайки
@@ -108,13 +107,13 @@ export default class Card {
 
     // добавляем кнопку "лайк"
     this._data.likes.forEach((likeElement) => {
-      if (likeElement._id === this.userId) {
+      if (likeElement._id === this._userId) {
         this._likeButton.classList.add("element__icon_active");
       }
     });
 
     // добавляем кнопку удаления карточки
-    if (this.userId === this._data.owner._id) {
+    if (this._userId === this._data.owner._id) {
       this._deleteButton.classList.add("element__button-delete_active");
     }
 

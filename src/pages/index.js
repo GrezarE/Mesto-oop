@@ -26,7 +26,7 @@ import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card1.js";
 import Section from "../components/Section.js";
-import PopupWithImage from "../components/PopupWithImage";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
@@ -105,6 +105,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
                 });
                 imageOpenPopup.open();
               },
+              userId: userId,
+              apiLikeAdd: (cardId) => {
+                api.addLike(cardId);
+              }
             },
             "#card-template"
           );

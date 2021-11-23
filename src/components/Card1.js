@@ -34,6 +34,7 @@ export default class Card {
   // Метод лайкания
   _likeButtonHandler() {
     if (!this._likeButton.classList.contains("element__icon_active")) {
+      console.log(this._data._id);
       this._apiLikeAdd(this._data._id)
         .then((card) => {
           // Выставляем лайки

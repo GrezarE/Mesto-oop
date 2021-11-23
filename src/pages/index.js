@@ -149,5 +149,5 @@ const cardList = new Section({
     cardList.addItem(cardElement);
 
   },
-  cardListSelector
+  cardsContainer //
 });

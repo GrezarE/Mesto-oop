@@ -43,9 +43,9 @@ infoButton.addEventListener("click", () => {
 });
 
 // добавляем обработчик клика по кнопке "добавить"
-addButton.addEventListener("click", () => {
-  openPopup(popupAddElement);
-});
+// addButton.addEventListener("click", () => {
+//   openPopup(popupAddElement);
+// });
 
 // добавляем обработчик клика по кнопке "аватар"
 avatarButton.addEventListener("click", () => {
@@ -62,7 +62,7 @@ avatarButton.addEventListener("click", () => {
 formEditElement.addEventListener("submit", formSubmitEditHandler);
 
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
-formAddElement.addEventListener("submit", formSubmitAddHandler);
+// formAddElement.addEventListener("submit", formSubmitAddHandler);
 
 // Прикрепляем обработчик к форме обновления аватара: он будет следить за событием “submit” - «отправка»
 formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
@@ -74,14 +74,88 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 //   inputErrorClass: "form-edit__item_error",
 // });
 
+
+// Экземпляр класса Section
+const sectuinAdd = new Section({}, ".cards");
+
 // Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
   const validation = new FormValidator({ data: configValid }, form);
   validation.enableValidation();
 });
 
+// Экземпляр класса для открытия картинок
 const imageOpenPopup = new PopupWithImage({ popup: popupCardElement });
-// const deleteCardPopup = new PopupWithForm({ popup: popupDeleteCard });
+// Экземпляр класса для создания карточки
+const submitCardPopup = new PopupWithForm({
+  popup: popupAddElement,
+  // Метод сабмита
+  renderer: () => {
+    // Собираем данные с инпутов
+    const inputObj = submitCardPopup._getInputValues();
+    console.log(inputObj);
+    // Меняем кнопку на сохранение
+    submitCardPopup.renderLoading(true);
+    // Запускаем отправку запроса на сервер
+    api
+      .createCard({ name: inputObj.place, link: inputObj.link })
+      .then((card) => {
+        // Создаём экземпляр класса карточки, функционал схож с загрузкой на страницу... опять дохрена строчек
+        const createCard = new Card(
+          {
+            data: card,
+            userId: userId,
+            handleCardClic: (item) => {
+              imageOpenPopup.open(item);
+            },
+            apiLikeAdd: (cardId) => {
+              return api.addLike(cardId);
+            },
+            apiLikeDel: (cardId) => {
+              return api.deleteLike(cardId);
+            },
+            // открытие попапа и удаление карточки
+            handleDeleteClic: (cardId) => {
+              const deleteCardPopup = new PopupWithForm({
+                // Определяем попап
+                popup: popupDeleteCard,
+                // метод удаления карточки
+                renderer: (evt) => {
+                  evt.preventDefault();
+                  api
+                    .deleteCard(cardId)
+                    .then(() => {
+                      readyCard.remove();
+                      // закрываем форму
+                      deleteCardPopup.close();
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                },
+              });
+              // открываем попап удаления
+              deleteCardPopup.open();
+            },
+          },
+          "#card-template"
+        );
+        // Создаём карточку
+        const readyCard = createCard.createCard();
+        // Используем метод класса Section
+        sectuinAdd.addItem(readyCard);
+        // Закрываем попап
+        submitCardPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+
+addButton.addEventListener("click", () => {
+  submitCardPopup.open();
+});
 
 // Создаем экземпляр класса Api
 export const api = new Api(configApi);
@@ -102,15 +176,15 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       {
         items: cards, // пока так
         renderer: (cardItem) => {
-          console.log(cardItem);
+          // console.log(cardItem);
           // функция, отвечает за создание и отрисовку элементов
           const card = new Card(
             {
               data: cardItem,
+              userId: userId,
               handleCardClic: (item) => {
                 imageOpenPopup.open(item);
               },
-              userId: userId,
               apiLikeAdd: (cardId) => {
                 return api.addLike(cardId);
               },
@@ -123,7 +197,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
               // открытие попапа и удаление карточки
               handleDeleteClic: (cardId) => {
                 const deleteCardPopup = new PopupWithForm({
+                  // Определяем попап
                   popup: popupDeleteCard,
+                  // метод удаления карточки
                   renderer: (evt) => {
                     evt.preventDefault();
                     api
@@ -138,7 +214,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
                       });
                   },
                 });
-
+                // открываем попап удаления
                 deleteCardPopup.open();
               },
             },
@@ -147,6 +223,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
           const cardElement = card.createCard();
 
+          console.log(cardElement);
           return cardElement;
         },
       },

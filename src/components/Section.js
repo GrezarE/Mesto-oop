@@ -6,8 +6,8 @@ export default class Section {
   }
 
   // Метод добавления элемента в контейнер
-  addItem(element) {
-    this._container.prepend(element);
+  addItem(item) {
+    this._container.prepend(item);
   }
 
   // Метод отрисовки всех элементов
@@ -16,5 +16,5 @@ export default class Section {
       this._container.append(this._renderer(item));
     });
   }
-  
+
 }

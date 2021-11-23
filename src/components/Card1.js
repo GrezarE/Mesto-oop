@@ -1,7 +1,7 @@
 export default class Card {
   constructor(
     // Что то дофига получается, но ладно
-    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel, apiCardDel, handleDeleteClic },
+    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel,  handleDeleteClic },
     selector
   ) {
     // Селектор для template
@@ -18,7 +18,7 @@ export default class Card {
     // api функционал, присваиваем в index.js
     this._apiLikeAdd = apiLikeAdd;
     this._apiLikeDel = apiLikeDel;
-    this._apiCardDel = apiCardDel;
+    // this._apiCardDel = apiCardDel;
 
     this._handleDeleteClic = handleDeleteClic
   }
@@ -63,10 +63,10 @@ export default class Card {
   }
 
   // Метод удаления карточки
-  _deleteButtonHandler() {
-    // Открыли попап
-    // Вешаем слушатель на отправку формы
-  }
+  // _deleteButtonHandler() {
+  //   // Открыли попап
+  //   // Вешаем слушатель на отправку формы
+  // }
 
   // Метод просмотра карточки в попапе
 

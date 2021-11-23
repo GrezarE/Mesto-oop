@@ -10,9 +10,12 @@ export const formList = Array.from(document.querySelectorAll(".form-edit"));
 
 // Объект данных для запросов
 export const configApi = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-3',
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-3",
   headers: {
-    authorization: 'a26fb37f-3598-49d5-8eb1-77505c512d04',
-    'Content-Type': 'application/json'
-  }
-}
+    authorization: "a26fb37f-3598-49d5-8eb1-77505c512d04",
+    "Content-Type": "application/json",
+  },
+};
+
+export const popupAddElement = document.querySelector(".popup_option_add");
+

@@ -19,7 +19,7 @@ import { avatarButton } from "../components/utilits.js";
 import { openPopup } from "../components/utilits.js";
 import { cardsContainer } from "../components/utilits.js";
 import { closePopupButtonOverlay } from "../components/modal.js";
-import { formSubmitEditHandler } from "../components/modal.js";
+// import { formSubmitEditHandler } from "../components/modal.js";
 import { formSubmitAddHandler } from "../components/modal.js";
 import { formSubmitUpdateAvatarHandler } from "../components/modal.js";
 // import { enableValidation } from "../components/validate.js";
@@ -60,7 +60,7 @@ import UserInfo from "../components/UserInfo.js";
 // });
 
 // Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
-formEditElement.addEventListener("submit", formSubmitEditHandler);
+// formEditElement.addEventListener("submit", formSubmitEditHandler);
 
 // Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
 // formAddElement.addEventListener("submit", formSubmitAddHandler);
@@ -172,28 +172,30 @@ addButton.addEventListener("click", () => {
 
 // Экземпляр класса UserInfo
 const userInfo = new UserInfo({
+  nameElement: '.info__name',
+  jobElement: '.info__description',
   nameSelector: '[name="firstname"]',
   aboutSelector: '[name="description"]',
   getApi: () => {
     return api.getUserInfo();
+  },
+  setProfileApi: () => {
+
+    return api.editProfileInfo({ name: nameInput.value, about: jobInput.value });
+  },
+  setAvatarApi: () => {
+    return api.updateAvatar(link);
   }
 });
 
 // Экземпляр класса для редактирования профиля
 const submitEditPopup = new PopupWithForm({
   popup: popupInfoElement,
-  // Метод сабмита
   renderer: () => {
-    // Собираем данные с инпутов
-    const inputObj = submitEditPopup._getInputValues();
-
-    console.log(inputObj);
-
     // Меняем кнопку на сохранение
     submitEditPopup.renderLoading(true);
-    // Запускаем отправку запроса на сервер
-    api
-      .editProfileInfo({ name: inputObj.firstname, about: inputObj.description })
+
+    userInfo.setUserInfo()
       .then((data) => {
         // Закрываем попап
         submitEditPopup.close();

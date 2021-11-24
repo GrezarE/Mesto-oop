@@ -74,9 +74,6 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 //   inputErrorClass: "form-edit__item_error",
 // });
 
-// Экземпляр класса Section
-const sectionAdd = new Section({}, ".cards");
-
 // Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
   const validation = new FormValidator({ data: configValid }, form);
@@ -141,6 +138,8 @@ const submitCardPopup = new PopupWithForm({
         );
         // Создаём карточку
         const readyCard = createCard.createCard();
+        // Экземпляр класса Section
+        const sectionAdd = new Section({}, ".cards");
         // Используем метод класса Section
         sectionAdd.addItem(readyCard);
         // Закрываем попап

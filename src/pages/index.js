@@ -76,7 +76,7 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 
 
 // Экземпляр класса Section
-const sectuinAdd = new Section({}, ".cards");
+const sectionAdd = new Section({}, ".cards");
 
 // Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
@@ -86,6 +86,7 @@ formList.forEach((form) => {
 
 // Экземпляр класса для открытия картинок
 const imageOpenPopup = new PopupWithImage({ popup: popupCardElement });
+
 // Экземпляр класса для создания карточки
 const submitCardPopup = new PopupWithForm({
   popup: popupAddElement,
@@ -94,6 +95,7 @@ const submitCardPopup = new PopupWithForm({
     // Собираем данные с инпутов
     const inputObj = submitCardPopup._getInputValues();
     console.log(inputObj);
+
     // Меняем кнопку на сохранение
     submitCardPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
@@ -143,12 +145,17 @@ const submitCardPopup = new PopupWithForm({
         // Создаём карточку
         const readyCard = createCard.createCard();
         // Используем метод класса Section
-        sectuinAdd.addItem(readyCard);
+        sectionAdd.addItem(readyCard);
         // Закрываем попап
         submitCardPopup.close();
+        // деактивируем кнопку сабмита
+        submitCardPopup._popup.querySelector('.form-edit__button-save').disabled = true;
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setTimeout(submitCardPopup.renderLoading.bind(submitCardPopup), 400, false, "Создать");
       });
   },
 });

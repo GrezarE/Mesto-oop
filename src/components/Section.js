@@ -16,5 +16,4 @@ export default class Section {
       this._container.append(this._renderer(item));
     });
   }
-
 }

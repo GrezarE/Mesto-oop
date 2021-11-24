@@ -94,8 +94,6 @@ const submitCardPopup = new PopupWithForm({
   renderer: () => {
     // Собираем данные с инпутов
     const inputObj = submitCardPopup._getInputValues();
-    console.log(inputObj);
-
     // Меняем кнопку на сохранение
     submitCardPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
@@ -162,6 +160,70 @@ const submitCardPopup = new PopupWithForm({
 
 addButton.addEventListener("click", () => {
   submitCardPopup.open();
+});
+
+// Экземпляр класса для редактирования профиля
+const submitEditPopup = new PopupWithForm({
+  popup: popupInfoElement,
+  // Метод сабмита
+  renderer: () => {
+    // Собираем данные с инпутов
+    const inputObj = submitEditPopup._getInputValues();
+
+    console.log(inputObj);
+
+    // Меняем кнопку на сохранение
+    submitEditPopup.renderLoading(true);
+    // Запускаем отправку запроса на сервер
+    api
+      .editProfileInfo({ name: inputObj.name, about: inputObj.about })
+      .then((data) => {
+
+
+
+        // Закрываем попап
+        submitEditPopup.close();
+      })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      })
+      .finally(() => {
+        setTimeout(submitEditPopup.renderLoading.bind(submitEditPopup), 400, false);
+      })
+
+  },
+});
+
+// Экземпляр класса для редактирования аватара
+const submitAvatarPopup = new PopupWithForm({
+  popup: popupAvatarElement,
+  // Метод сабмита
+  renderer: () => {
+    // Собираем данные с инпутов
+    const inputObj = submitAvatarPopup._getInputValues();
+
+    console.log(inputObj);
+
+    // Меняем кнопку на сохранение
+    submitAvatarPopup.renderLoading(true);
+    // Запускаем отправку запроса на сервер
+    api
+      .updateAvatar(inputObj.link)
+      .then((data) => {
+
+
+
+        // Закрываем попап
+        submitAvatarPopup.close();
+      })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      })
+      .finally(() => {
+        setTimeout(submitAvatarPopup.renderLoading.bind(submitAvatarPopup), 400, false);
+      })
+
+  },
 });
 
 // Создаем экземпляр класса Api

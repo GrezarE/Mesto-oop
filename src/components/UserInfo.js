@@ -1,15 +1,17 @@
 export default class UserInfo {
-  constructor({ nameSelector, aboutSelector }) {
-    this._nameElement = document.querySelector(nameSelector);
-    this._aboutElement = document.querySelector(aboutSelector);
+  constructor({ nameSelector, aboutSelector, getApi }) {
+    this._nameInput = document.querySelector(nameSelector);
+    this._abouInput = document.querySelector(aboutSelector);
+    this._getApi = getApi;
   }
 
-  // метод создания новых данных
+  // метод получения новых данных
   getUserInfo() {
-    // объект с данными пользователя
-    
-
-    return userElement;
+    this._getApi()
+      .then((data) => {
+        this._nameInput.value = data.name;
+        this._abouInput.value = data.about;
+      })
   }
 
   // принять данные, отправить на сервер и добавить на страницу

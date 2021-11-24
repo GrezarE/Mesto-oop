@@ -32,7 +32,8 @@ import Card from "../components/Card1.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Popup from "../components/Popup";
-import PopupWithForm from "../components/PopupWithForm";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 // добавляем обработчик клика по кнопке "редактировать"
 // infoButton.addEventListener("click", () => {
@@ -169,6 +170,15 @@ addButton.addEventListener("click", () => {
   ).disabled = true;
 });
 
+// Экземпляр класса UserInfo
+const userInfo = new UserInfo({
+  nameSelector: '[name="firstname"]',
+  aboutSelector: '[name="description"]',
+  getApi: () => {
+    return api.getUserInfo();
+  }
+});
+
 // Экземпляр класса для редактирования профиля
 const submitEditPopup = new PopupWithForm({
   popup: popupInfoElement,
@@ -205,8 +215,9 @@ const submitEditPopup = new PopupWithForm({
 infoButton.addEventListener("click", () => {
   submitEditPopup.open();
   // вставим начальные данные из профиля в поля формы
-  nameInput.value = nameText.textContent;
-  jobInput.value = jobText.textContent;
+  // nameInput.value = nameText.textContent;
+  // jobInput.value = jobText.textContent;
+  userInfo.getUserInfo();
 });
 
 // Экземпляр класса для редактирования аватара

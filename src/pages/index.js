@@ -161,6 +161,7 @@ const submitCardPopup = new PopupWithForm({
   },
 });
 
+// добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener("click", () => {
   submitCardPopup.open();
   submitCardPopup._popup.querySelector(
@@ -200,6 +201,7 @@ const submitEditPopup = new PopupWithForm({
   },
 });
 
+// добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
   submitEditPopup.open();
   // вставим начальные данные из профиля в поля формы
@@ -239,6 +241,7 @@ const submitAvatarPopup = new PopupWithForm({
   },
 });
 
+// добавляем обработчик клика по кнопке "аватар"
 avatarButton.addEventListener("click", () => {
   submitAvatarPopup.open();
 });

@@ -1,6 +1,5 @@
 export default class Card {
   constructor(
-    // Что то дофига получается, но ладно
     { data, handleCardClic, userId, apiLikeAdd, apiLikeDel,  handleDeleteClic },
     selector
   ) {
@@ -15,7 +14,6 @@ export default class Card {
     // api функционал, присваиваем в index.js
     this._apiLikeAdd = apiLikeAdd;
     this._apiLikeDel = apiLikeDel;
-    // this._apiCardDel = apiCardDel;
 
     this._handleDeleteClic = handleDeleteClic
   }
@@ -73,7 +71,6 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleCardClick(this._data);
       });
-    // Вешаем слушатель на клик самой карточки
   }
 
   // Публичный метод, возвращает готовую карточку

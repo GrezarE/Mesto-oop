@@ -4,6 +4,7 @@ export default class Popup {
     this.escClose = this._handleEscClose.bind(this)
     this.overlayClose = this._handleOverlayClose.bind(this)
   }
+  
   // Метод открытия попапа
   open() {
     // добавляем класс открытия

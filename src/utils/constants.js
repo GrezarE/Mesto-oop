@@ -17,7 +17,6 @@ export const configApi = {
   },
 };
 
-
 //находим элемент body
 export const bodyElement = document.querySelector(".page");
 // находим модальное окно редактирования
@@ -49,6 +48,3 @@ export const infoButton = bodyElement.querySelector('.info__button');
 export const addButton = bodyElement.querySelector('.profile__button-add');
 
 export const avatarButton = bodyElement.querySelector('.profile__button-avatar');
-
-
-

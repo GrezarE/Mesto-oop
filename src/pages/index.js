@@ -12,8 +12,6 @@ import {
   avatarLinkText,
   popupCardElement,
   popupDeleteCard,
-  nameInput,
-  jobInput,
   infoButton,
   addButton,
   avatarButton,
@@ -29,6 +27,7 @@ import UserInfo from "../components/UserInfo.js";
 
 let userId;
 
+// Создаем экземпляр класса Api
 const api = new Api(configApi);
 
 // Для каждой формы создаем экземпляр класса FormValidator
@@ -192,7 +191,6 @@ const submitAvatarPopup = new PopupWithForm({
     userInfo
       .setUserAvatar(inputObj)
       .then(() => {
-        // avatarLinkText.src = data.avatar;
         // Закрываем попап
         submitAvatarPopup.close();
       })
@@ -213,8 +211,6 @@ const submitAvatarPopup = new PopupWithForm({
 avatarButton.addEventListener("click", () => {
   submitAvatarPopup.open();
 });
-
-// Создаем экземпляр класса Api
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((result) => {
@@ -244,9 +240,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
               apiLikeDel: (cardId) => {
                 return api.deleteLike(cardId);
               },
-              // apiCardDel: (cardId) => {
-              //   return api.deleteCard(cardId);
-              // },
               // открытие попапа и удаление карточки
               handleDeleteClic: (cardId) => {
                 const deleteCardPopup = new PopupWithForm({

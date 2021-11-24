@@ -42,6 +42,7 @@ export default class UserInfo {
         console.log(err);
       });
   }
+
   setUserAvatar(obj) {
     return this._setAvatarApi(obj)
       .then((data) => {

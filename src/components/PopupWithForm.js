@@ -1,4 +1,4 @@
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
   constructor({ popup, renderer }) {
@@ -41,5 +41,4 @@ export default class PopupWithForm extends Popup {
       this._popup.querySelector(".form-edit__button-save").disabled = isLoading;
     }
   }
-  
 }

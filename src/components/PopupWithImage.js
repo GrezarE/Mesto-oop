@@ -1,10 +1,9 @@
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
   constructor({ popup }) {
     // Забираем параметры из родителя
     super({ popup });
-    // Данные карточки
   }
 
   open(item) {

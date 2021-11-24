@@ -1,7 +1,17 @@
 export default class UserInfo {
-  constructor({ nameElement, jobElement, nameSelector, aboutSelector, getApi, setProfileApi, setAvatarApi }) {
+  constructor({
+    nameElement,
+    jobElement,
+    avatarElement,
+    nameSelector,
+    aboutSelector,
+    getApi,
+    setProfileApi,
+    setAvatarApi,
+  }) {
     this._nameElement = document.querySelector(nameElement);
     this._jobElement = document.querySelector(jobElement);
+    this._avatarElement = document.querySelector(avatarElement);
     this._nameInput = document.querySelector(nameSelector);
     this._abouInput = document.querySelector(aboutSelector);
     this._getApi = getApi;
@@ -16,15 +26,29 @@ export default class UserInfo {
         this._nameInput.value = data.name;
         this._abouInput.value = data.about;
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // принять данные, отправить на сервер и добавить на страницу
-  setUserInfo(){
-    return this._setProfileApi()
+  setUserInfo(inputObj) {
+    return this._setProfileApi(inputObj)
       .then((data) => {
-        console.log(data);
         this._nameElement.textContent = data.name;
         this._jobElement.textContent = data.about;
       })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  setUserAvatar(obj) {
+    return this._setAvatarApi(obj)
+      .then((data) => {
+        this._avatarElement.src = data.avatar;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

@@ -1,79 +1,35 @@
 import "./index.css"; // добавьте импорт главного файла стилей
 
-import { popupInfoElement } from "../components/utilits.js";
-import { popupAddElement } from "../components/utilits.js";
-import { popups } from "../components/utilits.js";
-import { popupAvatarElement } from "../components/utilits.js";
-import { formAddElement } from "../components/utilits.js";
-import { nameText, jobText, avatarLinkText } from "../components/utilits.js";
 import {
-  formEditElement,
+  configValid,
+  formList,
+  configApi,
+  popupInfoElement,
+  popupAddElement,
+  popupAvatarElement,
+  nameText,
+  jobText,
+  avatarLinkText,
   popupCardElement,
   popupDeleteCard,
-} from "../components/utilits.js";
-import { nameInput, jobInput } from "../components/utilits.js";
-import { infoButton } from "../components/utilits.js";
-import { addButton } from "../components/utilits.js";
-import { formAvatarElement } from "../components/utilits.js";
-import { avatarButton } from "../components/utilits.js";
-import { openPopup } from "../components/utilits.js";
-import { cardsContainer } from "../components/utilits.js";
-import { closePopupButtonOverlay } from "../components/modal.js";
-// import { formSubmitEditHandler } from "../components/modal.js";
-import { formSubmitAddHandler } from "../components/modal.js";
-import { formSubmitUpdateAvatarHandler } from "../components/modal.js";
-// import { enableValidation } from "../components/validate.js";
-import { addCard } from "../components/card.js";
+  nameInput,
+  jobInput,
+  infoButton,
+  addButton,
+  avatarButton,
+} from "../utils/constants.js";
 
-import { configValid, formList, configApi } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
-import Card from "../components/Card1.js";
+import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import Popup from "../components/Popup";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-// добавляем обработчик клика по кнопке "редактировать"
-// infoButton.addEventListener("click", () => {
-//   openPopup(popupInfoElement);
-//   // вставим начальные данные из профиля в поля формы
-//   nameInput.value = nameText.textContent;
-//   jobInput.value = jobText.textContent;
-// });
+let userId;
 
-// добавляем обработчик клика по кнопке "добавить"
-// addButton.addEventListener("click", () => {
-//   openPopup(popupAddElement);
-// });
-
-// добавляем обработчик клика по кнопке "аватар"
-// avatarButton.addEventListener("click", () => {
-//   openPopup(popupAvatarElement);
-// });
-
-// popups.forEach((popup) => {
-//   popup.addEventListener("click", (evt) => {
-//     closePopupButtonOverlay(popup, evt);
-//   });
-// });
-
-// Прикрепляем обработчик к форме редактирования: он будет следить за событием “submit” - «отправка»
-// formEditElement.addEventListener("submit", formSubmitEditHandler);
-
-// Прикрепляем обработчик к форме добавления карточек: он будет следить за событием “submit” - «отправка»
-// formAddElement.addEventListener("submit", formSubmitAddHandler);
-
-// Прикрепляем обработчик к форме обновления аватара: он будет следить за событием “submit” - «отправка»
-formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
-
-// enableValidation({
-//   formSelector: ".form-edit",
-//   inputSelector: ".form-edit__item",
-//   submitButtonSelector: ".form-edit__button-save",
-//   inputErrorClass: "form-edit__item_error",
-// });
+const api = new Api(configApi);
 
 // Для каждой формы создаем экземпляр класса FormValidator
 formList.forEach((form) => {
@@ -146,7 +102,6 @@ const submitCardPopup = new PopupWithForm({
         // Закрываем попап
         submitCardPopup.close();
         // деактивируем кнопку сабмита
-        // submitCardPopup._popup.querySelector('.form-edit__button-save').disabled = true;
       })
       .catch((err) => {
         console.log(err);
@@ -172,20 +127,23 @@ addButton.addEventListener("click", () => {
 
 // Экземпляр класса UserInfo
 const userInfo = new UserInfo({
-  nameElement: '.info__name',
-  jobElement: '.info__description',
+  nameElement: ".info__name",
+  jobElement: ".info__description",
+  avatarElement: ".profile__avatar",
   nameSelector: '[name="firstname"]',
   aboutSelector: '[name="description"]',
   getApi: () => {
     return api.getUserInfo();
   },
-  setProfileApi: () => {
-
-    return api.editProfileInfo({ name: nameInput.value, about: jobInput.value });
+  setProfileApi: (inputObj) => {
+    return api.editProfileInfo({
+      name: inputObj.firstname,
+      about: inputObj.description,
+    });
   },
-  setAvatarApi: () => {
-    return api.updateAvatar(link);
-  }
+  setAvatarApi: (obj) => {
+    return api.updateAvatar(obj.avatars);
+  },
 });
 
 // Экземпляр класса для редактирования профиля
@@ -194,9 +152,11 @@ const submitEditPopup = new PopupWithForm({
   renderer: () => {
     // Меняем кнопку на сохранение
     submitEditPopup.renderLoading(true);
-
-    userInfo.setUserInfo()
-      .then((data) => {
+    // Собираем данные с инпутов
+    const inputObj = submitEditPopup._getInputValues();
+    userInfo
+      .setUserInfo(inputObj)
+      .then(() => {
         // Закрываем попап
         submitEditPopup.close();
       })
@@ -216,9 +176,6 @@ const submitEditPopup = new PopupWithForm({
 // добавляем обработчик клика по кнопке "редактировать"
 infoButton.addEventListener("click", () => {
   submitEditPopup.open();
-  // вставим начальные данные из профиля в поля формы
-  // nameInput.value = nameText.textContent;
-  // jobInput.value = jobText.textContent;
   userInfo.getUserInfo();
 });
 
@@ -229,15 +186,13 @@ const submitAvatarPopup = new PopupWithForm({
   renderer: () => {
     // Собираем данные с инпутов
     const inputObj = submitAvatarPopup._getInputValues();
-
-    console.log(inputObj);
-
     // Меняем кнопку на сохранение
     submitAvatarPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
-    api
-      .updateAvatar(inputObj.avatars)
-      .then((data) => {
+    userInfo
+      .setUserAvatar(inputObj)
+      .then(() => {
+        // avatarLinkText.src = data.avatar;
         // Закрываем попап
         submitAvatarPopup.close();
       })
@@ -260,9 +215,6 @@ avatarButton.addEventListener("click", () => {
 });
 
 // Создаем экземпляр класса Api
-export const api = new Api(configApi);
-
-export let userId;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((result) => {
@@ -278,7 +230,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       {
         items: cards, // пока так
         renderer: (cardItem) => {
-          // console.log(cardItem);
           // функция, отвечает за создание и отрисовку элементов
           const card = new Card(
             {
@@ -325,7 +276,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
           const cardElement = card.createCard();
 
-          console.log(cardElement);
           return cardElement;
         },
       },
@@ -334,41 +284,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // Отрисовываем элементы
     cardList.renderItems();
-
-    // // обрабатываем данные карточек
-    // cards.forEach((card) => {
-    //   // добавляем карточку на страницу
-    //   // вызываем функцию addCard
-    //   const cardItem = addCard(card);
-    //   // добавим элемент в конец контейнера со списком
-    //   cardsContainer.append(cardItem);
-    // });
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
-
-// import { getUserInfo } from "../components/api.js";
-// import { getInitialCards } from "../components/api.js";
-
-// Promise.all([getUserInfo(), getInitialCards()])
-//   .then((result) => {
-//     const data = result[0];
-//     const cards = result[1];
-//     // обрабатываем данные пользователя
-//     userId = data._id;
-//     nameText.textContent = data.name;
-//     jobText.textContent = data.about;
-//     avatarLinkText.src = data.avatar;
-//     // обрабатываем данные карточек
-//     cards.forEach((card) => {
-//       // добавляем карточку на страницу
-//       // вызываем функцию addCard
-//       const cardItem = addCard(card);
-//       // добавим элемент в конец контейнера со списком
-//       cardsContainer.append(cardItem);
-//     });
-//   })
-//   .catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-//   });

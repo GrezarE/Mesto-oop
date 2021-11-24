@@ -1,76 +1,117 @@
-import { bodyElement } from './utilits.js'
-import { cardButtonHandler, deleteButtonHandler } from './modal.js';
-// import { addLike, deleteLike } from './api.js';
-import { userId,
-  api
-} from '../pages/index.js';
+export default class Card {
+  constructor(
+    // Что то дофига получается, но ладно
+    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel,  handleDeleteClic },
+    selector
+  ) {
+    // Селектор для template
+    this._selector = selector;
+    // Раскидываем дата
+    this._data = data;
+    // фунция открытия попапа с картинкой, делаем после класса попапа
+    this._handleCardClick = handleCardClic;
+    // Id
+    this._userId = userId;
+    // api функционал, присваиваем в index.js
+    this._apiLikeAdd = apiLikeAdd;
+    this._apiLikeDel = apiLikeDel;
+    // this._apiCardDel = apiCardDel;
 
-// функция обработчика кнопки "Лайк"
-function likeButtonHandler(button, card) {
-  button.addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    const cardElement = eventTarget.closest('.cards__item');
-    const likesCounter = cardElement.querySelector('.element__likes');
-    const cardId = card._id;
-    if (!eventTarget.classList.contains('element__icon_active')) {
-      api.addLike(cardId)
+    this._handleDeleteClic = handleDeleteClic
+  }
+
+  // Находим в template и клонируем содержимое
+  _getElement() {
+    const cardElement = document
+      .querySelector(this._selector)
+      .content.querySelector(".cards__item")
+      .cloneNode(true);
+
+    return cardElement;
+  }
+
+  // Метод лайкания
+  _likeButtonHandler() {
+    if (!this._likeButton.classList.contains("element__icon_active")) {
+      this._apiLikeAdd(this._data._id)
         .then((card) => {
-          likesCounter.textContent = card.likes.length;
-          // добавляем количество лайков
-          eventTarget.classList.add('element__icon_active');
+          // Выставляем лайки
+          this._element.querySelector(".element__likes").textContent =
+            card.likes.length;
+          // Добавляем активную иконку
+          this._likeButton.classList.add("element__icon_active");
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      api.deleteLike(cardId)
+      this._apiLikeDel(this._data._id)
         .then((card) => {
-          likesCounter.textContent = card.likes.length;
-          eventTarget.classList.remove('element__icon_active');
+          // Выставляем лайки
+          this._element.querySelector(".element__likes").textContent =
+            card.likes.length;
+          // Убираем активную иконку
+          this._likeButton.classList.remove("element__icon_active");
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  });
-}
-
-// функция добавления карточки
-export function addCard(card) {
-  // выбираем template и сохраняем в переменную
-  const cardTemplate = bodyElement.querySelector('#card-template').content;
-  // клонируем содержимое шаблона
-  const cardElement = cardTemplate.querySelector('.cards__item').cloneNode(true);
-  // добавляем элементу картинку и к ней атрибут alt
-  cardElement.querySelector('.element__image').src = card.link;
-  cardElement.querySelector('.element__image').alt = card.name;
-  // добавляем название
-  cardElement.querySelector('.element__caption-title').textContent = card.name;
-  // добавляем количество лайков
-  cardElement.querySelector('.element__likes').textContent = card.likes.length;
-
-  // находим кнопку "лайк"
-  const likeButton = cardElement.querySelector('.element__icon');
-  const arrLikes = card.likes;
-  arrLikes.forEach((likeElement) => {
-    if (likeElement._id === userId) {
-      likeButton.classList.add('element__icon_active');
-    }
-  });
-  // добавляем обработчик клика на кнопку "лайк"
-  likeButtonHandler(likeButton, card);
-
-  // находим кнопку удаления карточки
-  const deleteButton = cardElement.querySelector('.element__button-delete');
-  if (userId === card.owner._id) {
-    deleteButton.classList.add('element__button-delete_active');
-    // добавим обработчик клика на кнопку "удалить"
-    deleteButtonHandler(deleteButton, card);
   }
 
-  // находим кнопку, по которой открывается модальное окно карточки
-  const cardButton = cardElement.querySelector('.element__button-card');
-  // обработчик клика на кнопку "карточка"
-  cardButtonHandler(cardButton);
-  return cardElement;
+  // Метод навешивания слушателей
+  _setEventListener() {
+    // Вешаем слушатель на кнопку удаления
+    this._deleteButton.addEventListener("click", () => {this._handleDeleteClic(this._data._id)});
+
+    // Вешаем слушатель на кнопку лайка
+    this._likeButton.addEventListener("click", () => {
+      this._likeButtonHandler();
+    });
+    this._element
+      .querySelector(".element__image")
+      .addEventListener("click", () => {
+        this._handleCardClick(this._data);
+      });
+    // Вешаем слушатель на клик самой карточки
+  }
+
+  // Публичный метод, возвращает готовую карточку
+  createCard() {
+    // Создаем элемент
+    this._element = this._getElement();
+
+    // Находим кнопку лайка
+    this._likeButton = this._element.querySelector(".element__icon");
+    // Находим кнопку удаления карточки
+    this._deleteButton = this._element.querySelector(".element__button-delete");
+
+    // добавляем элементу картинку и к ней атрибут alt
+    this._element.querySelector(".element__image").src = this._data.link;
+    this._element.querySelector(".element__image").alt = this._data.name;
+    // добавляем название
+    this._element.querySelector(".element__caption-title").textContent =
+      this._data.name;
+    // добавляем количество лайков
+    this._element.querySelector(".element__likes").textContent =
+      this._data.likes.length;
+
+    // добавляем кнопку "лайк"
+    this._data.likes.forEach((likeElement) => {
+      if (likeElement._id === this._userId) {
+        this._likeButton.classList.add("element__icon_active");
+      }
+    });
+
+    // добавляем кнопку удаления карточки
+    if (this._userId === this._data.owner._id) {
+      this._deleteButton.classList.add("element__button-delete_active");
+    }
+
+    // Вешаем слушателей
+    this._setEventListener();
+
+    // Возвращаем элемент
+    return this._element;
+  }
 }

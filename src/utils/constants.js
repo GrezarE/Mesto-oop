@@ -17,5 +17,38 @@ export const configApi = {
   },
 };
 
-export const popupAddElement = document.querySelector(".popup_option_add");
+
+//находим элемент body
+export const bodyElement = document.querySelector(".page");
+// находим модальное окно редактирования
+export const popupInfoElement = bodyElement.querySelector(".popup_option_info");
+// находим модальное окно добавления
+export const popupAddElement = bodyElement.querySelector(".popup_option_add");
+// находим модальное окно обновления аватара
+export const popupAvatarElement = bodyElement.querySelector(
+  ".popup_option_avatar"
+);
+// Выберем элементы, куда должны быть вставлены значения полей
+export const nameText = bodyElement.querySelector(".info__name");
+export const jobText = bodyElement.querySelector(".info__description");
+export const avatarLinkText = bodyElement.querySelector(".profile__avatar");
+// находим модальное окно карточки
+export const popupCardElement = bodyElement.querySelector(".popup_option_card");
+// находим модальное окно удаления карточки
+export const popupDeleteCard = bodyElement.querySelector(
+  ".popup_option_delete-card"
+);
+export const formEditElement = bodyElement.querySelector('[name="edit"]');
+
+// Находим поля формы в DOM
+export const nameInput = formEditElement.querySelector('[name="firstname"]');
+export const jobInput = formEditElement.querySelector('[name="description"]');
+
+export const infoButton = bodyElement.querySelector('.info__button');
+
+export const addButton = bodyElement.querySelector('.profile__button-add');
+
+export const avatarButton = bodyElement.querySelector('.profile__button-avatar');
+
+
 

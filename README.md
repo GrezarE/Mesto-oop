@@ -2,6 +2,9 @@
 
 ### Описание проекта
 
+Второй участник:
+https://github.com/GrezarE
+Grecha-zarin@yandex.ru
 
 ***Mesto - это "место" мест!!!***
 

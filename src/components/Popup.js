@@ -8,7 +8,6 @@ export default class Popup {
   open() {
     // добавляем класс открытия
     this._popup.classList.add("popup_opened");
-    console.log(this._popup);
 
     // добавляем слушателей
     this.setEventListeners();

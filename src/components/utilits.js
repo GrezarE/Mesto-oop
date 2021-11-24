@@ -36,7 +36,7 @@ export const formAvatarElement = bodyElement.querySelector('[name="avatar"]');
 // находим кнопку, по которой открывается модальное окно обновления аватара
 export const avatarButton = bodyElement.querySelector('.profile__button-avatar');
 // Находим поле формы в DOM
-export const avatarLinkInput = formAvatarElement.querySelector('[name="link-avatar"]');
+export const avatarLinkInput = formAvatarElement.querySelector('[name="avatars"]');
 // Выберем сам элемент
 export const avatarLinkText = bodyElement.querySelector('.profile__avatar');
 // Выберем все попапы

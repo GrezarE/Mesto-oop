@@ -31,13 +31,15 @@ export default class PopupWithForm extends Popup {
     this._popup.querySelector(".form__box").reset();
   }
 
-  renderLoading(isLoading, text="Сохранить") {
+  renderLoading(isLoading, text = "Сохранить") {
     if (isLoading) {
       this._popup.querySelector(".form-edit__button-save").textContent =
         "Сохранение...";
+      this._popup.querySelector(".form-edit__button-save").disabled = isLoading;
     } else {
-      this._popup.querySelector(".form-edit__button-save").textContent =
-        text;
+      this._popup.querySelector(".form-edit__button-save").textContent = text;
+      this._popup.querySelector(".form-edit__button-save").disabled = isLoading;
     }
   }
+  
 }

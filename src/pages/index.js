@@ -35,12 +35,12 @@ import Popup from "../components/Popup";
 import PopupWithForm from "../components/PopupWithForm";
 
 // добавляем обработчик клика по кнопке "редактировать"
-infoButton.addEventListener("click", () => {
-  openPopup(popupInfoElement);
-  // вставим начальные данные из профиля в поля формы
-  nameInput.value = nameText.textContent;
-  jobInput.value = jobText.textContent;
-});
+// infoButton.addEventListener("click", () => {
+//   openPopup(popupInfoElement);
+//   // вставим начальные данные из профиля в поля формы
+//   nameInput.value = nameText.textContent;
+//   jobInput.value = jobText.textContent;
+// });
 
 // добавляем обработчик клика по кнопке "добавить"
 // addButton.addEventListener("click", () => {
@@ -48,9 +48,9 @@ infoButton.addEventListener("click", () => {
 // });
 
 // добавляем обработчик клика по кнопке "аватар"
-avatarButton.addEventListener("click", () => {
-  openPopup(popupAvatarElement);
-});
+// avatarButton.addEventListener("click", () => {
+//   openPopup(popupAvatarElement);
+// });
 
 // popups.forEach((popup) => {
 //   popup.addEventListener("click", (evt) => {
@@ -73,7 +73,6 @@ formAvatarElement.addEventListener("submit", formSubmitUpdateAvatarHandler);
 //   submitButtonSelector: ".form-edit__button-save",
 //   inputErrorClass: "form-edit__item_error",
 // });
-
 
 // Экземпляр класса Section
 const sectionAdd = new Section({}, ".cards");
@@ -147,19 +146,27 @@ const submitCardPopup = new PopupWithForm({
         // Закрываем попап
         submitCardPopup.close();
         // деактивируем кнопку сабмита
-        submitCardPopup._popup.querySelector('.form-edit__button-save').disabled = true;
+        // submitCardPopup._popup.querySelector('.form-edit__button-save').disabled = true;
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        setTimeout(submitCardPopup.renderLoading.bind(submitCardPopup), 400, false, "Создать");
+        setTimeout(
+          submitCardPopup.renderLoading.bind(submitCardPopup),
+          400,
+          false,
+          "Создать"
+        );
       });
   },
 });
 
 addButton.addEventListener("click", () => {
   submitCardPopup.open();
+  submitCardPopup._popup.querySelector(
+    ".form-edit__button-save"
+  ).disabled = true;
 });
 
 // Экземпляр класса для редактирования профиля
@@ -176,11 +183,8 @@ const submitEditPopup = new PopupWithForm({
     submitEditPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
     api
-      .editProfileInfo({ name: inputObj.name, about: inputObj.about })
+      .editProfileInfo({ name: inputObj.firstname, about: inputObj.description })
       .then((data) => {
-
-
-
         // Закрываем попап
         submitEditPopup.close();
       })
@@ -188,10 +192,20 @@ const submitEditPopup = new PopupWithForm({
         console.log(err); // выводим ошибку в консоль
       })
       .finally(() => {
-        setTimeout(submitEditPopup.renderLoading.bind(submitEditPopup), 400, false);
-      })
-
+        setTimeout(
+          submitEditPopup.renderLoading.bind(submitEditPopup),
+          400,
+          false
+        );
+      });
   },
+});
+
+infoButton.addEventListener("click", () => {
+  submitEditPopup.open();
+  // вставим начальные данные из профиля в поля формы
+  nameInput.value = nameText.textContent;
+  jobInput.value = jobText.textContent;
 });
 
 // Экземпляр класса для редактирования аватара
@@ -208,11 +222,8 @@ const submitAvatarPopup = new PopupWithForm({
     submitAvatarPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
     api
-      .updateAvatar(inputObj.link)
+      .updateAvatar(inputObj.avatars)
       .then((data) => {
-
-
-
         // Закрываем попап
         submitAvatarPopup.close();
       })
@@ -220,10 +231,17 @@ const submitAvatarPopup = new PopupWithForm({
         console.log(err); // выводим ошибку в консоль
       })
       .finally(() => {
-        setTimeout(submitAvatarPopup.renderLoading.bind(submitAvatarPopup), 400, false);
-      })
-
+        setTimeout(
+          submitAvatarPopup.renderLoading.bind(submitAvatarPopup),
+          400,
+          false
+        );
+      });
   },
+});
+
+avatarButton.addEventListener("click", () => {
+  submitAvatarPopup.open();
 });
 
 // Создаем экземпляр класса Api

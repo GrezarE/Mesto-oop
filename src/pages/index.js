@@ -59,40 +59,70 @@ const deleteCardOpenPopup = new PopupWithForm({
 });
 
 // Функция создания карточки
-function cardCreateInit(data, userId) {
-  const card = new Card(
-    {
-      data: data,
-      userId: userId,
-      handleCardClic: (item) => {
-        imageOpenPopup.open(item);
-      },
-      apiLikeAdd: (cardId) => {
-        return api.addLike(cardId);
-      },
-      apiLikeDel: (cardId) => {
-        return api.deleteLike(cardId);
-      },
-      handleDeleteClic: (cardId, element) => {
-        // Создаем обьект для удаления карточки
-        cardDelId = {
-          cardId: cardId,
-          item: element,
-        };
-        // открываем попап удаления
-        deleteCardOpenPopup.open();
-      },
-    },
-    "#card-template"
-  );
-  const cardElement = card.createCard();
-  return cardElement;
-}
+// function cardCreateInit(data, userId) {
+//   const card = new Card(
+//     {
+//       data: data,
+//       userId: userId,
+//       handleCardClic: (item) => {
+//         imageOpenPopup.open(item);
+//       },
+//       apiLikeAdd: (cardId) => {
+//         return api.addLike(cardId);
+//       },
+//       apiLikeDel: (cardId) => {
+//         return api.deleteLike(cardId);
+//       },
+//       handleDeleteClic: (cardId, element) => {
+//         // Создаем обьект для удаления карточки
+//         cardDelId = {
+//           cardId: cardId,
+//           item: element,
+//         };
+//         // открываем попап удаления
+//         deleteCardOpenPopup.open();
+//       },
+//     },
+//     "#card-template"
+//   );
+//   const cardElement = card.createCard();
+//   return cardElement;
+// }
 
 // Экземпляр класса Section
 const section = new Section(
   {
-    renderer: (card) => cardCreateInit(card, userId),
+    renderer: (data) => {
+      const card = new Card(
+        {
+          data: data,
+          userId: userId,
+          handleCardClic: (item) => {
+            imageOpenPopup.open(item);
+          },
+          apiLikeAdd: (cardId) => {
+            return api.addLike(cardId);
+          },
+          apiLikeDel: (cardId) => {
+            return api.deleteLike(cardId);
+          },
+          handleDeleteClic: (cardId, element) => {
+            // Создаем обьект для удаления карточки
+            cardDelId = {
+              cardId: cardId,
+              item: element,
+            };
+            // открываем попап удаления
+            deleteCardOpenPopup.open();
+          },
+        },
+        "#card-template"
+      );
+      const cardElement = card.createCard();
+      return cardElement;
+      
+      // cardCreateInit(data, userId);
+    },
   },
   ".cards"
 );
@@ -236,9 +266,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userInfo.getUserInfo();
     // отрисовываем карточки
     section.renderItems(cards);
-
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
-

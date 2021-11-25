@@ -42,7 +42,8 @@ const submitCardPopup = new PopupWithForm({
   // Метод сабмита
   renderer: () => {
     // Собираем данные с инпутов
-    const inputObj = submitCardPopup._getInputValues();
+    // const inputObj = submitCardPopup._getInputValues();
+    const inputObj = submitCardPopup.getInputValues();
     // Меняем кнопку на сохранение
     submitCardPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер

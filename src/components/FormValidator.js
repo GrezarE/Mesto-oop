@@ -73,6 +73,7 @@ export default class FormValidator {
 
   // Запускает валидацию
   enableValidation() {
-    this._setEventListeners(this._element, this._data);
+    // this._setEventListeners(this._element, this._data);
+    this._setEventListeners();
   }
 }

@@ -218,9 +218,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     const cards = result[1];
     // обрабатываем данные пользователя
     userId = data._id;
-    nameText.textContent = data.name;
-    jobText.textContent = data.about;
-    avatarLinkText.src = data.avatar;
+    userInfo.getUserInfo();
 
     const cardList = new Section(
       {

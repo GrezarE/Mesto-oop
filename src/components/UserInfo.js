@@ -25,6 +25,9 @@ export default class UserInfo {
       .then((data) => {
         this._nameInput.value = data.name;
         this._abouInput.value = data.about;
+        this._nameElement.textContent = data.name;
+        this._jobElement.textContent = data.about;
+        this._avatarElement.src = data.avatar;
       })
       .catch((err) => {
         console.log(err);

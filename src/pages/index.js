@@ -23,6 +23,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
 let userId;
+let cardDelId;
 
 // Создаем экземпляр класса Api
 const api = new Api(configApi);
@@ -36,11 +37,71 @@ formList.forEach((form) => {
 // Экземпляр класса для открытия картинок
 const imageOpenPopup = new PopupWithImage({ popup: popupCardElement });
 
+// Экземпляр класса для открытия попапа удаления
+const deleteCardOpenPopup = new PopupWithForm({
+  // Определяем попап
+  popup: popupDeleteCard,
+  // метод удаления карточки
+  handleSubmit: (evt) => {
+    evt.preventDefault();
+    api
+      .deleteCard(cardDelId.cardId)
+      .then(() => {
+        cardDelId.item.remove();
+        // закрываем форму
+        cardDelId = {};
+        deleteCardOpenPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+
+// Функция создания карточки
+function cardCreateInit(data, userId) {
+  const card = new Card(
+    {
+      data: data,
+      userId: userId,
+      handleCardClic: (item) => {
+        imageOpenPopup.open(item);
+      },
+      apiLikeAdd: (cardId) => {
+        return api.addLike(cardId);
+      },
+      apiLikeDel: (cardId) => {
+        return api.deleteLike(cardId);
+      },
+      handleDeleteClic: (cardId, element) => {
+        // Создаем обьект для удаления карточки
+        cardDelId = {
+          cardId: cardId,
+          item: element,
+        };
+        // открываем попап удаления
+        deleteCardOpenPopup.open();
+      },
+    },
+    "#card-template"
+  );
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
+// Экземпляр класса Section
+const section = new Section(
+  {
+    renderer: (card) => cardCreateInit(card, userId),
+  },
+  ".cards"
+);
+
 // Экземпляр класса для создания карточки
 const submitCardPopup = new PopupWithForm({
   popup: popupAddElement,
   // Метод сабмита
-  renderer: () => {
+  handleSubmit: () => {
     // Собираем данные с инпутов
     // const inputObj = submitCardPopup._getInputValues();
     const inputObj = submitCardPopup.getInputValues();
@@ -50,55 +111,11 @@ const submitCardPopup = new PopupWithForm({
     api
       .createCard({ name: inputObj.place, link: inputObj.link })
       .then((card) => {
-        // Создаём экземпляр класса карточки, функционал схож с загрузкой на страницу... опять дохрена строчек
-        const createCard = new Card(
-          {
-            data: card,
-            userId: userId,
-            handleCardClic: (item) => {
-              imageOpenPopup.open(item);
-            },
-            apiLikeAdd: (cardId) => {
-              return api.addLike(cardId);
-            },
-            apiLikeDel: (cardId) => {
-              return api.deleteLike(cardId);
-            },
-            // открытие попапа и удаление карточки
-            handleDeleteClic: (cardId) => {
-              const deleteCardPopup = new PopupWithForm({
-                // Определяем попап
-                popup: popupDeleteCard,
-                // метод удаления карточки
-                renderer: (evt) => {
-                  evt.preventDefault();
-                  api
-                    .deleteCard(cardId)
-                    .then(() => {
-                      readyCard.remove();
-                      // закрываем форму
-                      deleteCardPopup.close();
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                },
-              });
-              // открываем попап удаления
-              deleteCardPopup.open();
-            },
-          },
-          "#card-template"
-        );
-        // Создаём карточку
-        const readyCard = createCard.createCard();
-        // Экземпляр класса Section
-        const sectionAdd = new Section({}, ".cards");
-        // Используем метод класса Section
-        sectionAdd.addItem(readyCard);
+        // Используем метод класса Section и создаём карточку
+        section.addItem(card);
+
         // Закрываем попап
         submitCardPopup.close();
-        // деактивируем кнопку сабмита
       })
       .catch((err) => {
         console.log(err);
@@ -117,9 +134,9 @@ const submitCardPopup = new PopupWithForm({
 // добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener("click", () => {
   submitCardPopup.open();
-  submitCardPopup._popup.querySelector(
-    ".form-edit__button-save"
-  ).disabled = true;
+  // submitCardPopup._popup.querySelector(
+  //   ".form-edit__button-save"
+  // ).disabled = true;
 });
 
 // Экземпляр класса UserInfo
@@ -146,11 +163,11 @@ const userInfo = new UserInfo({
 // Экземпляр класса для редактирования профиля
 const submitEditPopup = new PopupWithForm({
   popup: popupInfoElement,
-  renderer: () => {
+  handleSubmit: () => {
     // Меняем кнопку на сохранение
     submitEditPopup.renderLoading(true);
     // Собираем данные с инпутов
-    const inputObj = submitEditPopup._getInputValues();
+    const inputObj = submitEditPopup.getInputValues();
     userInfo
       .setUserInfo(inputObj)
       .then(() => {
@@ -180,9 +197,9 @@ infoButton.addEventListener("click", () => {
 const submitAvatarPopup = new PopupWithForm({
   popup: popupAvatarElement,
   // Метод сабмита
-  renderer: () => {
+  handleSubmit: () => {
     // Собираем данные с инпутов
-    const inputObj = submitAvatarPopup._getInputValues();
+    const inputObj = submitAvatarPopup.getInputValues();
     // Меняем кнопку на сохранение
     submitAvatarPopup.renderLoading(true);
     // Запускаем отправку запроса на сервер
@@ -217,63 +234,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // обрабатываем данные пользователя
     userId = data._id;
     userInfo.getUserInfo();
+    // отрисовываем карточки
+    section.renderItems(cards);
 
-    const cardList = new Section(
-      {
-        items: cards, // пока так
-        renderer: (cardItem) => {
-          // функция, отвечает за создание и отрисовку элементов
-          const card = new Card(
-            {
-              data: cardItem,
-              userId: userId,
-              handleCardClic: (item) => {
-                imageOpenPopup.open(item);
-              },
-              apiLikeAdd: (cardId) => {
-                return api.addLike(cardId);
-              },
-              apiLikeDel: (cardId) => {
-                return api.deleteLike(cardId);
-              },
-              // открытие попапа и удаление карточки
-              handleDeleteClic: (cardId) => {
-                const deleteCardPopup = new PopupWithForm({
-                  // Определяем попап
-                  popup: popupDeleteCard,
-                  // метод удаления карточки
-                  renderer: (evt) => {
-                    evt.preventDefault();
-                    api
-                      .deleteCard(cardId)
-                      .then(() => {
-                        cardElement.remove();
-                        // закрываем форму
-                        deleteCardPopup.close();
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  },
-                });
-                // открываем попап удаления
-                deleteCardPopup.open();
-              },
-            },
-            "#card-template"
-          );
-
-          const cardElement = card.createCard();
-
-          return cardElement;
-        },
-      },
-      ".cards"
-    );
-
-    // Отрисовываем элементы
-    cardList.renderItems();
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
+

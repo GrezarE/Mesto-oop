@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel,  handleDeleteClic },
+    { data, handleCardClic, userId, apiLikeAdd, apiLikeDel, handleDeleteClic },
     selector
   ) {
     // Селектор для template
@@ -15,7 +15,7 @@ export default class Card {
     this._apiLikeAdd = apiLikeAdd;
     this._apiLikeDel = apiLikeDel;
 
-    this._handleDeleteClic = handleDeleteClic
+    this._handleDeleteClic = handleDeleteClic;
   }
 
   // Находим в template и клонируем содержимое
@@ -34,8 +34,7 @@ export default class Card {
       this._apiLikeAdd(this._data._id)
         .then((card) => {
           // Выставляем лайки
-          this._element.querySelector(".element__likes").textContent =
-            card.likes.length;
+          this._likesNumberElement.textContent = card.likes.length;
           // Добавляем активную иконку
           this._likeButton.classList.add("element__icon_active");
         })
@@ -46,8 +45,7 @@ export default class Card {
       this._apiLikeDel(this._data._id)
         .then((card) => {
           // Выставляем лайки
-          this._element.querySelector(".element__likes").textContent =
-            card.likes.length;
+          this._likesNumberElement.textContent = card.likes.length;
           // Убираем активную иконку
           this._likeButton.classList.remove("element__icon_active");
         })
@@ -60,17 +58,17 @@ export default class Card {
   // Метод навешивания слушателей
   _setEventListener() {
     // Вешаем слушатель на кнопку удаления
-    this._deleteButton.addEventListener("click", () => {this._handleDeleteClic(this._data._id)});
+    this._deleteButton.addEventListener("click", () => {
+      this._handleDeleteClic(this._data._id, this._element);
+    });
 
     // Вешаем слушатель на кнопку лайка
     this._likeButton.addEventListener("click", () => {
       this._likeButtonHandler();
     });
-    this._element
-      .querySelector(".element__image")
-      .addEventListener("click", () => {
-        this._handleCardClick(this._data);
-      });
+    this._imageElement.addEventListener("click", () => {
+      this._handleCardClick(this._data);
+    });
   }
 
   // Публичный метод, возвращает готовую карточку
@@ -82,16 +80,18 @@ export default class Card {
     this._likeButton = this._element.querySelector(".element__icon");
     // Находим кнопку удаления карточки
     this._deleteButton = this._element.querySelector(".element__button-delete");
-
+    // Находим элемент отвечающий за лайки
+    this._likesNumberElement = this._element.querySelector(".element__likes");
+    // Находим элемент картинки
+    this._imageElement = this._element.querySelector(".element__image");
     // добавляем элементу картинку и к ней атрибут alt
-    this._element.querySelector(".element__image").src = this._data.link;
-    this._element.querySelector(".element__image").alt = this._data.name;
+    this._imageElement.src = this._data.link;
+    this._imageElement.alt = this._data.name;
     // добавляем название
     this._element.querySelector(".element__caption-title").textContent =
       this._data.name;
     // добавляем количество лайков
-    this._element.querySelector(".element__likes").textContent =
-      this._data.likes.length;
+    this._likesNumberElement.textContent = this._data.likes.length;
 
     // добавляем кнопку "лайк"
     this._data.likes.forEach((likeElement) => {

@@ -7,12 +7,12 @@ export default class Section {
 
   // Метод добавления элемента в контейнер
   addItem(item) {
-    this._container.prepend(item);
+    this._container.prepend(this._renderer(item));
   }
 
   // Метод отрисовки всех элементов
-  renderItems() {
-    this._items.forEach((item) => {
+  renderItems(cards) {
+    cards.forEach((item) => {
       this._container.append(this._renderer(item));
     });
   }

@@ -63,6 +63,13 @@ export default class FormValidator {
 
     this._toggleButtonState();
 
+    this._element.addEventListener("reset", () => {
+      this._buttonElement.disabled = true;
+      this._inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement);
+      });
+    });
+
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
@@ -70,7 +77,6 @@ export default class FormValidator {
       });
     });
   }
-
   // Запускает валидацию
   enableValidation() {
     // this._setEventListeners(this._element, this._data);

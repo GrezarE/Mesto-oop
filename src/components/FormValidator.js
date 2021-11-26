@@ -11,6 +11,14 @@ export default class FormValidator {
     });
   }
 
+  //  метод для очистки ошибок и управления кнопкой
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   // Активирует и деактивирует кнопку
   _toggleButtonState() {
     if (!this._hasInvalidInput()) {
@@ -63,11 +71,11 @@ export default class FormValidator {
 
     this._toggleButtonState();
 
-    this._element.addEventListener("reset", () => {
+    this._element.addEventListener('reset', () => {
       this._buttonElement.disabled = true;
       this._inputList.forEach((inputElement) => {
         this._hideInputError(inputElement);
-      });
+        })
     });
 
     this._inputList.forEach((inputElement) => {
@@ -77,9 +85,9 @@ export default class FormValidator {
       });
     });
   }
+
   // Запускает валидацию
   enableValidation() {
-    // this._setEventListeners(this._element, this._data);
-    this._setEventListeners();
+    this._setEventListeners(this._element, this._data);
   }
 }

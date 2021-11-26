@@ -19,7 +19,6 @@ export default class PopupWithForm extends Popup {
     this._popup.removeEventListener("submit", this.handleSubmit);
   }
 
-  // _getInputValues() {
   getInputValues() {
     this._formValues = {};
     this._inputList.forEach(

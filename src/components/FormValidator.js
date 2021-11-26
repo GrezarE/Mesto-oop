@@ -11,7 +11,7 @@ export default class FormValidator {
     });
   }
 
-  //  метод для очистки ошибок и управления кнопкой
+  // метод для очистки ошибок и управления кнопкой
   resetValidation() {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
@@ -88,6 +88,6 @@ export default class FormValidator {
 
   // Запускает валидацию
   enableValidation() {
-    this._setEventListeners(this._element, this._data);
+    this._setEventListeners();
   }
 }

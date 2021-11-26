@@ -58,37 +58,6 @@ const deleteCardOpenPopup = new PopupWithForm({
   },
 });
 
-// Функция создания карточки
-// function cardCreateInit(data, userId) {
-//   const card = new Card(
-//     {
-//       data: data,
-//       userId: userId,
-//       handleCardClic: (item) => {
-//         imageOpenPopup.open(item);
-//       },
-//       apiLikeAdd: (cardId) => {
-//         return api.addLike(cardId);
-//       },
-//       apiLikeDel: (cardId) => {
-//         return api.deleteLike(cardId);
-//       },
-//       handleDeleteClic: (cardId, element) => {
-//         // Создаем обьект для удаления карточки
-//         cardDelId = {
-//           cardId: cardId,
-//           item: element,
-//         };
-//         // открываем попап удаления
-//         deleteCardOpenPopup.open();
-//       },
-//     },
-//     "#card-template"
-//   );
-//   const cardElement = card.createCard();
-//   return cardElement;
-// }
-
 // Экземпляр класса Section
 const section = new Section(
   {
@@ -120,8 +89,6 @@ const section = new Section(
       );
       const cardElement = card.createCard();
       return cardElement;
-      
-      // cardCreateInit(data, userId);
     },
   },
   ".cards"
@@ -133,7 +100,6 @@ const submitCardPopup = new PopupWithForm({
   // Метод сабмита
   handleSubmit: () => {
     // Собираем данные с инпутов
-    // const inputObj = submitCardPopup._getInputValues();
     const inputObj = submitCardPopup.getInputValues();
     // Меняем кнопку на сохранение
     submitCardPopup.renderLoading(true);
@@ -164,9 +130,6 @@ const submitCardPopup = new PopupWithForm({
 // добавляем обработчик клика по кнопке "добавить"
 addButton.addEventListener("click", () => {
   submitCardPopup.open();
-  // submitCardPopup._popup.querySelector(
-  //   ".form-edit__button-save"
-  // ).disabled = true;
 });
 
 // Экземпляр класса UserInfo

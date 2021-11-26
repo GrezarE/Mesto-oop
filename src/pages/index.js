@@ -221,13 +221,13 @@ avatarButton.addEventListener("click", () => {
   submitAvatarPopup.open();
 });
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
+Promise.all([userInfo.getUserInfo(), api.getInitialCards()])
   .then((result) => {
-    const data = result[0];
+    // const data = result[0];
     const cards = result[1];
     // обрабатываем данные пользователя
     // userId = data._id;
-    userInfo.getUserInfo();
+    // userInfo.getUserInfo();
     console.log(sessionStorage.getItem('userId'))
     // отрисовываем карточки
     section.renderItems(cards);

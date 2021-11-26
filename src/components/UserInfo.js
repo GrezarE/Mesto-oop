@@ -18,7 +18,7 @@ export default class UserInfo {
     this._getApi = getApi;
     this._setProfileApi = setProfileApi;
     this._setAvatarApi = setAvatarApi;
-    this._userId = userId
+    // this._userId = userId
   }
 
   // метод получения новых данных

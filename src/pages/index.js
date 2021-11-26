@@ -22,7 +22,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-// let userId;
 let cardDelId;
 
 // Создаем экземпляр класса Api
@@ -223,12 +222,7 @@ avatarButton.addEventListener("click", () => {
 
 Promise.all([userInfo.getUserInfo(), api.getInitialCards()])
   .then((result) => {
-    // const data = result[0];
     const cards = result[1];
-    // обрабатываем данные пользователя
-    // userId = data._id;
-    // userInfo.getUserInfo();
-    console.log(sessionStorage.getItem('userId'))
     // отрисовываем карточки
     section.renderItems(cards);
   })

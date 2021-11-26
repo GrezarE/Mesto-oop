@@ -8,6 +8,7 @@ export default class UserInfo {
     getApi,
     setProfileApi,
     setAvatarApi,
+    userId
   }) {
     this._nameElement = document.querySelector(nameElement);
     this._jobElement = document.querySelector(jobElement);
@@ -17,6 +18,7 @@ export default class UserInfo {
     this._getApi = getApi;
     this._setProfileApi = setProfileApi;
     this._setAvatarApi = setAvatarApi;
+    this._userId = userId
   }
 
   // метод получения новых данных
@@ -28,6 +30,8 @@ export default class UserInfo {
         this._nameElement.textContent = data.name;
         this._jobElement.textContent = data.about;
         this._avatarElement.src = data.avatar;
+        // this._userId = data._id
+        sessionStorage.setItem('userId', data._id)
       })
       .catch((err) => {
         console.log(err);

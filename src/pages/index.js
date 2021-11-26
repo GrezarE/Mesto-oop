@@ -22,7 +22,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-let userId;
+// let userId;
 let cardDelId;
 
 // Создаем экземпляр класса Api
@@ -65,7 +65,7 @@ const section = new Section(
       const card = new Card(
         {
           data: data,
-          userId: userId,
+          userId: sessionStorage.getItem('userId'),
           handleCardClic: (item) => {
             imageOpenPopup.open(item);
           },
@@ -139,6 +139,7 @@ const userInfo = new UserInfo({
   avatarElement: ".profile__avatar",
   nameSelector: '[name="firstname"]',
   aboutSelector: '[name="description"]',
+
   getApi: () => {
     return api.getUserInfo();
   },
@@ -225,8 +226,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     const data = result[0];
     const cards = result[1];
     // обрабатываем данные пользователя
-    userId = data._id;
+    // userId = data._id;
     userInfo.getUserInfo();
+    console.log(sessionStorage.getItem('userId'))
     // отрисовываем карточки
     section.renderItems(cards);
   })

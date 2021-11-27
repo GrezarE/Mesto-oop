@@ -1,24 +1,25 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ popup, renderer }) {
+  constructor({ popup, handleSubmit }) {
     super({ popup });
-    this.renderer = renderer;
-    this.renderer = this.renderer.bind(this);
+    this.handleSubmit = handleSubmit;
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this._submitButton = this._popup.querySelector(".form-edit__button-save");
+    this._inputList = this._popup.querySelectorAll(".form-edit__item");
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener("submit", this.renderer);
+    this._popup.addEventListener("submit", this.handleSubmit);
   }
 
   removeEventListeners() {
     super.removeEventListeners();
-    this._popup.removeEventListener("submit", this.renderer);
+    this._popup.removeEventListener("submit", this.handleSubmit);
   }
 
-  _getInputValues() {
-    this._inputList = this._popup.querySelectorAll(".form-edit__item");
+  getInputValues() {
     this._formValues = {};
     this._inputList.forEach(
       (input) => (this._formValues[input.name] = input.value)
@@ -33,12 +34,9 @@ export default class PopupWithForm extends Popup {
 
   renderLoading(isLoading, text = "Сохранить") {
     if (isLoading) {
-      this._popup.querySelector(".form-edit__button-save").textContent =
-        "Сохранение...";
-      this._popup.querySelector(".form-edit__button-save").disabled = isLoading;
+      this._submitButton.textContent = "Сохранение...";
     } else {
-      this._popup.querySelector(".form-edit__button-save").textContent = text;
-      this._popup.querySelector(".form-edit__button-save").disabled = isLoading;
+      this._submitButton.textContent = text;
     }
   }
 }

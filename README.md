@@ -3,8 +3,7 @@
 ### Описание проекта
 
 Второй участник:
-https://github.com/GrezarE
-Grecha-zarin@yandex.ru
+https://github.com/Kettrin62
 
 ***Mesto - это "место" мест!!!***
 
